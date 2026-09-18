@@ -21,12 +21,14 @@ have seen it and want it.
 **Home** — your name and work, a rotating feature of your paintings, eight
 featured originals, a close-up view of *New Voyage* where visitors can magnify
 the paint texture, a short piece on your brushless flow technique, browsing by
-colour, and the two ways to own a piece: the original, or a print.
+colour, and a full-screen run through the collection that moves sideways as you
+scroll. The site is built to be looked at first; buying is there when someone
+wants it, never in the way.
 
 **Original Artwork** — all 49 paintings. Visitors can filter by colour, size and
 shape, view every piece large, and see any painting hung at its true size over a
 sofa so they know what a 12 × 24 actually looks like on a wall. Every painting
-has two buttons: *Inquire about the original*, which writes to you, and *Buy a
+has two quiet buttons: *Ask about this piece*, which writes to you, and *Buy a
 print*, which opens that exact painting in your Pixels shop.
 
 **The Artist** — your statement in your own words, how you work, a short
@@ -54,7 +56,11 @@ painting, the painting is already filled in for you.
    Some listings are old.
 3. **Confirm your email** for inquiries. Your listing shows `kamdugal@aol.com`.
 4. **Tell me anything that's already sold**, so the site doesn't offer it.
-5. Optional: Instagram or other links, an exhibition history, and better photos
+5. **A line or two about the paintings you care most about** — what it was
+   about, where you were, what the title means. Your shop has none of this, and
+   it is the difference between a catalogue and a portfolio. Send as many or as
+   few as you like; they slot straight in.
+6. Optional: Instagram or other links, an exhibition history, and better photos
    of the originals if you have them. The site's images come from Pixels, which
    caps them at a small size, and a few carry the Fine Art America watermark.
 

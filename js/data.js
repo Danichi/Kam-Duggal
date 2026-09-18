@@ -17,6 +17,7 @@ window.PAINTINGS = [
   "price": "$1,200",
   "printsFrom": 296,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/new-voyage-kam-duggal.html"
  },
  {
@@ -36,6 +37,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 160,
   "year": 2012,
+  "story": "Abhasa: the reflection of consciousness. Painted in February 2012.",
   "shop": "https://kam-duggal.pixels.com/featured/abhasa-reflection-of-consciousness-kam-duggal.html"
  },
  {
@@ -55,6 +57,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 122,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/crimson-currents-kam-duggal.html"
  },
  {
@@ -74,6 +77,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 118,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/flp-66-kam-duggal.html"
  },
  {
@@ -93,6 +97,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 156,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/purplerane-kam-duggal.html"
  },
  {
@@ -112,6 +117,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 67,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/distant-galaxy-kam-duggal.html"
  },
  {
@@ -128,6 +134,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": null,
   "year": null,
+  "story": "Anadi means without beginning.",
   "shop": "https://kam-duggal.pixels.com/featured/anadi-kam-duggal.html"
  },
  {
@@ -147,6 +154,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 129,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/silverlite-kam-duggal.html"
  },
  {
@@ -166,6 +174,7 @@ window.PAINTINGS = [
   "price": "$7,500",
   "printsFrom": 199,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/ablaze-kam-duggal.html"
  },
  {
@@ -185,6 +194,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 118,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/flp-65-kam-duggal.html"
  },
  {
@@ -204,6 +214,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 90,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/flp64-kam-duggal.html"
  },
  {
@@ -223,6 +234,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 97,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/1-twilight-kam-duggal.html"
  },
  {
@@ -239,6 +251,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 122,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/1-after-burn-kam-duggal.html"
  },
  {
@@ -258,6 +271,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 125,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/1-misty-mountain-kam-duggal.html"
  },
  {
@@ -277,6 +291,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": null,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/2-the-phoenix-kam-duggal.html"
  },
  {
@@ -296,6 +311,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 97,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/wall-street-bull-kam-duggal.html"
  },
  {
@@ -315,6 +331,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 188,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/2-eruption-kam-duggal.html"
  },
  {
@@ -334,6 +351,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 243,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/release-p-kam-duggal.html"
  },
  {
@@ -353,6 +371,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": null,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/2-bloom-kam-duggal.html"
  },
  {
@@ -372,6 +391,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": null,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/celestial-kam-duggal.html"
  },
  {
@@ -391,6 +411,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 180,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/1-dori-kam-duggal.html"
  },
  {
@@ -410,6 +431,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 67,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/distant-star-kam-duggal.html"
  },
  {
@@ -429,6 +451,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 67,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/howling-moon-kam-duggal.html"
  },
  {
@@ -448,6 +471,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 136,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/mystic-vase-kam-duggal.html"
  },
  {
@@ -467,6 +491,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": null,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/1sc-kam-duggal.html"
  },
  {
@@ -483,6 +508,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": null,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/2-becoming-kam-duggal.html"
  },
  {
@@ -499,6 +525,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 42,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/1-out-of-the-blue-and-into-a-dream-kam-duggal.html"
  },
  {
@@ -518,6 +545,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 136,
   "year": 2012,
+  "story": "Painted in February 2012.",
   "shop": "https://kam-duggal.pixels.com/featured/24-x-48-2012-kam-duggal.html"
  },
  {
@@ -537,6 +565,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 204,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/2-the-relic-kam-duggal.html"
  },
  {
@@ -556,6 +585,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 152,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/fun-day-kam-duggal.html"
  },
  {
@@ -575,6 +605,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 70,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/vase-kam-duggal.html"
  },
  {
@@ -594,6 +625,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 70,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/1-spring-day-kam-duggal.html"
  },
  {
@@ -613,6 +645,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 70,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/1-war-and-peace-kam-duggal.html"
  },
  {
@@ -632,6 +665,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 67,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/coda-kam-duggal.html"
  },
  {
@@ -651,6 +685,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 70,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/wireless-kam-duggal.html"
  },
  {
@@ -670,6 +705,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": null,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/festive-day-kam-duggal.html"
  },
  {
@@ -689,6 +725,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": null,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/3-while-my-guitar-kam-duggal.html"
  },
  {
@@ -708,6 +745,7 @@ window.PAINTINGS = [
   "price": "$550",
   "printsFrom": 163,
   "year": null,
+  "story": "MU4YTE: Mathematical Universe 4 You To Entangle.",
   "shop": "https://kam-duggal.pixels.com/featured/mu4yte-mathematical-universe-4-you-to-entangle-kam-duggal.html"
  },
  {
@@ -727,6 +765,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": null,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/simplexity-kam-duggal.html"
  },
  {
@@ -746,6 +785,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 149,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/cloudy-day-kam-duggal.html"
  },
  {
@@ -765,6 +805,7 @@ window.PAINTINGS = [
   "price": "$950",
   "printsFrom": 125,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/back-to-earth-kam-duggal.html"
  },
  {
@@ -784,6 +825,7 @@ window.PAINTINGS = [
   "price": "$950",
   "printsFrom": 125,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/global-warming-kam-duggal.html"
  },
  {
@@ -803,6 +845,7 @@ window.PAINTINGS = [
   "price": "$950",
   "printsFrom": null,
   "year": null,
+  "story": "The original comes with a decorative frame.",
   "shop": "https://kam-duggal.pixels.com/featured/summer-breeze-kam-duggal.html"
  },
  {
@@ -822,6 +865,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": null,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/2-summer-breeze-kam-duggal.html"
  },
  {
@@ -841,6 +885,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 149,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/long-cool-day-kam-duggal.html"
  },
  {
@@ -860,6 +905,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 122,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/nite-fall-kam-duggal.html"
  },
  {
@@ -879,6 +925,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 122,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/play-full-kam-duggal.html"
  },
  {
@@ -895,6 +942,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": 152,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/slipstream-kam-duggal.html"
  },
  {
@@ -914,6 +962,7 @@ window.PAINTINGS = [
   "price": null,
   "printsFrom": null,
   "year": null,
+  "story": "",
   "shop": "https://kam-duggal.pixels.com/featured/limelite-kam-duggal.html"
  }
 ];

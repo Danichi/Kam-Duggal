@@ -73,13 +73,6 @@
     <div class="locale">Concord, North Carolina</div>
   </section>
 
-  <div class="marquee" aria-hidden="true">
-    <div class="track">
-      <span><b>Original art</b><i class="dot"></i>It's not what you are looking at, it's what you see<i class="dot"></i><b>Flow paint</b><i class="dot"></i>Acrylic on canvas and board<i class="dot"></i><b>Brushless technique</b><i class="dot"></i>Every piece one of a kind<i class="dot"></i></span>
-      <span><b>Original art</b><i class="dot"></i>It's not what you are looking at, it's what you see<i class="dot"></i><b>Flow paint</b><i class="dot"></i>Acrylic on canvas and board<i class="dot"></i><b>Brushless technique</b><i class="dot"></i>Every piece one of a kind<i class="dot"></i></span>
-    </div>
-  </div>
-
   <!-- INTRO -->
   <section class="section light">
     <div class="wrap intro">
@@ -107,7 +100,7 @@
         <span class="eyebrow rv">Featured originals</span>
       </div>
       <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:24px">
-        <h2 class="h2 rv">Hang something <em>no one else</em> has.</h2>
+        <h2 class="h2 rv">A place to <em>start.</em></h2>
         <div class="tools rv">
           <div class="toggle" role="group" aria-label="Card view">
             <button type="button" aria-pressed="true" data-view="gallery">Gallery</button>
@@ -125,7 +118,7 @@
       <div class="rail-progress"><i></i></div>
     </div>
     <div class="wrap" style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:40px">
-      <p class="muted" style="margin:0;max-width:52ch">Buying an original? Send Kam a note from any painting and he'll confirm availability, price and delivery. Prints of every piece ship from his print shop.</p>
+      <p class="muted" style="margin:0;max-width:52ch">Open any painting to see it large, read what Kam has said about it, and see it at its real size on a wall.</p>
       <a class="link" href="originals.html">View all <span data-count="paintings">49</span> originals <i data-icon="right" class="arr right" style="width:14px"></i></a>
     </div>
   </section>
@@ -139,17 +132,15 @@
         <div class="loupe-hint"><i data-icon="zoom" style="width:14px"></i>Hover to see the texture</div>
       </div>
       <div class="spot-copy">
-        <span class="eyebrow rv">Signature piece</span>
+        <span class="eyebrow rv">Look closer</span>
         <h2 class="h2 rv" style="margin-top:20px">New <em>Voyage</em></h2>
         <p class="muted rv">Four feet of orange and gold pulled across a dark ground. It was made with Kam's flow technique, where the paint is guided and not brushed, so every ridge and vein you can see is one of a kind.</p>
         <dl class="rv">
           <dt>Medium</dt><dd>Acrylic on canvas, flow technique</dd>
           <dt>Size</dt><dd>48 × 24 in</dd>
-          <dt>Original</dt><dd>Available · $1,200</dd>
         </dl>
         <div class="actions rv">
-          <a class="btn gold" href="artist.html?piece=new-voyage#contact">Inquire about the original</a>
-          <a class="btn" href="https://kam-duggal.pixels.com/featured/new-voyage-kam-duggal.html">Buy a print <i data-icon="out" class="arr"></i></a>
+          <a class="btn" href="originals.html#new-voyage">See the full piece <i data-icon="right" class="arr right"></i></a>
         </div>
       </div>
     </div>
@@ -217,43 +208,28 @@
     </div>
   </section>
 
-  <!-- TWO WAYS -->
-  <section class="section light">
-    <div class="wrap">
-      <div class="split-head">
-        <span class="eyebrow rv">Two ways to own it</span>
-        <h2 class="h2 rv">The original, <em>or a print.</em></h2>
+  <!-- THE COLLECTION -->
+  <section class="strip" id="strip" aria-label="Selected works">
+    <div class="strip-pin">
+      <div class="strip-head wrap">
+        <span class="eyebrow">The collection</span>
+        <h2 class="h2">Forty-nine <em>originals.</em></h2>
       </div>
-      <div class="paths rv">
-        <article class="path dark">
-          <div class="art one"><img src="img/art/ablaze-sm.webp" alt="Ablaze, a tall canvas of yellow and red flame shapes" loading="lazy"></div>
-          <span class="eyebrow">The original</span>
-          <h3>One canvas. <em>One owner.</em></h3>
-          <ul>
-            <li>The painting Kam made, signed by hand</li>
-            <li>Sizes from 10 × 10 in up to 48 × 24 in</li>
-            <li>Price, delivery and framing confirmed by Kam</li>
-          </ul>
-          <div class="actions">
-            <a class="btn gold" href="originals.html">Browse originals</a>
-            <a class="btn" href="artist.html#collectors">How it works</a>
-          </div>
-        </article>
-        <article class="path">
-          <div class="art many" aria-hidden="true">
-            <img src="img/art/crimson-currents-sm.webp" alt="" loading="lazy">
-            <img src="img/art/crimson-currents-sm.webp" alt="" loading="lazy">
-            <img src="img/art/crimson-currents-sm.webp" alt="" loading="lazy">
-          </div>
-          <span class="eyebrow">Prints &amp; products</span>
-          <h3>Every piece, <em>in your size.</em></h3>
-          <div class="chips"><span>Canvas</span><span>Framed</span><span>Metal</span><span>Acrylic</span><span>Wood</span><span>Art prints</span><span>Posters</span></div>
-          <p class="muted" style="margin:0">Printed to order and shipped by Kam's print shop on Pixels. You can pick the size and finish there.</p>
-          <div class="actions">
-            <a class="btn gold" href="https://kam-duggal.pixels.com/">Visit the print shop <i data-icon="out" class="arr"></i></a>
-          </div>
-        </article>
+      <div class="strip-track" id="strip-track"></div>
+      <div class="strip-foot wrap">
+        <span class="muted" id="strip-label"></span>
+        <a class="link" href="originals.html">See them all <i data-icon="right" class="arr right"></i></a>
       </div>
+    </div>
+  </section>
+
+  <section class="section tight light">
+    <div class="wrap prints-line">
+      <div>
+        <span class="eyebrow rv">Prints</span>
+        <p class="lede rv" style="margin:16px 0 0;max-width:46ch">Every painting is also available as a canvas, framed, metal or acrylic print, made to order through Kam's print shop.</p>
+      </div>
+      <a class="btn rv" href="https://kam-duggal.pixels.com/">Visit the print shop <i data-icon="out" class="arr"></i></a>
     </div>
   </section>
 
@@ -261,12 +237,12 @@
   <section class="section cta">
     <div class="wrap cta-grid">
       <div>
-        <span class="eyebrow rv">Collector inquiries</span>
-        <h2 class="display rv" style="margin-top:24px">Let's find <em>your</em> painting.</h2>
+        <span class="eyebrow rv">Say hello</span>
+        <h2 class="display rv" style="margin-top:24px">Come and <em>look.</em></h2>
       </div>
       <div class="side rv">
-        <p class="lede" style="margin:0">Interested in a painting, or have a question about availability, size, framing or a commission? Send Kam a note and he will get back to you.</p>
-        <div><a class="btn gold" href="artist.html#contact"><i data-icon="mail" class="arr right"></i> Contact Kam</a></div>
+        <p class="lede" style="margin:0">Questions about a painting, a commission, or where the work can be seen? Send Kam a note.</p>
+        <div><a class="btn gold" href="artist.html#contact"><i data-icon="mail" class="arr right"></i> Write to Kam</a></div>
         <div class="contact-lines">
           <a href="mailto:kamdugal@aol.com"><i data-icon="mail"></i>kamdugal@aol.com</a>
           <span><i data-icon="pin"></i>Concord, North Carolina</span>

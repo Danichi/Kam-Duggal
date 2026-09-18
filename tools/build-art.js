@@ -69,6 +69,17 @@ const CURATED = [
   ['limelite', 'Stormy Monday', 'spectrum', 'w']
 ];
 
+// What Kam himself has said about a piece. Pixels has no per-painting stories,
+// only his one shared statement; these come from the few listings where he
+// wrote a note of his own. Add to this as he sends more.
+const STORIES = {
+  'anadi': 'Anadi means without beginning.',
+  'abhasa-reflection-of-consciousness': 'Abhasa: the reflection of consciousness. Painted in February 2012.',
+  'mu4yte-mathematical-universe-4-you-to-entangle': 'MU4YTE: Mathematical Universe 4 You To Entangle.',
+  '24-x-48-2012': 'Painted in February 2012.',
+  'summer-breeze': 'The original comes with a decorative frame.'
+};
+
 // The listing's "Medium" field (tools/source/mediums.txt), falling back to
 // Kam's own notes when the field is just "Painting".
 const MEDIUMS = Object.fromEntries(fs.readFileSync(path.join(__dirname, 'source/mediums.txt'), 'utf8')
@@ -114,6 +125,7 @@ for (const [slug, title, palette, flags] of CURATED) {
     price: p.price && p.price.startsWith('$') ? p.price : null,
     printsFrom: +p.printFrom > 0 && +p.printFrom < 2000 ? Math.round(+p.printFrom) : null,
     year: /2012/.test(notes + title) ? 2012 : null,
+    story: STORIES[slug] || '',
     shop: p.url
   });
 }

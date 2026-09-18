@@ -76,6 +76,26 @@
     light();
   }
 
+  /* ---------- counting facts ---------- */
+  document.querySelectorAll('.facts b').forEach(el => {
+    const target = parseInt(el.textContent, 10);
+    if (!target || KD.reduced) return;
+    const suffix = el.innerHTML.slice(String(target).length);
+    let started = false;
+    new IntersectionObserver((entries, io) => {
+      if (!entries[0].isIntersecting || started) return;
+      started = true; io.disconnect();
+      const from = target > 100 ? target - 40 : 0;
+      const t0 = performance.now();
+      (function tick(now) {
+        const k = Math.min(1, (now - t0) / 1400);
+        const eased = 1 - Math.pow(1 - k, 4);
+        el.innerHTML = Math.round(from + (target - from) * eased) + suffix;
+        if (k < 1) requestAnimationFrame(tick);
+      })(t0);
+    }, { threshold: .6 }).observe(el);
+  });
+
   /* ---------- featured rail ---------- */
   const rail = $('#rail');
   const ctrl = document.querySelectorAll('.rail-ctrl button');
@@ -85,17 +105,14 @@
   const longest = Math.max(...FEATURED.filter(p => p.size).map(p => Math.max(...p.size)));
   rail.innerHTML = FEATURED.map(p => `
     <li class="card" data-slug="${p.slug}">
-      <a class="mount" href="originals.html#${p.slug}" aria-label="${KD.esc(p.title)}, view details">
+      <a class="mount" href="originals.html#${p.slug}" aria-label="${KD.esc(p.title)}, view the painting">
         <img src="${KD.img(p, true)}" alt="${KD.esc(p.title)}" loading="lazy" draggable="false">
-        ${p.original === 'available' ? '<span class="tag">Original available</span>' : ''}
         <span class="scale-note">${KD.size(p)}</span>
       </a>
-      <div class="meta"><h3>${KD.esc(p.title)}</h3><span class="price">${KD.price(p)}</span></div>
-      <p class="spec">${p.medium} · ${KD.size(p)}</p>
-      <div class="row">
-        <a class="btn gold small" href="${KD.inquire(p)}">Buy original</a>
-        <a class="btn small" href="${p.shop}">Buy a print ${KD.icon('out', 'arr')}</a>
-      </div>
+      <a class="meta" href="originals.html#${p.slug}" tabindex="-1">
+        <h3>${KD.esc(p.title)}</h3>
+        <p class="spec">${p.medium} · ${KD.size(p)}</p>
+      </a>
     </li>`).join('');
 
   function layoutRail(scale) {
@@ -245,4 +262,55 @@
     addEventListener('scroll', par, { passive: true });
     par();
   }
+})();
+
+/* ---------- the collection strip ---------- */
+(function () {
+  const section = document.querySelector('#strip');
+  if (!section) return;
+  const track = document.querySelector('#strip-track');
+  const label = document.querySelector('#strip-label');
+  const P = window.PAINTINGS;
+  // a spread of the collection: every palette, both orientations, no duplicates
+  const picked = [];
+  const order = ['ember', 'crimson', 'ocean', 'night', 'gold', 'gesture', 'spectrum'];
+  for (let round = 0; round < 3; round++) {
+    order.forEach(pal => {
+      const next = P.filter(p => p.palette === pal && !picked.includes(p))[round];
+      if (next) picked.push(next);
+    });
+  }
+  const items = picked.slice(0, 16);
+  track.innerHTML = items.map((p, i) => `
+    <a class="strip-item" href="originals.html#${p.slug}" data-title="${KD.esc(p.title)} · ${KD.size(p)}" style="--i:${i}">
+      <img src="${KD.img(p, true)}" alt="${KD.esc(p.title)}" loading="lazy">
+    </a>`).join('');
+
+  const kids = [...track.children];
+  let travel = 0, current = -1;
+  function measure() {
+    travel = Math.max(0, track.scrollWidth - innerWidth + 80);
+    section.style.height = KD.reduced ? 'auto' : Math.round(innerHeight + travel * 1.05) + 'px';
+    if (KD.reduced) track.style.transform = '';
+  }
+  function onScroll() {
+    if (KD.reduced) return;
+    const r = section.getBoundingClientRect();
+    const p = Math.min(1, Math.max(0, -r.top / (section.offsetHeight - innerHeight || 1)));
+    track.style.transform = `translate3d(${-p * travel}px, 0, 0)`;
+    // name whatever is actually nearest the middle of the screen
+    const mid = innerWidth / 2;
+    let best = 0, bestD = Infinity;
+    kids.forEach((el, i) => {
+      const r = el.getBoundingClientRect();
+      const d = Math.abs(r.left + r.width / 2 - mid);
+      if (d < bestD) { bestD = d; best = i; }
+    });
+    if (best !== current) { current = best; label.textContent = kids[best].dataset.title; }
+  }
+  addEventListener('resize', () => { measure(); onScroll(); });
+  addEventListener('scroll', onScroll, { passive: true });
+  measure();
+  onScroll();
+  label.textContent = kids[0].dataset.title;
 })();

@@ -10,7 +10,7 @@ also runs one small function for the inquiry form.
 
 | Page | What's on it |
 |---|---|
-| `index.html` | Hero with a flowing WebGL treatment of the paintings, featured originals rail (with a "to scale" mode), signature piece with a magnifying loupe, scroll-driven process section, palette explorer, original-vs-print split, contact CTA |
+| `index.html` | Hero with a flowing WebGL treatment of the paintings, featured originals rail (with a "to scale" mode), a piece to look at closely through a magnifying loupe, scroll-driven process section, palette explorer, a pinned sideways-scrolling strip of the collection, one quiet line about prints, contact CTA |
 | `originals.html` | All 49 paintings. Filter by palette, size and shape; "to scale" wall layout; detail view with zoom, an on-a-wall room preview at true size, inquire and buy-a-print links |
 | `artist.html` | Artist statement, how he works, timeline, `#collectors` (how buying works + FAQ), `#contact` (inquiry form) |
 
@@ -78,6 +78,16 @@ to edit** — `js/data.js` is generated.
   "A mesmerizing array of red and black swirls…" that Pixels generates, not Kam.
   Dropped. Only his own words are used.
 
+### Stories behind the paintings
+
+The site is a portfolio first, so what each painting *is* matters more than what
+it costs. There are no per-piece stories anywhere on Pixels: every listing
+repeats his one shared statement. The only pieces with anything of his own are
+the few title meanings now in `STORIES` in `tools/build-art.js` (Anadi, Abhasa,
+MU4YTE, and two notes). **Ask Kam for a line or two per painting** — what it was
+about, where he was, what the title means. Drop them into `STORIES` keyed by
+slug and they appear in the detail view automatically.
+
 ---
 
 ## Confirm with Kam before launch
@@ -106,7 +116,8 @@ to edit** — `js/data.js` is generated.
    America watermark. Better photography of the originals would lift the whole
    site. The watermarked ones are flagged `x` in `tools/build-art.js` and are
    kept out of the hero and featured rail.
-8. **Instagram / social.** His mockup had a "Follow on Instagram" line but no
+8. **A sentence or two per painting** (see "Stories behind the paintings"). This is what would make the portfolio feel like his rather than a catalogue.
+9. **Instagram / social.** His mockup had a "Follow on Instagram" line but no
    handle was found. Add the link and it goes in the footer.
 
 ## Notes

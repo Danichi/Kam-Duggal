@@ -72,7 +72,7 @@
             ${p.original === 'inquire' ? '<span class="badge">Ask about availability</span>' : ''}
             <img src="${KD.img(p, true)}" alt="${KD.esc(p.title)}, ${p.medium.toLowerCase()}" loading="lazy" width="560" height="${Math.round(560 / p.ratio)}">
           </span>
-          <span class="cap"><span class="t">${KD.esc(p.title)}</span><span class="p">${p.price || ''}</span></span>
+          <span class="cap"><span class="t">${KD.esc(p.title)}</span></span>
           <span class="sub">${p.medium} · ${KD.size(p)}</span>
         </button>`).join('');
     } else {
@@ -115,13 +115,14 @@
 
     $('#lb-palette').textContent = pal.name;
     $('#lb-title').textContent = p.title;
-    $('#lb-price').textContent = p.original === 'available' ? KD.price(p) : 'Ask about availability';
+    const story = document.querySelector('#lb-story');
+    story.textContent = p.story || '';
+    story.hidden = !p.story;
+    $('#lb-price').textContent = p.medium + (p.flow ? ', flow technique' : '');
     const rows = [
-      ['Medium', p.medium + (p.flow ? ', flow technique' : '')],
       ['Size', KD.size(p)],
       ['Year', p.year],
-      ['Original', p.original === 'available' ? 'Available from the artist' : 'Contact Kam'],
-      ['Prints', p.printsFrom ? `From $${p.printsFrom}` : 'Available']
+      ['Original', p.original === 'available' ? (p.price ? 'Available · ' + p.price : 'Available, price on request') : 'Ask Kam']
     ].filter(r => r[1]);
     $('#lb-dl').innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${KD.esc(v)}</dd>`).join('');
     $('#lb-inquire').href = KD.inquire(p);
@@ -185,8 +186,33 @@
     document.body.style.overflow = 'hidden';
     requestAnimationFrame(() => lb.classList.add('open'));
     fill(list[idx]);
+    flip(from);
     $('#lb-close').focus({ preventScroll: true });
   }
+  // the tile grows into the full painting
+  async function flip(fromEl) {
+    const thumb = fromEl && fromEl.querySelector('img');
+    if (KD.reduced || !thumb || !lbImg.getAnimations) return;
+    const a = thumb.getBoundingClientRect();
+    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    const b = lbImg.getBoundingClientRect();
+    if (!a.width || !b.width) return;
+    const ghost = document.createElement('img');
+    ghost.src = thumb.currentSrc || thumb.src;
+    ghost.alt = '';
+    ghost.style.cssText = `position:fixed;z-index:200;margin:0;object-fit:cover;pointer-events:none;
+      left:${a.left}px;top:${a.top}px;width:${a.width}px;height:${a.height}px`;
+    document.body.appendChild(ghost);
+    lbImg.style.opacity = '0';
+    const anim = ghost.animate(
+      [{ left: a.left + 'px', top: a.top + 'px', width: a.width + 'px', height: a.height + 'px' },
+       { left: b.left + 'px', top: b.top + 'px', width: b.width + 'px', height: b.height + 'px' }],
+      { duration: 560, easing: 'cubic-bezier(.2,.7,.1,1)' });
+    const done = () => { lbImg.style.opacity = ''; ghost.remove(); };
+    anim.onfinish = done;
+    anim.oncancel = done;
+  }
+
   function close() {
     lb.classList.remove('open');
     document.body.style.overflow = '';
@@ -240,6 +266,23 @@
     if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
     sx = null;
   });
+
+  // paintings drift a little inside their frames as the page moves
+  if (!KD.reduced) {
+    let ticking = false;
+    const drift = () => {
+      ticking = false;
+      gallery.querySelectorAll('.tile .img img').forEach(img => {
+        const r = img.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > innerHeight + 100) return;
+        const p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+        img.style.objectPosition = `50% ${(50 + p * 7).toFixed(2)}%`;
+      });
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(drift); } }, { passive: true });
+    addEventListener('resize', drift);
+    requestAnimationFrame(drift);
+  }
 
   render(false);
   const hash = decodeURIComponent(location.hash.slice(1));

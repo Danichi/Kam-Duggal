@@ -111,6 +111,23 @@
     })();
   }
 
+  /* ---------- page transitions ---------- */
+  if (!reduced) {
+    addEventListener('click', e => {
+      if (e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = e.target.closest('a[href]');
+      if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+      const url = new URL(a.href, location.href);
+      if (url.origin !== location.origin) return;
+      if (url.pathname === location.pathname && url.search === location.search) return; // same page / hash
+      e.preventDefault();
+      root.classList.add('leaving');
+      setTimeout(() => { location.href = a.href; }, 280);
+    });
+    // coming back via the bfcache should not land on a faded-out page
+    addEventListener('pageshow', () => root.classList.remove('leaving'));
+  }
+
   /* ---------- misc ---------- */
   document.querySelectorAll('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
   document.querySelectorAll('[data-count="paintings"]').forEach(el => { el.textContent = P.length; });
