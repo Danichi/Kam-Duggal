@@ -1,0 +1,9 @@
+.git
+tools
+functions
+lib
+README.md
+PROPOSAL.md
+wrangler.toml
+.dev.vars*
+node_modules

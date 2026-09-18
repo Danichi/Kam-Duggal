@@ -1,0 +1,6 @@
+# Cloudflare Pages project. Static site served from the repo root; the inquiry
+# form posts to functions/api/inquiry.js. Set RESEND_API_KEY etc. in the
+# dashboard (or .dev.vars locally), never here.
+name = "kam-duggal"
+pages_build_output_dir = "."
+compatibility_date = "2026-09-01"

@@ -1,0 +1,22 @@
+const fs=require('fs');const {execFileSync}=require('child_process');
+const art=JSON.parse(fs.readFileSync('art.json'));
+const UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/128 Safari/537.36';
+const clean=s=>s.replace(/<script[\s\S]*?<\/script>/g,' ').replace(/<style[\s\S]*?<\/style>/g,' ').replace(/<[^>]+>/g,' ').replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/&#39;|&rsquo;/g,"'").replace(/&quot;/g,'"').replace(/\s+/g,' ');
+const out=[];
+for(const a of art){ if(/photograph/i.test(a.title)) continue;
+  const f='pages/'+a.url.split('/').pop();
+  if(!fs.existsSync(f)) fs.writeFileSync(f,execFileSync('curl',['-sL','-A',UA,a.url],{maxBuffer:1e8}));
+  const h=fs.readFileSync(f,'utf8'); const g=re=>{const m=h.match(re);return m?m[1]:''};
+  const name=g(/og:title" content="([^"]+?) by Kam Duggal"/).replace(/&#39;/g,"'").replace(/&amp;/g,'&');
+  const T=clean(h);
+  const orig=(T.match(/Buy the Original (?:Painting|Artwork|Piece)?\s*(.{0,260})/)||[])[1]||'';
+  const dims=(orig.match(/Dimensions ([\d.]+ x [\d.]+(?: x [\d.]+)?) inches/)||[])[1]||'';
+  const price=(orig.match(/Price\s*(\$[\d,.]+|Not Specified)/)||[])[1]||'';
+  const status=/currently for sale/.test(orig)?'available':/sold/i.test(orig)?'sold':(orig?'?':'none');
+  const esc=name.split('').map(c=>/[a-z0-9 ]/i.test(c)?c:'.').join('');
+  const med=(T.match(new RegExp(esc+' ((?:Painting|Mixed Media|Digital Art|Photograph)[^]*?) Description'))||[])[1]||'';
+  const desc=(T.match(/ Description (.*?) Uploaded/)||[])[1]||'';
+  out.push({name,url:a.url,img:g(/og:image" content="([^"]+)"/),w:+g(/og:image:width" content="(\d+)"/),h:+g(/og:image:height" content="(\d+)"/),medium:med.trim(),status,price,dims,desc,printFrom:g(/og:price:amount" content="([^"]+)"/)});
+}
+fs.writeFileSync('paintings.json',JSON.stringify(out,null,1));
+for(const o of out) console.log(o.name,'|',o.w+'x'+o.h,'|',o.medium.slice(0,70),'|',o.status,o.price,o.dims,'|',o.desc.length);

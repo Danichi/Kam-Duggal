@@ -1,0 +1,6 @@
+# Copy to .dev.vars for `npx wrangler pages dev`. Never commit .dev.vars.
+RESEND_API_KEY=
+EMAIL_FROM=Kam Duggal Website <website@kamduggal.com>
+INQUIRY_TO=kamdugal@aol.com
+# Log emails to the console instead of sending them:
+EMAIL_LOG_ONLY=true

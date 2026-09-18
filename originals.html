@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Original Artwork | Kam Duggal</title>
+<meta name="description" content="Browse original abstract paintings by Kam Duggal. Filter by colour and size, see each piece to scale on a wall, and inquire about the original or buy a print.">
+<meta property="og:title" content="Kam Duggal | Original Art">
+<meta property="og:description" content="Colour, movement and emotion, captured in the moment. Original abstract paintings from Concord, North Carolina.">
+<meta property="og:image" content="img/art/new-voyage.webp">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0b0a09">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Kam Duggal, home">
+      <svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="23" stroke="currentColor" stroke-width=".8"/><circle cx="24" cy="24" r="19.6" stroke="currentColor" stroke-width=".4" opacity=".55"/><text x="18.2" y="30.5" font-family="Cormorant Garamond, Garamond, serif" font-size="20" fill="currentColor" text-anchor="middle">K</text><text x="29.4" y="32" font-family="Cormorant Garamond, Garamond, serif" font-style="italic" font-size="20" fill="currentColor" text-anchor="middle">D</text></svg>
+      <span class="word"><b>Kam Duggal</b><i>Original Art</i></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="originals.html" aria-current="page">Original Artwork</a>
+      <a href="artist.html">The Artist</a>
+      <a href="artist.html#collectors">Collectors</a>
+      <a href="artist.html#contact">Contact</a>
+      <a class="btn small" href="https://kam-duggal.pixels.com/">Shop Prints <i data-icon="out" class="arr"></i></a>
+    </nav>
+    <button class="menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-head">
+    <img class="ghost" src="img/art/distant-galaxy-sm.webp" alt="" aria-hidden="true">
+    <div class="wrap">
+      <span class="eyebrow rv">The collection</span>
+      <h1 class="display rv">Original <em>artwork</em></h1>
+      <div class="row" style="margin-top:34px">
+        <p class="lede rv">Every painting here is the one Kam made, signed and one of a kind. Open any piece to see it up close, see it at size on a wall, and ask about the original.</p>
+        <p class="muted rv" style="--d:.1s">Want the look without the original? Every piece is also available as a canvas, framed, metal or acrylic print from <a class="link" href="https://kam-duggal.pixels.com/">Kam's print shop</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <div class="wrap">
+      <div class="filters" id="filters" role="group" aria-label="Filter by palette"></div>
+      <div class="right">
+        <label class="select"><span class="sr-only">Size</span>
+          <select id="f-size">
+            <option value="">All sizes</option>
+            <option value="small">Small (up to 16 in)</option>
+            <option value="medium">Medium (up to 24 in)</option>
+            <option value="large">Large (over 24 in)</option>
+          </select>
+        </label>
+        <label class="select"><span class="sr-only">Shape</span>
+          <select id="f-shape">
+            <option value="">Any shape</option>
+            <option value="portrait">Portrait</option>
+            <option value="landscape">Landscape</option>
+            <option value="square">Square</option>
+          </select>
+        </label>
+        <div class="toggle" role="group" aria-label="Layout">
+          <button type="button" aria-pressed="true" data-layout="grid">Gallery</button>
+          <button type="button" aria-pressed="false" data-layout="wall">To scale</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="wrap" aria-live="polite">
+    <div class="result-line">
+      <h2 class="h3" id="result-title">All originals</h2>
+      <span class="muted" id="result-count"></span>
+    </div>
+    <div class="gallery" id="gallery"></div>
+    <div class="wall-view" id="wall" hidden>
+      <div class="wall" id="wall-inner"></div>
+      <div class="floor"></div>
+      <div class="legend"><i></i>12 inches</div>
+    </div>
+    <div class="empty" id="empty" hidden>
+      <p class="h3">Nothing matches those filters.</p>
+      <p class="muted">Try another size or shape, or <button type="button" class="link" id="reset">clear the filters</button>.</p>
+    </div>
+  </section>
+
+  <section class="section cta" style="border-top:1px solid var(--line);margin-top:60px">
+    <div class="wrap cta-grid">
+      <div>
+        <span class="eyebrow rv">Commissions</span>
+        <h2 class="display rv" style="margin-top:24px">Don't see <em>the one?</em></h2>
+      </div>
+      <div class="side rv">
+        <p class="lede" style="margin:0">Tell Kam about your space, the colours you live with and the size you have in mind. Each painting is improvised, so a commission is a conversation and not a copy.</p>
+        <div><a class="btn gold" href="artist.html?interest=Commission#contact">Ask about a commission</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- detail view -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lb-title" hidden>
+  <div class="lb-inner">
+    <div class="lb-stage" id="lb-stage">
+      <span class="lb-count" id="lb-count"></span>
+      <div class="art"><img id="lb-img" alt=""></div>
+      <div class="room" id="room" aria-hidden="true">
+        <div class="baseboard"></div>
+        <div class="floor"></div>
+        <svg class="lamp" viewBox="0 0 60 300" fill="currentColor"><path d="M14 0h32l12 60H2z" opacity=".9"/><rect x="28" y="60" width="4" height="232"/><rect x="12" y="290" width="36" height="10" rx="2"/></svg>
+        <svg class="sofa" viewBox="0 0 840 330" fill="currentColor"><rect x="40" y="0" width="760" height="190" rx="26"/><rect x="0" y="120" width="120" height="180" rx="28"/><rect x="720" y="120" width="120" height="180" rx="28"/><rect x="100" y="170" width="640" height="110" rx="16" opacity=".85"/><rect x="60" y="296" width="18" height="34"/><rect x="762" y="296" width="18" height="34"/><rect x="120" y="36" width="280" height="140" rx="20" opacity=".35"/><rect x="440" y="36" width="280" height="140" rx="20" opacity=".35"/></svg>
+        <img class="hung" id="room-img" alt="">
+        <span class="dim" id="room-dim"></span>
+        <p class="note">Shown at scale over a 7 ft (84 in) sofa. Sizes as listed; confirm with Kam before buying.</p>
+        <div class="walls" role="group" aria-label="Wall colour">
+          <button type="button" style="--c:#ece6db" data-wall="#e9e3d8" aria-pressed="true" aria-label="Warm white wall"></button>
+          <button type="button" style="--c:#b9b2a6" data-wall="#b7b0a4" aria-label="Greige wall"></button>
+          <button type="button" style="--c:#6f7d74" data-wall="#6d7b72" data-dark aria-label="Sage wall"></button>
+          <button type="button" style="--c:#26282b" data-wall="#25272a" data-dark aria-label="Charcoal wall"></button>
+        </div>
+      </div>
+      <div class="tabs toggle" role="group" aria-label="Preview">
+        <button type="button" aria-pressed="true" data-tab="art">Artwork</button>
+        <button type="button" aria-pressed="false" data-tab="room">On a wall</button>
+      </div>
+      <button type="button" class="lb-nav prev" id="lb-prev" aria-label="Previous painting"><i data-icon="left"></i></button>
+      <button type="button" class="lb-nav next" id="lb-next" aria-label="Next painting"><i data-icon="right"></i></button>
+    </div>
+    <aside class="lb-panel">
+      <div>
+        <span class="eyebrow" id="lb-palette"></span>
+        <h2 id="lb-title"></h2>
+      </div>
+      <div class="price" id="lb-price"></div>
+      <dl id="lb-dl"></dl>
+      <div class="actions">
+        <a class="btn gold" id="lb-inquire" href="#">Inquire about the original</a>
+        <a class="btn" id="lb-shop" href="#">Buy a print <i data-icon="out" class="arr"></i></a>
+      </div>
+      <p class="fine" id="lb-note"></p>
+      <p class="fine">Originals are sold directly by the artist. Prints are made to order and shipped by Kam's print shop on Pixels.</p>
+    </aside>
+  </div>
+  <button type="button" class="lb-close" id="lb-close" aria-label="Close"><i data-icon="close"></i></button>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html" aria-label="Kam Duggal, home">
+          <svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="23" stroke="currentColor" stroke-width=".8"/><circle cx="24" cy="24" r="19.6" stroke="currentColor" stroke-width=".4" opacity=".55"/><text x="18.2" y="30.5" font-family="Cormorant Garamond, Garamond, serif" font-size="20" fill="currentColor" text-anchor="middle">K</text><text x="29.4" y="32" font-family="Cormorant Garamond, Garamond, serif" font-style="italic" font-size="20" fill="currentColor" text-anchor="middle">D</text></svg>
+          <span class="word"><b>Kam Duggal</b><i>Original Art</i></span>
+        </a>
+        <p>Original abstract paintings by an improvisational artist in Concord, North Carolina.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul><li><a href="originals.html">Original artwork</a></li><li><a href="artist.html">The artist</a></li><li><a href="artist.html#collectors">Collectors</a></li><li><a href="artist.html#contact">Contact</a></li></ul>
+      </div>
+      <div>
+        <h4>Prints</h4>
+        <ul><li><a href="https://kam-duggal.pixels.com/">Print shop</a></li><li><a href="https://kam-duggal.pixels.com/shop/canvas+prints">Canvas prints</a></li><li><a href="https://kam-duggal.pixels.com/shop/framed+prints">Framed prints</a></li><li><a href="https://kam-duggal.pixels.com/shop/metal+prints">Metal prints</a></li></ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul><li><a href="mailto:kamdugal@aol.com">kamdugal@aol.com</a></li><li><a href="artist.html#contact">Send an inquiry</a></li><li><a href="artist.html#contact">Commissions</a></li></ul>
+      </div>
+    </div>
+    <p class="foot-word" aria-hidden="true">Kam <em>Duggal</em></p>
+    <div class="foot-base"><span>© <span data-year>2026</span> Kam Duggal. All artwork is the property of the artist.</span><span>Concord, North Carolina</span></div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/site.js"></script>
+<script src="js/originals.js"></script>
+</body>
+</html>
