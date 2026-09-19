@@ -12,7 +12,7 @@ also runs one small function for the inquiry form.
 |---|---|
 | `index.html` | Hero with a flowing WebGL treatment of the paintings, featured originals rail (with a "to scale" mode), a piece to look at closely through a magnifying loupe, scroll-driven process section, palette explorer, a pinned sideways-scrolling strip of the collection, one quiet line about prints, contact CTA |
 | `originals.html` | All 49 paintings. Filter by palette, size and shape; "to scale" wall layout; detail view with zoom, an on-a-wall room preview at true size, inquire and buy-a-print links |
-| `artist.html` | Artist statement, how he works, timeline, `#collectors` (how buying works + FAQ), `#contact` (inquiry form) |
+| `artist.html` | Portrait of Kam, artist statement, how he works, timeline, `#collectors` (how buying works + FAQ), `#contact` (inquiry form) |
 
 ---
 
@@ -108,17 +108,30 @@ slug and they appear in the detail view automatically.
 5. **Sold pieces.** Pixels marks nearly everything "currently for sale". If any
    originals are already sold, they should be marked (or removed) so the site
    doesn't offer them.
-6. **A portrait of Kam.** The artist page currently uses a painting detail where
-   his photo should go (`artist.html`, marked with a comment). A photo of him,
-   ideally in the studio, is the single biggest improvement available.
-7. **Photos of the paintings.** Pixels only serves images up to 1200px, about a
-   dozen are photographed hanging on a wall, and roughly nine carry a Fine Art
-   America watermark. Better photography of the originals would lift the whole
-   site. The watermarked ones are flagged `x` in `tools/build-art.js` and are
-   kept out of the hero and featured rail.
+6. **Clean image files — the one real blocker.** Nine paintings carry a Fine Art
+   America watermark that is **baked into the file Kam uploaded**, not applied by
+   the image server: every size and every render URL shows it, so there is no way
+   to fetch a clean copy. They are flagged `x` in `tools/build-art.js` and kept
+   out of the hero and featured rail. **Fun Day is one of them**, and Kam wants it
+   as the first painting on the site — it goes in the moment he sends the
+   original photo. The rest of the images also top out at 1200px and about a
+   dozen are photographed hanging on a wall, so better photography would lift the
+   whole site.
 8. **A sentence or two per painting** (see "Stories behind the paintings"). This is what would make the portfolio feel like his rather than a catalogue.
 9. **Instagram / social.** His mockup had a "Follow on Instagram" line but no
    handle was found. Add the link and it goes in the footer.
+
+## Brand assets
+
+`img/logo-mark.png` (header monogram), `img/logo-full.png` (the footer lockup)
+and `img/favicon.png` are cut from the logo Kam supplied. The black background of
+the original file is keyed to alpha, so the mark sits on any dark surface:
+
+```bash
+ffmpeg -i logo.png -filter_complex   "[0:v]crop=610:580:222:18,format=rgba[c];[c]split[c1][c2];[c2]format=gray[al];[c1][al]alphamerge"   img/logo-mark.png
+```
+
+`img/kam-portrait.jpg` is his photo, cropped to 4:5 for the artist page.
 
 ## Notes
 

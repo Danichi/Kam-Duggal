@@ -16,7 +16,7 @@
     night: { name: 'Night Sky', blurb: 'Galaxies, moons and starlight.', sw: ['#0b0c1c', '#e3c341', '#3b2f8f'], cover: 'distant-galaxy' },
     gold: { name: 'Gold & Earth', blurb: 'Ochre, bronze and warm ground.', sw: ['#b8872d', '#6b4a24', '#e7c01c'], cover: 'abhasa-reflection-of-consciousness' },
     gesture: { name: 'Line & Gesture', blurb: 'Drips, splatter and shape.', sw: ['#e7c01c', '#c42a2a', '#1d4fa3'], cover: 'wireless' },
-    spectrum: { name: 'Spectrum', blurb: 'Every colour at once.', sw: ['#e7c01c', '#2c5fb8', '#d0312d'], cover: 'play-full' }
+    spectrum: { name: 'Spectrum', blurb: 'Every colour at once.', sw: ['#e7c01c', '#2c5fb8', '#d0312d'], cover: 'back-to-earth' }
   };
 
   const P = window.PAINTINGS || [];

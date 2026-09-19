@@ -31,7 +31,7 @@ sofa so they know what a 12 × 24 actually looks like on a wall. Every painting
 has two quiet buttons: *Ask about this piece*, which writes to you, and *Buy a
 print*, which opens that exact painting in your Pixels shop.
 
-**The Artist** — your statement in your own words, how you work, a short
+**The Artist** — your photo and your statement in your own words, how you work, a short
 timeline, a plain explanation of how buying an original works, answers to the
 questions collectors ask, and a contact form. When someone inquires from a
 painting, the painting is already filled in for you.
@@ -49,8 +49,12 @@ painting, the painting is already filled in for you.
 
 ## What I need from you
 
-1. **A photo of you**, ideally painting or in the studio. The artist page has a
-   placeholder where it goes.
+1. **The original photo of Fun Day** (and eight other paintings). You wanted Fun
+   Day to be the first thing people see, and I agree, but the only copy on your
+   print shop has the Fine Art America watermark printed across the middle of the
+   painting itself. Send me the photo from your own files and it goes straight to
+   the top of the site. The others in the same boat: Eruption, Cloudy Day, Coda,
+   Long Cool Day, Nite Fall, Play Full, Slipstream and Out of the Blue.
 2. **Confirm the prices and sizes.** I pulled them from your Pixels listings;
    most originals say "price not specified" and show as *price on request*.
    Some listings are old.
