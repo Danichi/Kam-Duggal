@@ -116,7 +116,8 @@
     try {
       const res = await fetch('/api/inquiry', { method: 'POST', body: data });
       const out = await res.json().catch(() => ({}));
-      if (res.status === 404 || res.status === 405) throw new Error('no-backend');
+      // 503 = the server has no email key yet (demo hosting); fall back to the visitor's email app
+      if (res.status === 404 || res.status === 405 || res.status === 503) throw new Error('no-backend');
       if (!res.ok) {
         Object.entries(out.fields || {}).forEach(([k, t]) => form.elements[k] && fieldErr(k, t));
         throw new Error(out.error || 'We could not send your message.');
