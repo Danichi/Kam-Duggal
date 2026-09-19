@@ -219,8 +219,6 @@
       setTimeout(() => { lensImg.src = src; lensImg.onload = () => { lensImg.style.opacity = 1; }; }, 250);
     }
     lensImg.style.transition = 'transform 1.6s cubic-bezier(.2,.7,.1,1), opacity .25s';
-    lensImg.style.setProperty('--ox', s.dataset.o.split(' ')[0]);
-    lensImg.style.setProperty('--oy', s.dataset.o.split(' ')[1]);
     lensImg.style.setProperty('--z', KD.reduced ? 1 : s.dataset.z);
     lensN.textContent = String(i + 1).padStart(2, '0');
     lensLabel.textContent = s.dataset.label;
