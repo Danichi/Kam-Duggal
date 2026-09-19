@@ -17,6 +17,7 @@ visitor's email app; add `RESEND_API_KEY` and `EMAIL_FROM` to switch that on.
 |---|---|
 | `index.html` | **Follows Kam's own homepage mockup**: hero wordmark with a cycling panel of artwork, stats band, four featured originals with prices and buy buttons, a piece to look at closely through a magnifying loupe, scroll-driven process section, a pinned sideways-scrolling strip of the collection, palette explorer, about + collector inquiries, prints line |
 | `originals.html` | All 49 paintings. Filter by palette, size and shape; "to scale" wall layout; detail view with zoom, an on-a-wall room preview at true size, inquire and buy-a-print links |
+| `alt.html` | **Kam's own homepage mockup, rebuilt one-to-one** (his layout, his four paintings, his prices and sizes, his Instagram line). Self-contained CSS, `noindex`. Opened from the **Alt view** button at the top left of the hero, which shows it in an overlay over the site, or directly at `/alt.html` |
 | `artist.html` | Portrait of Kam, artist statement, how he works, timeline, `#collectors` (how buying works + FAQ), `#contact` (inquiry form) |
 
 ---

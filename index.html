@@ -45,6 +45,11 @@
   <!-- HERO -->
   <section class="hero" aria-label="Introduction">
     <div class="hero-bg" id="flow" aria-hidden="true"></div>
+    <button type="button" class="alt-toggle" id="alt-open" aria-haspopup="dialog">
+      <span class="dot"></span>Alt view
+      <small>Kam&rsquo;s design</small>
+    </button>
+
     <div class="wrap hero-grid">
       <div class="hero-copy">
         <span class="eyebrow fade" style="--d:.15s">Welcome to</span>
@@ -227,6 +232,18 @@
     </div>
   </section>
 </main>
+
+<!-- Kam's own homepage design, shown over the site -->
+<div class="alt-view" id="alt-view" role="dialog" aria-modal="true" aria-label="Kam's homepage design" hidden>
+  <div class="alt-bar">
+    <span class="alt-label"><b>Alt view</b> Kam&rsquo;s original homepage design</span>
+    <span class="alt-actions">
+      <a class="alt-open-new" href="alt.html" target="_blank" rel="noopener">Open in a tab <i data-icon="out"></i></a>
+      <button type="button" id="alt-close">Back to the site <i data-icon="close"></i></button>
+    </span>
+  </div>
+  <iframe id="alt-frame" title="Kam's homepage design" data-src="alt.html" loading="lazy"></iframe>
+</div>
 
 <footer class="site-footer">
   <div class="wrap">
