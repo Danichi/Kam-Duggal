@@ -15,7 +15,7 @@ visitor's email app; add `RESEND_API_KEY` and `EMAIL_FROM` to switch that on.
 
 | Page | What's on it |
 |---|---|
-| `index.html` | Hero with a flowing WebGL treatment of the paintings, featured originals rail (with a "to scale" mode), a piece to look at closely through a magnifying loupe, scroll-driven process section, palette explorer, a pinned sideways-scrolling strip of the collection, one quiet line about prints, contact CTA |
+| `index.html` | **Follows Kam's own homepage mockup**: hero wordmark with a cycling panel of artwork, stats band, four featured originals with prices and buy buttons, a piece to look at closely through a magnifying loupe, scroll-driven process section, a pinned sideways-scrolling strip of the collection, palette explorer, about + collector inquiries, prints line |
 | `originals.html` | All 49 paintings. Filter by palette, size and shape; "to scale" wall layout; detail view with zoom, an on-a-wall room preview at true size, inquire and buy-a-print links |
 | `artist.html` | Portrait of Kam, artist statement, how he works, timeline, `#collectors` (how buying works + FAQ), `#contact` (inquiry form) |
 
@@ -82,6 +82,21 @@ to edit** — `js/data.js` is generated.
 - **Pixels' machine-written descriptions.** Many listings end with text like
   "A mesmerizing array of red and black swirls…" that Pixels generates, not Kam.
   Dropped. Only his own words are used.
+
+### Kam's mockup
+
+He mocked up a homepage himself and it is the design direction: header, hero
+(WELCOME TO + the kamduggal.com Art wordmark + "Original art | Impressionistic |
+One of a kind" + the tagline + artwork on the right), FEATURED ORIGINALS as four
+cards with prices and two buttons each, then ABOUT THE ARTIST beside COLLECTOR
+INQUIRIES. The homepage follows that order. His mockup's bio paragraph and the
+"Art is not just what I do" quote are his words, taken from it.
+
+Two things in his mockup are not on the site yet: the Instagram link (no handle
+known) and his mockup prices, which disagree with his Pixels listings — New
+Voyage is $897 there and $1,200 on Pixels, and Crimson Currents, Purplerane and
+Silverlite carry prices ($1,250 / $960 / $750) that Pixels lists as "price not
+specified". The site shows the Pixels figures. Ask him which are current.
 
 ### Stories behind the paintings
 
