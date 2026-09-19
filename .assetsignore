@@ -4,6 +4,7 @@ functions
 lib
 README.md
 PROPOSAL.md
+EMAIL-DRAFT.md
 wrangler.toml
 .dev.vars*
 node_modules

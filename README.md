@@ -8,6 +8,11 @@ print" link goes out to his existing print shop at
 Plain HTML, CSS and JS with no build step. Hosted on **Cloudflare Pages**, which
 also runs one small function for the inquiry form.
 
+**Live demo: https://kam-duggal.pages.dev** (Pages project `kam-duggal`). Deploy
+with `npx wrangler pages deploy . --project-name kam-duggal --branch main`.
+No mail key is set there yet, so the inquiry form falls back to opening the
+visitor's email app; add `RESEND_API_KEY` and `EMAIL_FROM` to switch that on.
+
 | Page | What's on it |
 |---|---|
 | `index.html` | Hero with a flowing WebGL treatment of the paintings, featured originals rail (with a "to scale" mode), a piece to look at closely through a magnifying loupe, scroll-driven process section, palette explorer, a pinned sideways-scrolling strip of the collection, one quiet line about prints, contact CTA |

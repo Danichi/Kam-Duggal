@@ -1,7 +1,7 @@
 # Website proposal — Kam Duggal, Original Art
 
 **Prepared by Danichi · Malachi · North Carolina**
-**Demo:** [link] · **Date:** [date]
+**Demo:** https://kam-duggal.pages.dev · **Date:** [date]
 
 > Fill in the three bracketed spots (price, timeline, link) before sending. Everything else is ready.
 
