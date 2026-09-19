@@ -116,7 +116,9 @@ slug and they appear in the detail view automatically.
    as the first painting on the site — it goes in the moment he sends the
    original photo. The rest of the images also top out at 1200px and about a
    dozen are photographed hanging on a wall, so better photography would lift the
-   whole site.
+   whole site. The nine: Fun Day, Eruption, Dori, Cloudy Day, Long Cool Day,
+   Nite Fall, Play Full, Slipstream and Out of the Blue — checked by eye against
+   the bottom 40% of every file, where the watermark sits.
 8. **A sentence or two per painting** (see "Stories behind the paintings"). This is what would make the portfolio feel like his rather than a catalogue.
 9. **Instagram / social.** His mockup had a "Follow on Instagram" line but no
    handle was found. Add the link and it goes in the footer.

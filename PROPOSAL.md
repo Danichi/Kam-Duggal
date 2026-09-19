@@ -53,7 +53,7 @@ painting, the painting is already filled in for you.
    Day to be the first thing people see, and I agree, but the only copy on your
    print shop has the Fine Art America watermark printed across the middle of the
    painting itself. Send me the photo from your own files and it goes straight to
-   the top of the site. The others in the same boat: Eruption, Cloudy Day, Coda,
+   the top of the site. The others in the same boat: Eruption, Cloudy Day, Dori,
    Long Cool Day, Nite Fall, Play Full, Slipstream and Out of the Blue.
 2. **Confirm the prices and sizes.** I pulled them from your Pixels listings;
    most originals say "price not specified" and show as *price on request*.

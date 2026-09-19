@@ -4,7 +4,7 @@
   const by = KD.bySlug;
 
   /* ---------- hero showcase + flowing background ---------- */
-  const SLIDES = ['distant-galaxy', 'abhasa-reflection-of-consciousness', 'anadi', 'release-p', 'howling-moon'].map(s => by[s]);
+  const SLIDES = ['distant-galaxy', 'anadi', 'new-voyage', 'distant-star', '24-x-48-2012'].map(s => by[s]);
   const DUR = 7000;
   const show = $('#showcase');
   const stage = $('.stage', show);
