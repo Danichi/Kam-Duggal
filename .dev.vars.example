@@ -4,3 +4,7 @@ EMAIL_FROM=Kam Duggal Website <website@kamduggal.com>
 INQUIRY_TO=kamdugal@aol.com
 # Log emails to the console instead of sending them:
 EMAIL_LOG_ONLY=true
+
+# The editor sign-in (the lock in the header)
+ADMIN_PASSWORD=choose-something
+SESSION_SECRET=any-long-random-string

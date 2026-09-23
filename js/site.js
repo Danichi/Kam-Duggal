@@ -19,9 +19,20 @@
     spectrum: { name: 'Spectrum', blurb: 'Every colour at once.', sw: ['#e7c01c', '#2c5fb8', '#d0312d'], cover: 'back-to-earth' }
   };
 
-  const P = window.PAINTINGS || [];
+  /* ---------- content Kam has edited (window.CONTENT, from /api/content.js) ---------- */
+  const C = window.CONTENT || {};
+  if (Array.isArray(C.paintings) && C.paintings.length) window.PAINTINGS = C.paintings;
+  // hidden pieces stay out of every list on the site
+  window.PAINTINGS = (window.PAINTINGS || []).filter(p => !p.hidden);
+
+  const P = window.PAINTINGS;
   KD.bySlug = Object.fromEntries(P.map(p => [p.slug, p]));
-  KD.img = (p, small) => `img/art/${p.slug}${small ? '-sm' : ''}.webp`;
+  // an uploaded image wins over the one built into the site
+  KD.img = (p, small) => {
+    if (!p) p = P[0] || {};   // a piece can be hidden or removed out from under a reference
+    return (small ? (p.imgSm || p.img) : (p.img || p.imgSm)) ||
+      (p.slug ? `img/art/${p.slug}${small ? '-sm' : ''}.webp` : '');
+  };
   KD.size = p => p.size ? `${fmt(p.size[0])} × ${fmt(p.size[1])} in` : 'Size on request';
   const fmt = n => String(+n.toFixed(1));
   KD.price = p => p.price || 'Price on request';
@@ -48,6 +59,53 @@
 
   // Fill <i data-icon="..."> placeholders in static markup.
   document.querySelectorAll('[data-icon]').forEach(el => { el.outerHTML = KD.icon(el.dataset.icon, el.className); });
+
+  /* ---------- editable text ---------- */
+  // Every element matching one of these gets a stable key, so the editor can
+  // save it and the site can put it back. JS-rendered lists are left out: their
+  // words live in the painting data instead.
+  const EDIT_SELECTORS = [
+    '.hero .tag', '.hero .pills li', '.eyebrow', '.display', '.h2', '.h3', '.lede',
+    'p.muted', '.spot-copy dd', '.steps h3', '.steps p', '.steps blockquote',
+    '.about-copy p', '.about-portrait .hand', '.inquiries p',
+    '.statement .body p', '.pillar h3', '.pillar p', '.timeline h3', '.timeline p',
+    '.howto h3', '.howto p', '.faq summary', '.faq details p',
+    '.contact-info .item p', '.prints-line .lede', '.stats-band .facts b',
+    '.stats-band .facts span', '.foot-grid p', '.plate figcaption', '.strip-head .h2'
+  ];
+  const EDIT_SKIP = '#feature-grid, #gallery, #palette-grid, .strip-track, #wall, .lb, .admin-bar, .admin-modal, .alt-view, .showcase, .am-card, [data-count], #result-title, #result-count, #strip-label';
+  const PAGE = (location.pathname.replace(/\/$/, '/index').split('/').pop() || 'index').replace(/\.html$/, '');
+
+  /** Owner-written HTML, kept to plain formatting. */
+  function safeHtml(html) {
+    const t = document.createElement('template');
+    t.innerHTML = String(html);
+    t.content.querySelectorAll('script, style, iframe, object, embed, link, meta, form').forEach(n => n.remove());
+    t.content.querySelectorAll('*').forEach(n => {
+      [...n.attributes].forEach(a => {
+        const v = String(a.value).replace(/\s+/g, '').toLowerCase();
+        if (/^on/i.test(a.name) || (['href', 'src', 'xlink:href'].includes(a.name) && v.startsWith('javascript:'))) n.removeAttribute(a.name);
+      });
+    });
+    return t.innerHTML;
+  }
+
+  KD.markEditable = function () {
+    EDIT_SELECTORS.forEach(sel => {
+      document.querySelectorAll(sel).forEach((el, i) => {
+        if (el.closest(EDIT_SKIP) || el.hasAttribute('data-edit')) return;
+        el.setAttribute('data-edit', PAGE + '|' + sel + '|' + i);
+      });
+    });
+  };
+  KD.markEditable();
+
+  if (C.text) {
+    Object.entries(C.text).forEach(([k, v]) => {
+      const el = document.querySelector('[data-edit="' + (window.CSS && CSS.escape ? CSS.escape(k) : k) + '"]');
+      if (el) el.innerHTML = safeHtml(v);
+    });
+  }
 
   /* ---------- header ---------- */
   const header = document.querySelector('.site-header');

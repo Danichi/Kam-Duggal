@@ -16,15 +16,17 @@ const ROOT = path.join(__dirname, '..');
 const src = JSON.parse(fs.readFileSync(path.join(__dirname, 'source/pixels-paintings.json')));
 const bySlug = Object.fromEntries(src.map(p => [p.slug, p]));
 
-// slug, display title, palette, flags (f = featured on home, w = photographed on a wall, x = watermark)
+// slug, display title, palette, flags
+// f = featured on the home page, h = cycles in the hero, w = photographed on a wall, x = watermark
+// Kam can change f and h himself in the editor; this is only the starting point.
 const CURATED = [
-  ['new-voyage', 'New Voyage', 'ember', 'f'],
+  ['new-voyage', 'New Voyage', 'ember', 'fh'],
   ['abhasa-reflection-of-consciousness', 'Abhasa', 'gold', 'f'],
   ['crimson-currents', 'Crimson Currents', 'crimson', ''],
   ['flp-66', 'FLP 66', 'ocean', ''],
   ['purplerane', 'Purplerane', 'crimson', ''],
-  ['distant-galaxy', 'Distant Galaxy', 'night', 'f'],
-  ['anadi', 'Anadi', 'ember', 'f'],
+  ['distant-galaxy', 'Distant Galaxy', 'night', 'fh'],
+  ['anadi', 'Anadi', 'ember', 'fh'],
   ['silverlite', 'Silverlite', 'crimson', ''],
   ['ablaze', 'Ablaze', 'ember', 'f'],
   ['flp-65', 'FLP 65', 'ocean', ''],
@@ -39,13 +41,13 @@ const CURATED = [
   ['2-bloom', 'Bloom', 'crimson', 'w'],
   ['celestial', 'Celestial', 'crimson', 'w'],
   ['1-dori', 'Dori', 'crimson', 'x'],
-  ['distant-star', 'Distant Star', 'night', ''],
+  ['distant-star', 'Distant Star', 'night', 'h'],
   ['howling-moon', 'Howling Moon', 'night', 'f'],
   ['mystic-vase', 'Mystic Vase', 'night', 'f'],
   ['1sc', '1SC', 'night', 'w'],
   ['2-becoming', 'Becoming', 'night', 'w'],
   ['1-out-of-the-blue-and-into-a-dream', 'Out of the Blue and into a Dream', 'ocean', 'x'],
-  ['24-x-48-2012', 'Untitled, 2012', 'gold', ''],
+  ['24-x-48-2012', 'Untitled, 2012', 'gold', 'h'],
   ['2-the-relic', 'The Relic', 'gold', ''],
   ['fun-day', 'Fun Day', 'gold', 'x'],
   ['vase', 'Vase', 'gold', ''],
@@ -116,6 +118,7 @@ for (const [slug, title, palette, flags] of CURATED) {
   out.push({
     slug, title, palette,
     featured: flags.includes('f'),
+    hero: flags.includes('h'),   // cycles in the home page hero
     wall: flags.includes('w'),
     medium: medium(slug, notes),
     flow, // Kam's brushless flow-paint technique, per his listing

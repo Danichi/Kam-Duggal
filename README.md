@@ -51,6 +51,61 @@ load a local image into WebGL) and the form falls back to the visitor's email ap
 
 ---
 
+## The editor (Kam runs the site himself)
+
+A small lock sits at the right of the header on every page. It opens a password
+box; the password is a Cloudflare secret (`ADMIN_PASSWORD`) and is never in this
+repo. Signing in sets a signed, http-only cookie for 30 days and puts an
+**Editor** bar along the bottom of the screen.
+
+| In the bar | What it does |
+|---|---|
+| **Edit mode** | Turns every marked piece of text on the page into something he can type into, and turns each painting into a drop target for a new photo |
+| **Paintings** | The whole collection: retitle, set medium, size, price and story; tick **Hero** (cycles at the top of the home page), **Featured** (the four cards), **Sold** or **Hide**; drag rows by the handle to reorder; **Add a painting** from a file; **Remove** |
+| **Publish changes** | Writes everything to KV in one go. Nothing he types is live until he presses it |
+| **Undo publish** | Puts the previous published version back (one step) |
+
+Dragging an image file straight onto a painting anywhere on the site replaces
+that painting's photo. The browser resizes it to 1400px and 560px WebP before
+uploading, so a phone photo arrives as a web-ready file.
+
+### How it is wired
+
+- `functions/api/admin/*` handles login, saving, restoring and uploads. Every one
+  needs the cookie and refuses cross-site posts; wrong passwords are rate limited
+  per IP (8 tries per 15 minutes).
+- `functions/api/content.js` serves the saved content as `window.CONTENT = {...}`,
+  loaded before `js/site.js` on every page so edits appear with no flicker. It is
+  always revalidated against an ETag, so a publish is live on the next page load.
+- `functions/api/img/[id].js` serves uploaded images out of KV, cached forever
+  (ids are random and never reused).
+- `js/admin.js` and `css/admin.css` are the editor. A signed-out visitor pays for
+  one `/api/admin/login` check and nothing else.
+- KV namespace `CONTENT` (id in `wrangler.toml`) holds one `content` document, one
+  `content:previous` backup and every uploaded image under `img:*`.
+
+### Changing the password
+
+```bash
+printf 'the-new-password' | npx wrangler pages secret put ADMIN_PASSWORD --project-name kam-duggal
+```
+
+`SESSION_SECRET` signs the cookie, so changing it signs everyone out. For local
+work put both in `.dev.vars` and run:
+
+```bash
+npx wrangler pages dev . --port 8811 --kv CONTENT
+```
+
+### What is still code, not editable
+
+The page structure, the palettes and the process section's four paintings live in
+the files. `tools/build-art.js` is still the source for a fresh install, but once
+Kam publishes anything the live collection comes from KV and `js/data.js` is only
+the fallback.
+
+---
+
 ## Where the content came from
 
 Kam had no informational site: **kamduggal.com currently 301-redirects straight

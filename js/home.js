@@ -4,14 +4,15 @@
   const by = KD.bySlug;
 
   /* ---------- hero showcase + flowing background ---------- */
-  const SLIDES = ['distant-galaxy', 'anadi', 'new-voyage', 'distant-star', '24-x-48-2012'].map(s => by[s]);
+  // whatever Kam has ticked as "Hero" in the editor, else the featured pieces
+  const SLIDES = (P.filter(p => p.hero).length ? P.filter(p => p.hero) : P.filter(p => p.featured)).slice(0, 5);
   const DUR = 7000;
   const show = $('#showcase');
   const stage = $('.stage', show);
   const bars = $('.bars', show);
   const flow = window.KDFlow($('#flow'), SLIDES.map(p => p.slug));
   stage.innerHTML = SLIDES.map((p, i) => `
-    <figure data-i="${i}" ${i ? 'aria-hidden="true"' : ''}>
+    <figure data-i="${i}" data-slug="${p.slug}" ${i ? 'aria-hidden="true"' : ''}>
       <a class="frame" href="originals.html#${p.slug}" aria-label="${KD.esc(p.title)}, view details">
         <img src="${KD.img(p)}" alt="${KD.esc(p.title)} by Kam Duggal" ${i ? 'loading="lazy"' : 'fetchpriority="high"'}>
       </a>
@@ -95,7 +96,7 @@
   const fgrid = $('#feature-grid');
   const FEATURED = P.filter(p => p.featured).slice(0, 4);
   fgrid.innerHTML = FEATURED.map(p => `
-    <li class="fcard">
+    <li class="fcard" data-slug="${p.slug}">
       <a class="shot" href="originals.html#${p.slug}" aria-label="${KD.esc(p.title)}, view the painting">
         <img src="${KD.img(p, true)}" alt="${KD.esc(p.title)}" loading="lazy">
       </a>
@@ -159,8 +160,10 @@
   const order = ['ember', 'crimson', 'ocean', 'night', 'spectrum', 'gesture', 'gold'];
   grid.innerHTML = order.map((k, i) => {
     const pal = KD.PALETTES[k];
-    const n = P.filter(p => p.palette === k).length;
-    const cover = by[pal.cover];
+    const inPalette = P.filter(p => p.palette === k);
+    const n = inPalette.length;
+    if (!n) return "";   // nothing left in this palette, so do not offer an empty filter
+    const cover = by[pal.cover] || inPalette[0];
     return `<a class="palette rv" style="--d:${i * .06}s" href="originals.html?palette=${k}">
       <img src="${KD.img(cover, i > 0)}" alt="" loading="lazy">
       <span class="count">${n} works</span>
@@ -192,7 +195,7 @@
   }
   const items = picked.slice(0, 16);
   track.innerHTML = items.map((p, i) => `
-    <a class="strip-item" href="originals.html#${p.slug}" data-title="${KD.esc(p.title)} · ${KD.size(p)}" style="--i:${i}">
+    <a class="strip-item" data-slug="${p.slug}" href="originals.html#${p.slug}" data-title="${KD.esc(p.title)} · ${KD.size(p)}" style="--i:${i}">
       <img src="${KD.img(p, true)}" alt="${KD.esc(p.title)}" loading="lazy">
     </a>`).join('');
 
