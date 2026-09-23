@@ -77,7 +77,7 @@
     '.mk-quote', '.mk-label', '.mk-bio h2', '.mk-bio p', '.mk-learn', '.mk-inq p',
     '.mk-contact', '.mk-lines em'
   ];
-  const EDIT_SKIP = '#feature-grid, #gallery, #palette-grid, .strip-track, #wall, .lb, .admin-bar, .admin-modal, .alt-view, .showcase, .am-card, [data-count], #result-title, #result-count, #strip-label';
+  const EDIT_SKIP = '#feature-grid, #gallery, #palette-grid, .strip-track, #wall, .lb, .admin-bar, .admin-modal, .showcase, .am-card, [data-count], #result-title, #result-count, #strip-label';
   const PAGE = (location.pathname.replace(/\/$/, '/index').split('/').pop() || 'index').replace(/\.html$/, '');
 
   /** Owner-written HTML, kept to plain formatting. */

@@ -8,8 +8,6 @@
   height: auto; min-height: var(--mk-header-h); padding-block: 8px;
   background: #0d0b09; border-bottom: 1px solid rgba(201, 164, 92, .18); backdrop-filter: none;
 }
-.alt-toggle { top: auto; bottom: 16px; left: auto; right: var(--gutter); }
-@media (max-width: 860px) { .alt-toggle { bottom: 10px; } }
 .mk-header.scrolled { padding-block: 6px; }
 .mk-brand { gap: 18px; align-items: center; }
 .mk-brand .mark { height: clamp(58px, 6vw, 92px); width: auto; }

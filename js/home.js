@@ -69,29 +69,6 @@
     show.addEventListener('pointerleave', () => { show.closest('.hero').classList.remove('paused'); const c = cur; cur = -2; go(c); });
   }
 
-  /* ---------- alt view: Kam's own design ---------- */
-  const altBtn = $('#alt-open');
-  const alt = $('#alt-view');
-  if (altBtn && alt) {
-    const frame = $('#alt-frame');
-    const open = () => {
-      if (!frame.src) frame.src = frame.dataset.src;   // only load it when asked for
-      alt.hidden = false;
-      document.body.classList.add('alt-open');
-      requestAnimationFrame(() => alt.classList.add('open'));
-      $('#alt-close').focus({ preventScroll: true });
-    };
-    const close = () => {
-      alt.classList.remove('open');
-      document.body.classList.remove('alt-open');
-      setTimeout(() => { alt.hidden = true; }, 350);
-      altBtn.focus({ preventScroll: true });
-    };
-    altBtn.addEventListener('click', open);
-    $('#alt-close').addEventListener('click', close);
-    addEventListener('keydown', e => { if (e.key === 'Escape' && !alt.hidden) close(); });
-  }
-
   /* ---------- counting facts ---------- */
 
   document.querySelectorAll('.facts b').forEach(el => {

@@ -46,10 +46,6 @@
   <!-- HERO -->
   <section class="mk-hero" aria-label="Introduction">
     <div class="mk-hero-art" id="hero-art"></div>
-    <button type="button" class="alt-toggle" id="alt-open" aria-haspopup="dialog">
-      <span class="dot"></span>Alt view
-      <small>the full version</small>
-    </button>
     <div class="mk-hero-copy">
       <span class="mk-welcome">Welcome to</span>
       <h1 class="mk-wordmark">
@@ -121,18 +117,6 @@
     <span class="mk-frule"></span>
   </div>
 </footer>
-
-<!-- the fuller build of the same site, one click away -->
-<div class="alt-view" id="alt-view" role="dialog" aria-modal="true" aria-label="The full version" hidden>
-  <div class="alt-bar">
-    <span class="alt-label"><b>Alt view</b> the same site, built out further</span>
-    <span class="alt-actions">
-      <a class="alt-open-new" href="expanded.html" target="_blank" rel="noopener">Open in a tab <i data-icon="out"></i></a>
-      <button type="button" id="alt-close">Back to the site <i data-icon="close"></i></button>
-    </span>
-  </div>
-  <iframe id="alt-frame" title="The full version" data-src="expanded.html" loading="lazy"></iframe>
-</div>
 
 <script src="js/data.js"></script>
 <script src="/api/content.js"></script>
