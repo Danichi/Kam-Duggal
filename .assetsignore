@@ -5,6 +5,7 @@ lib
 README.md
 PROPOSAL.md
 EMAIL-DRAFT.md
+EMAIL-EDITOR.md
 wrangler.toml
 .dev.vars*
 node_modules
