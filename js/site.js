@@ -71,7 +71,11 @@
     '.statement .body p', '.pillar h3', '.pillar p', '.timeline h3', '.timeline p',
     '.howto h3', '.howto p', '.faq summary', '.faq details p',
     '.contact-info .item p', '.prints-line .lede', '.stats-band .facts b',
-    '.stats-band .facts span', '.foot-grid p', '.plate figcaption', '.strip-head .h2'
+    '.stats-band .facts span', '.foot-grid p', '.plate figcaption', '.strip-head .h2',
+    // the home page built to Kam's mockup
+    '.mk-welcome', '.mk-tags span', '.mk-tagline', '.mk-head h2', '.mk-viewall',
+    '.mk-quote', '.mk-label', '.mk-bio h2', '.mk-bio p', '.mk-learn', '.mk-inq p',
+    '.mk-contact', '.mk-lines em'
   ];
   const EDIT_SKIP = '#feature-grid, #gallery, #palette-grid, .strip-track, #wall, .lb, .admin-bar, .admin-modal, .alt-view, .showcase, .am-card, [data-count], #result-title, #result-count, #strip-label';
   const PAGE = (location.pathname.replace(/\/$/, '/index').split('/').pop() || 'index').replace(/\.html$/, '');

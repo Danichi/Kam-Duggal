@@ -21,14 +21,14 @@ const bySlug = Object.fromEntries(src.map(p => [p.slug, p]));
 // Kam can change f and h himself in the editor; this is only the starting point.
 const CURATED = [
   ['new-voyage', 'New Voyage', 'ember', 'fh'],
-  ['abhasa-reflection-of-consciousness', 'Abhasa', 'gold', 'f'],
-  ['crimson-currents', 'Crimson Currents', 'crimson', ''],
+  ['abhasa-reflection-of-consciousness', 'Abhasa', 'gold', ''],
+  ['crimson-currents', 'Crimson Currents', 'crimson', 'f'],
   ['flp-66', 'FLP 66', 'ocean', ''],
-  ['purplerane', 'Purplerane', 'crimson', ''],
-  ['distant-galaxy', 'Distant Galaxy', 'night', 'fh'],
-  ['anadi', 'Anadi', 'ember', 'fh'],
-  ['silverlite', 'Silverlite', 'crimson', ''],
-  ['ablaze', 'Ablaze', 'ember', 'f'],
+  ['purplerane', 'Purplerane', 'crimson', 'f'],
+  ['distant-galaxy', 'Distant Galaxy', 'night', 'h'],
+  ['anadi', 'Anadi', 'ember', 'h'],
+  ['silverlite', 'Silverlite', 'crimson', 'f'],
+  ['ablaze', 'Ablaze', 'ember', ''],
   ['flp-65', 'FLP 65', 'ocean', ''],
   ['flp64', 'FLP 64', 'ocean', ''],
   ['1-twilight', 'Reborn', 'ocean', ''],
@@ -37,13 +37,13 @@ const CURATED = [
   ['2-the-phoenix', 'The Phoenix', 'ember', ''],
   ['wall-street-bull', 'Wall Street Bull', 'ember', ''],
   ['2-eruption', 'Eruption', 'ember', 'x'],
-  ['release-p', 'Release', 'crimson', 'f'],
+  ['release-p', 'Release', 'crimson', ''],
   ['2-bloom', 'Bloom', 'crimson', 'w'],
   ['celestial', 'Celestial', 'crimson', 'w'],
   ['1-dori', 'Dori', 'crimson', 'x'],
   ['distant-star', 'Distant Star', 'night', 'h'],
-  ['howling-moon', 'Howling Moon', 'night', 'f'],
-  ['mystic-vase', 'Mystic Vase', 'night', 'f'],
+  ['howling-moon', 'Howling Moon', 'night', ''],
+  ['mystic-vase', 'Mystic Vase', 'night', ''],
   ['1sc', '1SC', 'night', 'w'],
   ['2-becoming', 'Becoming', 'night', 'w'],
   ['1-out-of-the-blue-and-into-a-dream', 'Out of the Blue and into a Dream', 'ocean', 'x'],
@@ -70,6 +70,16 @@ const CURATED = [
   ['slipstream', 'Slipstream', 'spectrum', 'x'],
   ['limelite', 'Stormy Monday', 'spectrum', 'w']
 ];
+
+// Kam's own mockup of the home page lists these four with prices and sizes that
+// his Pixels listings do not carry. They are his numbers, so they win here; he
+// can change any of them in the editor.
+const FROM_MOCKUP = {
+  'new-voyage': { price: '$887', size: [48, 24] },
+  'crimson-currents': { price: '$1,250', size: [36, 48] },
+  'purplerane': { price: '$980', size: [30, 40] },
+  'silverlite': { price: '$750', size: [24, 36] }
+};
 
 // What Kam himself has said about a piece. Pixels has no per-painting stories,
 // only his one shared statement; these come from the few listings where he
@@ -129,7 +139,8 @@ for (const [slug, title, palette, flags] of CURATED) {
     printsFrom: +p.printFrom > 0 && +p.printFrom < 2000 ? Math.round(+p.printFrom) : null,
     year: /2012/.test(notes + title) ? 2012 : null,
     story: STORIES[slug] || '',
-    shop: p.url
+    shop: p.url,
+    ...(FROM_MOCKUP[slug] || {})
   });
 }
 

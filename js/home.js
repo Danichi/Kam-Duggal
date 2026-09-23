@@ -3,51 +3,71 @@
   const P = window.PAINTINGS;
   const by = KD.bySlug;
 
-  /* ---------- hero showcase + flowing background ---------- */
-  // whatever Kam has ticked as "Hero" in the editor, else the featured pieces
+  /* ---------- hero artwork ---------- */
+  // Kam's mockup has one big painting bleeding off the right of the hero. It
+  // still cycles, quietly, through whatever he has ticked as Hero.
   const SLIDES = (P.filter(p => p.hero).length ? P.filter(p => p.hero) : P.filter(p => p.featured)).slice(0, 5);
   const DUR = 7000;
-  const show = $('#showcase');
-  const stage = $('.stage', show);
-  const bars = $('.bars', show);
-  const flow = window.KDFlow($('#flow'), SLIDES.map(p => p.slug));
-  stage.innerHTML = SLIDES.map((p, i) => `
-    <figure data-i="${i}" data-slug="${p.slug}" ${i ? 'aria-hidden="true"' : ''}>
-      <a class="frame" href="originals.html#${p.slug}" aria-label="${KD.esc(p.title)}, view details">
+  const heroArt = $('#hero-art');
+  const show = $('#showcase');              // the fuller build still uses this
+  if (heroArt && SLIDES.length) {
+    heroArt.innerHTML = SLIDES.map((p, i) => `
+      <figure data-slug="${p.slug}" ${i ? '' : 'class="on"'}>
         <img src="${KD.img(p)}" alt="${KD.esc(p.title)} by Kam Duggal" ${i ? 'loading="lazy"' : 'fetchpriority="high"'}>
-      </a>
-    </figure>`).join('');
-  bars.innerHTML = SLIDES.map((p, i) => `<button type="button" role="tab" aria-label="Show ${KD.esc(p.title)}"></button>`).join('');
-  bars.style.setProperty('--dur', DUR + 'ms');
-  const figs = [...stage.children];
-  const btns = [...bars.children];
-  let cur = -1, timer = 0;
-
-  function go(i, user) {
-    i = (i + SLIDES.length) % SLIDES.length;
-    if (i === cur) return;
-    const p = SLIDES[i];
-    figs.forEach((f, k) => { f.classList.toggle('on', k === i); f.setAttribute('aria-hidden', k !== i); });
-    btns.forEach((b, k) => {
-      b.classList.remove('on');
-      b.classList.toggle('done', k < i);
-      b.setAttribute('aria-selected', k === i);
-    });
-    void bars.offsetWidth; // restart the progress animation
-    btns[i].classList.add('on');
-    $('.now b', show).textContent = p.title;
-    $('.now span', show).textContent = `${p.medium} · ${KD.size(p)}`;
-    $('.count', show).textContent = `${String(i + 1).padStart(2, '0')} / ${String(SLIDES.length).padStart(2, '0')}`;
-    if (cur !== -1) flow.show(i);
-    cur = i;
-    clearTimeout(timer);
-    if (!KD.reduced) timer = setTimeout(() => go(cur + 1), DUR);
+      </figure>`).join('');
+    const figs = [...heroArt.children];
+    let at = 0;
+    if (!KD.reduced && figs.length > 1) {
+      setInterval(() => {
+        figs[at].classList.remove('on');
+        at = (at + 1) % figs.length;
+        figs[at].classList.add('on');
+      }, DUR);
+    }
   }
-  btns.forEach((b, i) => b.addEventListener('click', () => go(i, true)));
-  go(0);
-  // pause while the visitor is looking at the frame
-  show.addEventListener('pointerenter', () => { clearTimeout(timer); show.closest('.hero').classList.add('paused'); });
-  show.addEventListener('pointerleave', () => { show.closest('.hero').classList.remove('paused'); const c = cur; cur = -2; go(c); });
+
+  /* ---------- framed slideshow (the fuller build only) ---------- */
+  if (show) {
+    const stage = $('.stage', show);
+    const bars = $('.bars', show);
+    const flow = window.KDFlow ? window.KDFlow($('#flow'), SLIDES.map(p => p.slug)) : { show() {} };
+    stage.innerHTML = SLIDES.map((p, i) => `
+      <figure data-i="${i}" data-slug="${p.slug}" ${i ? 'aria-hidden="true"' : ''}>
+        <a class="frame" href="originals.html#${p.slug}" aria-label="${KD.esc(p.title)}, view details">
+          <img src="${KD.img(p)}" alt="${KD.esc(p.title)} by Kam Duggal" ${i ? 'loading="lazy"' : 'fetchpriority="high"'}>
+        </a>
+      </figure>`).join('');
+    bars.innerHTML = SLIDES.map(p => `<button type="button" role="tab" aria-label="Show ${KD.esc(p.title)}"></button>`).join('');
+    bars.style.setProperty('--dur', DUR + 'ms');
+    const figs = [...stage.children];
+    const btns = [...bars.children];
+    let cur = -1, timer = 0;
+
+    const go = (i) => {
+      i = (i + SLIDES.length) % SLIDES.length;
+      if (i === cur) return;
+      const p = SLIDES[i];
+      figs.forEach((f, k) => { f.classList.toggle('on', k === i); f.setAttribute('aria-hidden', k !== i); });
+      btns.forEach((b, k) => {
+        b.classList.remove('on');
+        b.classList.toggle('done', k < i);
+        b.setAttribute('aria-selected', k === i);
+      });
+      void bars.offsetWidth;
+      btns[i].classList.add('on');
+      $('.now b', show).textContent = p.title;
+      $('.now span', show).textContent = `${p.medium} · ${KD.size(p)}`;
+      $('.count', show).textContent = `${String(i + 1).padStart(2, '0')} / ${String(SLIDES.length).padStart(2, '0')}`;
+      if (cur !== -1) flow.show(i);
+      cur = i;
+      clearTimeout(timer);
+      if (!KD.reduced) timer = setTimeout(() => go(cur + 1), DUR);
+    };
+    btns.forEach((b, i) => b.addEventListener('click', () => go(i)));
+    go(0);
+    show.addEventListener('pointerenter', () => { clearTimeout(timer); show.closest('.hero').classList.add('paused'); });
+    show.addEventListener('pointerleave', () => { show.closest('.hero').classList.remove('paused'); const c = cur; cur = -2; go(c); });
+  }
 
   /* ---------- alt view: Kam's own design ---------- */
   const altBtn = $('#alt-open');
@@ -73,6 +93,7 @@
   }
 
   /* ---------- counting facts ---------- */
+
   document.querySelectorAll('.facts b').forEach(el => {
     const target = parseInt(el.textContent, 10);
     if (!target || KD.reduced) return;
@@ -94,23 +115,26 @@
 
   /* ---------- featured originals ---------- */
   const fgrid = $('#feature-grid');
-  const FEATURED = P.filter(p => p.featured).slice(0, 4);
-  fgrid.innerHTML = FEATURED.map(p => `
-    <li class="fcard" data-slug="${p.slug}">
-      <a class="shot" href="originals.html#${p.slug}" aria-label="${KD.esc(p.title)}, view the painting">
-        <img src="${KD.img(p, true)}" alt="${KD.esc(p.title)}" loading="lazy">
-      </a>
-      <h3><a href="originals.html#${p.slug}">${KD.esc(p.title)}</a></h3>
-      <p class="spec">${p.medium} &nbsp;|&nbsp; ${KD.size(p)}</p>
-      <p class="price">${KD.price(p)} <span>${p.original === 'available' ? 'Original available' : 'Ask about availability'}</span></p>
-      <div class="row">
-        <a class="btn gold small" href="${KD.inquire(p)}">Buy the original</a>
-        <a class="btn small" href="${p.shop}">Buy a print ${KD.icon('out', 'arr')}</a>
-      </div>
-    </li>`).join('');
+  if (fgrid) {
+    const FEATURED = P.filter(p => p.featured).slice(0, 4);
+    fgrid.innerHTML = FEATURED.map(p => `
+      <li class="fcard" data-slug="${p.slug}">
+        <a class="shot" href="originals.html#${p.slug}" aria-label="${KD.esc(p.title)}, view the painting">
+          <img src="${KD.img(p, true)}" alt="${KD.esc(p.title)}" loading="lazy">
+        </a>
+        <h3><a href="originals.html#${p.slug}">${KD.esc(p.title)}</a></h3>
+        <p class="spec">${KD.esc(p.medium)}<i>|</i>${p.size ? p.size[0] + '" x ' + p.size[1] + '"' : 'Size on request'}</p>
+        <p class="price">${KD.price(p)}<i>|</i><span class="${p.original === 'available' ? '' : 'gone'}">${p.original === 'available' ? 'Original Available' : 'Ask about availability'}</span></p>
+        <div class="row">
+          <a class="buy" href="${KD.inquire(p)}">Buy Original Now</a>
+          <a class="print" href="${p.shop}">Buy a Print</a>
+        </div>
+      </li>`).join('');
+  }
 
   /* ---------- spotlight loupe ---------- */
   const host = $('#loupe');
+  if (host) {
   const lens = $('.loupe', host);
   const limg = $('img', host);
   const ZOOM = 3;
@@ -127,9 +151,11 @@
     lens.classList.add('on');
   });
   host.addEventListener('pointerleave', () => lens.classList.remove('on'));
+  }
 
   /* ---------- process: the lens zooms into the paint ---------- */
   const steps = [...document.querySelectorAll('#steps li')];
+  if (steps.length) {
   const lensImg = $('#lens-img');
   const lensN = $('#lens-n');
   const lensLabel = $('#lens-label');
@@ -156,9 +182,11 @@
   }, { rootMargin: '-45% 0px -45% 0px' });
   steps.forEach(s => stepIO.observe(s));
   setStep(0);
+  }
 
   /* ---------- palettes ---------- */
   const grid = $('#palette-grid');
+  if (grid) {
   const order = ['ember', 'crimson', 'ocean', 'night', 'spectrum', 'gesture', 'gold'];
   grid.innerHTML = order.map((k, i) => {
     const pal = KD.PALETTES[k];
@@ -176,6 +204,7 @@
     </a>`;
   }).join('');
   KD.observe(grid);
+  }
 
 })();
 

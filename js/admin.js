@@ -176,7 +176,7 @@
   }
 
   function markDroppable(on) {
-    const imgs = $$('.fcard .shot, .tile .img, .showcase .frame, .strip-item, .loupe-host, .plate, .lens, .palette, .timeline .thumbs img, .ghost-wrap, .lb-stage, [data-img-slot]');
+    const imgs = $$('.fcard .shot, .tile .img, .showcase .frame, .mk-hero-art figure, .strip-item, .loupe-host, .plate, .lens, .palette, .timeline .thumbs img, .ghost-wrap, .lb-stage, [data-img-slot]');
     imgs.forEach(el => {
       el.classList.toggle('can-drop', on);
       if (on && !el.dataset.dropBound) {
