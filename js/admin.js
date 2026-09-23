@@ -134,7 +134,8 @@
       state.doc = {
         text: content.text || {},
         paintings: Array.isArray(content.paintings) ? content.paintings : null,
-        hero: Array.isArray(content.hero) ? content.hero : null
+        hero: Array.isArray(content.hero) ? content.hero : null,
+        images: content.images || {}
       };
     } catch (e) { status(e.message, 'warn'); }
     status('Signed in', 'ok');
@@ -173,7 +174,7 @@
   }
 
   function markDroppable(on) {
-    const imgs = $$('.fcard .shot, .tile .img, .showcase .frame, .strip-item');
+    const imgs = $$('.fcard .shot, .tile .img, .showcase .frame, .strip-item, .loupe-host, .plate, .lens, .palette, .timeline .thumbs img, .ghost-wrap, .lb-stage, [data-img-slot]');
     imgs.forEach(el => {
       el.classList.toggle('can-drop', on);
       if (on && !el.dataset.dropBound) {
@@ -184,8 +185,11 @@
           e.preventDefault();
           el.classList.remove('drop-over');
           const file = e.dataTransfer.files && e.dataTransfer.files[0];
+          if (!file) return status('Drop an image file to replace this one.', 'warn');
+          const slot = el.closest('[data-img-slot]');
+          if (slot) return replaceSlot(slot, file);        // a page image, not a painting
           const p = paintingFromEl(el);
-          if (!file || !p) return status('Drop an image onto a painting to replace it.', 'warn');
+          if (!p) return status('That image is not tied to a painting yet.', 'warn');
           await replaceImage(p, file);
         });
       }
@@ -236,10 +240,24 @@
     } catch (e) { status(e.message, 'warn'); }
   }
 
+  /** A page image that is not a painting: the portrait, for instance. */
+  async function replaceSlot(el, file) {
+    status('Uploading…');
+    try {
+      const { img } = await uploadBoth(file);
+      (state.doc.images ||= {})[el.dataset.imgSlot] = img;
+      el.src = img;
+      markDirty();
+      status('Image replaced. Publish to make it live.', 'ok');
+    } catch (e) { status(e.message, 'warn'); }
+  }
+
   /** Swap every img on the page that shows this painting. */
   function refreshImages(p) {
-    $$(`[data-slug="${CSS.escape(p.slug)}"] img, [data-painting="${CSS.escape(p.slug)}"] img`).forEach(img => {
-      img.src = img.src.includes('-sm') || img.width < 700 ? (p.imgSm || p.img) : (p.img || p.imgSm);
+    const sel = CSS.escape(p.slug);
+    $$(`[data-slug="${sel}"], [data-painting="${sel}"]`).forEach(host => {
+      const img = host.tagName === 'IMG' ? host : host.querySelector('img');
+      if (img) img.src = img.width && img.width < 700 ? (p.imgSm || p.img) : (p.img || p.imgSm);
     });
   }
 
@@ -387,7 +405,7 @@
       await api('/api/admin/content', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: state.doc.text, paintings: state.doc.paintings || undefined, hero: state.doc.hero || undefined })
+        body: JSON.stringify({ text: state.doc.text, paintings: state.doc.paintings || undefined, hero: state.doc.hero || undefined, images: state.doc.images || undefined })
       });
       state.dirty = false;
       status('Published. The site is live with your changes.', 'ok');

@@ -100,6 +100,23 @@
   };
   KD.markEditable();
 
+  // Static images that show a painting follow whatever photo that painting has now.
+  KD.applyImages = function (scope = document) {
+    scope.querySelectorAll('[data-slug]').forEach(host => {
+      const p = KD.bySlug[host.dataset.slug];
+      if (!p || !(p.img || p.imgSm)) return;
+      const img = host.tagName === 'IMG' ? host : host.querySelector('img');
+      if (!img || img.closest('#feature-grid, #gallery, .strip-track, .stage')) return;
+      img.src = KD.img(p, /-sm\.webp$|kam-portrait/.test(img.getAttribute('src') || ''));
+    });
+    // page images that are not paintings (the portrait, for one)
+    Object.entries((window.CONTENT && window.CONTENT.images) || {}).forEach(([k, url]) => {
+      const el = document.querySelector('[data-img-slot="' + k + '"]');
+      if (el && url) el.src = url;
+    });
+  };
+  KD.applyImages();
+
   if (C.text) {
     Object.entries(C.text).forEach(([k, v]) => {
       const el = document.querySelector('[data-edit="' + (window.CSS && CSS.escape ? CSS.escape(k) : k) + '"]');

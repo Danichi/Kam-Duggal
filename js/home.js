@@ -139,11 +139,13 @@
     active = i;
     const s = steps[i];
     steps.forEach((li, k) => li.classList.toggle('on', k === i));
-    const src = `img/art/${s.dataset.img}.webp`;
+    const piece = by[s.dataset.img];
+    const src = piece ? KD.img(piece) : `img/art/${s.dataset.img}.webp`;   // follows a swapped photo
     if (!lensImg.src.endsWith(src)) {
       lensImg.style.opacity = 0;
       setTimeout(() => { lensImg.src = src; lensImg.onload = () => { lensImg.style.opacity = 1; }; }, 250);
     }
+    lensImg.closest('.lens').dataset.slug = s.dataset.img;   // so a dropped image lands on the right piece
     lensImg.style.transition = 'transform 1.6s cubic-bezier(.2,.7,.1,1), opacity .25s';
     lensImg.style.setProperty('--z', KD.reduced ? 1 : s.dataset.z);
     lensN.textContent = String(i + 1).padStart(2, '0');
@@ -164,7 +166,7 @@
     const n = inPalette.length;
     if (!n) return "";   // nothing left in this palette, so do not offer an empty filter
     const cover = by[pal.cover] || inPalette[0];
-    return `<a class="palette rv" style="--d:${i * .06}s" href="originals.html?palette=${k}">
+    return `<a class="palette rv" data-slug="${cover.slug}" style="--d:${i * .06}s" href="originals.html?palette=${k}">
       <img src="${KD.img(cover, i > 0)}" alt="" loading="lazy">
       <span class="count">${n} works</span>
       <h3>${pal.name}</h3>

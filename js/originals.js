@@ -125,6 +125,7 @@
       ['Original', p.original === 'available' ? (p.price ? 'Available · ' + p.price : 'Available, price on request') : 'Ask Kam']
     ].filter(r => r[1]);
     $('#lb-dl').innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${KD.esc(v)}</dd>`).join('');
+    stage.dataset.slug = p.slug;   // drop an image here to replace this piece
     $('#lb-inquire').href = KD.inquire(p);
     $('#lb-shop').href = p.shop;
     $('#lb-note').textContent = p.wall ? 'This photo shows the painting hanging on a wall.' : '';

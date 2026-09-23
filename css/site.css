@@ -90,6 +90,7 @@ body::after {
 }
 .spotlight { background-color: var(--ink-2); }
 .light { background-image: none; }
+.ghost-wrap { display: contents; }
 /* a painting, ghosted, as the backdrop of a section */
 .ghost {
   position: absolute; z-index: -1; pointer-events: none;

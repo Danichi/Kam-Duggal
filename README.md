@@ -65,7 +65,11 @@ repo. Signing in sets a signed, http-only cookie for 30 days and puts an
 | **Publish changes** | Writes everything to KV in one go. Nothing he types is live until he presses it |
 | **Undo publish** | Puts the previous published version back (one step) |
 
-Dragging an image file straight onto a painting anywhere on the site replaces
+Every image of a painting on the site is a drop target: the hero slides, the four
+featured cards, the gallery tiles, the close-up piece, the process section, the
+palette covers, the timeline thumbnails, the faded backdrops and the detail view.
+His portrait is one too (kept in `content.images`, keyed by `data-img-slot`).
+Dragging an image file onto any of them replaces
 that painting's photo. The browser resizes it to 1400px and 560px WebP before
 uploading, so a phone photo arrives as a web-ready file.
 

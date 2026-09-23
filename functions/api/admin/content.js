@@ -30,7 +30,8 @@ export async function onRequestPut({ request, env }) {
     updated: new Date().toISOString(),
     text: doc.text && typeof doc.text === 'object' ? doc.text : {},
     paintings: Array.isArray(doc.paintings) ? doc.paintings : undefined,
-    hero: Array.isArray(doc.hero) ? doc.hero.filter(s => typeof s === 'string').slice(0, 12) : undefined
+    hero: Array.isArray(doc.hero) ? doc.hero.filter(s => typeof s === 'string').slice(0, 12) : undefined,
+    images: doc.images && typeof doc.images === 'object' && !Array.isArray(doc.images) ? doc.images : undefined
   };
   const body = JSON.stringify(clean);
   if (body.length > MAX_BYTES) return json({ error: 'That is too much content to save at once.' }, 413);
