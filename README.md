@@ -60,7 +60,7 @@ repo. Signing in sets a signed, http-only cookie for 30 days and puts an
 
 | In the bar | What it does |
 |---|---|
-| **Edit mode** | Turns every marked piece of text on the page into something he can type into, and turns each painting into a drop target for a new photo |
+| **Edit mode** | Marked text becomes typeable. Every image becomes replaceable: click it to pick a file, or drag one onto it. Every section grows a **Move** handle and a **Hide** button, so blocks can be dragged into a different order or taken off the page |
 | **Paintings** | The whole collection: retitle, set medium, size, price and story; tick **Hero** (cycles at the top of the home page), **Featured** (the four cards), **Sold** or **Hide**; drag rows by the handle to reorder; **Add a painting** from a file; **Remove** |
 | **Publish changes** | Writes everything to KV in one go. Nothing he types is live until he presses it |
 | **Undo publish** | Puts the previous published version back (one step) |

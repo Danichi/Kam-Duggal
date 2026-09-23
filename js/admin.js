@@ -135,7 +135,8 @@
         text: content.text || {},
         paintings: Array.isArray(content.paintings) ? content.paintings : null,
         hero: Array.isArray(content.hero) ? content.hero : null,
-        images: content.images || {}
+        images: content.images || {},
+        layout: content.layout || {}
       };
     } catch (e) { status(e.message, 'warn'); }
     status('Signed in', 'ok');
@@ -163,6 +164,7 @@
       }
     });
     markDroppable(on);
+    markSortable(on);
   }
 
   /* ---------------- drag an image onto a painting ---------------- */
@@ -181,6 +183,12 @@
         el.dataset.dropBound = '1';
         el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drop-over'); });
         el.addEventListener('dragleave', () => el.classList.remove('drop-over'));
+        el.addEventListener('click', e => {
+          if (!state.editing) return;
+          e.preventDefault();
+          e.stopPropagation();
+          pickFor(el);
+        }, true);
         el.addEventListener('drop', async e => {
           e.preventDefault();
           el.classList.remove('drop-over');
@@ -195,6 +203,33 @@
       }
     });
   }
+
+  /* ---------------- click to upload ---------------- */
+
+  const filePick = document.createElement('input');
+  filePick.type = 'file';
+  filePick.accept = 'image/*';
+  filePick.hidden = true;
+  document.body.appendChild(filePick);
+  let pickTarget = null;
+
+  /** Open the file picker for a spot on the page (no dragging needed). */
+  function pickFor(el) {
+    pickTarget = el;
+    filePick.value = '';
+    filePick.click();
+  }
+  filePick.addEventListener('change', async () => {
+    const file = filePick.files && filePick.files[0];
+    const el = pickTarget;
+    pickTarget = null;
+    if (!file || !el) return;
+    const slot = el.closest('[data-img-slot]');
+    if (slot) return replaceSlot(slot, file);
+    const p = paintingFromEl(el);
+    if (!p) return status('That image is not tied to a painting yet.', 'warn');
+    await replaceImage(p, file);
+  });
 
   /* ---------------- images ---------------- */
 
@@ -259,6 +294,72 @@
       const img = host.tagName === 'IMG' ? host : host.querySelector('img');
       if (img) img.src = img.width && img.width < 700 ? (p.imgSm || p.img) : (p.img || p.imgSm);
     });
+  }
+
+  /* ---------------- rearranging blocks ---------------- */
+
+  let dragBlock = null;
+
+  function markSortable(on) {
+    $$('[data-sort]').forEach(c => {
+      c.classList.toggle('sorting', on);
+      [...c.children].forEach(ch => {
+        if (!on) { const t = ch.querySelector(':scope > .block-tools'); if (t) t.remove(); ch.classList.remove('block'); return; }
+        if (ch.querySelector(':scope > .block-tools')) return;
+        ch.classList.add('block');
+        const tools = document.createElement('div');
+        tools.className = 'block-tools';
+        tools.innerHTML = '<span class="bt-grip" draggable="true" title="Drag to move this block">⠿ Move</span>' +
+          '<button type="button" class="bt-hide" title="Show or hide this block">' + (ch.hidden ? 'Show' : 'Hide') + '</button>';
+        tools.querySelector('.bt-hide').addEventListener('click', ev => {
+          ev.preventDefault(); ev.stopPropagation();
+          ch.hidden = !ch.hidden;
+          ch.classList.toggle('block-off', ch.hidden);
+          ev.target.textContent = ch.hidden ? 'Show' : 'Hide';
+          saveLayout(c);
+        });
+        tools.querySelector('.bt-grip').addEventListener('dragstart', ev => {
+          dragBlock = ch;
+          ch.classList.add('block-dragging');
+          ev.dataTransfer.effectAllowed = 'move';
+          try { ev.dataTransfer.setData('text/plain', 'block'); } catch {}
+        });
+        tools.querySelector('.bt-grip').addEventListener('dragend', () => {
+          ch.classList.remove('block-dragging');
+          $$('.block-over').forEach(x => x.classList.remove('block-over'));
+          dragBlock = null;
+        });
+        ch.prepend(tools);
+      });
+
+      if (on && !c.dataset.sortBound) {
+        c.dataset.sortBound = '1';
+        c.addEventListener('dragover', e => {
+          if (!dragBlock || dragBlock.parentElement !== c) return;
+          e.preventDefault();
+          const over = [...c.children].find(ch => ch !== dragBlock && ch.contains(e.target));
+          if (!over) return;
+          $$('.block-over', c).forEach(x => x.classList.remove('block-over'));
+          over.classList.add('block-over');
+          const r = over.getBoundingClientRect();
+          const after = (e.clientY - r.top) > r.height / 2;
+          c.insertBefore(dragBlock, after ? over.nextSibling : over);
+        });
+        c.addEventListener('drop', e => {
+          if (!dragBlock) return;
+          e.preventDefault();
+          $$('.block-over', c).forEach(x => x.classList.remove('block-over'));
+          saveLayout(c);
+        });
+      }
+    });
+  }
+
+  function saveLayout(c) {
+    (state.doc.layout ||= {})[c.dataset.sort] =
+      [...c.children].map(ch => ({ b: ch.dataset.block, h: ch.hidden || undefined }));
+    markDirty();
+    status('Layout changed. Publish to make it live.', 'warn');
   }
 
   /* ---------------- the painting list ---------------- */
@@ -344,6 +445,12 @@
       markDirty();
     };
     host.onclick = e => {
+      const thumb = e.target.closest('.am-thumb');
+      if (thumb) {
+        const row = thumb.closest('.am-row');
+        pickFor(row);
+        return;
+      }
       const del = e.target.closest('[data-del]');
       if (!del) return;
       const i = +del.dataset.del;
@@ -405,7 +512,7 @@
       await api('/api/admin/content', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: state.doc.text, paintings: state.doc.paintings || undefined, hero: state.doc.hero || undefined, images: state.doc.images || undefined })
+        body: JSON.stringify({ text: state.doc.text, paintings: state.doc.paintings || undefined, hero: state.doc.hero || undefined, images: state.doc.images || undefined, layout: state.doc.layout || undefined })
       });
       state.dirty = false;
       status('Published. The site is live with your changes.', 'ok');

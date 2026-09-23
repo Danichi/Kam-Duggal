@@ -100,6 +100,68 @@
   };
   KD.markEditable();
 
+  /* ---------- blocks that can be reordered ---------- */
+  // Containers whose children Kam can drag into a different order (or hide).
+  KD.SORTABLE = ['main', '#steps', '.pillars', '.howto', '#timeline', '.faq-items', '.foot-grid', '.feature-grid'];
+
+  KD.markBlocks = function () {
+    KD.SORTABLE.forEach(sel => {
+      document.querySelectorAll(sel).forEach(c => {
+        c.dataset.sort = PAGE + '|' + sel;
+        [...c.children].forEach((ch, i) => { if (!ch.dataset.block) ch.dataset.block = String(i); });
+      });
+    });
+  };
+  KD.markBlocks();
+
+  KD.applyLayout = function () {
+    const L = C.layout || {};
+    Object.entries(L).forEach(([key, items]) => {
+      const c = document.querySelector('[data-sort="' + (window.CSS && CSS.escape ? CSS.escape(key) : key) + '"]');
+      if (!c || !Array.isArray(items)) return;
+      const byId = {};
+      [...c.children].forEach(ch => { byId[ch.dataset.block] = ch; });
+      items.forEach(it => {
+        const ch = byId[it.b];
+        if (!ch) return;
+        c.appendChild(ch);          // re-appending in saved order is the reorder
+        ch.hidden = Boolean(it.h);
+      });
+    });
+  };
+  KD.applyLayout();
+
+  /* ---------- blocks that can be reordered ---------- */
+  // Containers whose children Kam can drag into a different order (or hide).
+  KD.SORTABLE = ['main', '#steps', '.pillars', '.howto', '#timeline', '.faq-items', '.foot-grid', '.feature-grid'];
+
+  KD.markBlocks = function () {
+    KD.SORTABLE.forEach(sel => {
+      document.querySelectorAll(sel).forEach(c => {
+        c.dataset.sort = PAGE + '|' + sel;
+        [...c.children].forEach((ch, i) => { if (!ch.dataset.block) ch.dataset.block = String(i); });
+      });
+    });
+  };
+  KD.markBlocks();
+
+  KD.applyLayout = function () {
+    const L = C.layout || {};
+    Object.entries(L).forEach(([key, items]) => {
+      const c = document.querySelector('[data-sort="' + (window.CSS && CSS.escape ? CSS.escape(key) : key) + '"]');
+      if (!c || !Array.isArray(items)) return;
+      const byId = {};
+      [...c.children].forEach(ch => { byId[ch.dataset.block] = ch; });
+      items.forEach(it => {
+        const ch = byId[it.b];
+        if (!ch) return;
+        c.appendChild(ch);          // re-appending in saved order is the reorder
+        ch.hidden = Boolean(it.h);
+      });
+    });
+  };
+  KD.applyLayout();
+
   // Static images that show a painting follow whatever photo that painting has now.
   KD.applyImages = function (scope = document) {
     scope.querySelectorAll('[data-slug]').forEach(host => {

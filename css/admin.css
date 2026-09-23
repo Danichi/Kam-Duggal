@@ -102,3 +102,22 @@ body.editing .can-drop:hover::after, body.editing .can-drop.drop-over::after { o
 
 /* the site-wide cursor dot gets in the way while editing */
 body.editing .cursor { display: none !important; }
+
+/* rearranging blocks */
+body.editing .block { position: relative; outline: 1px dashed rgba(201, 164, 92, .3); outline-offset: -2px; }
+body.editing .block > .block-tools {
+  position: absolute; z-index: 60; top: 8px; right: 8px; display: flex; gap: 6px; opacity: 0; transition: opacity .2s;
+}
+body.editing .block:hover > .block-tools { opacity: 1; }
+body.editing .block-tools .bt-grip, body.editing .block-tools .bt-hide {
+  display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; cursor: grab;
+  background: rgba(11, 10, 9, .9); border: 1px solid var(--gold-lo); color: var(--bone);
+  font: 500 9px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase;
+}
+body.editing .block-tools .bt-hide { cursor: pointer; }
+body.editing .block-tools .bt-hide:hover, body.editing .block-tools .bt-grip:hover { background: var(--gold); color: var(--ink); }
+body.editing .block-dragging { opacity: .4; }
+body.editing .block-over { outline: 2px solid var(--gold-hi); }
+/* a hidden block stays visible to the owner, greyed out, so it can be brought back */
+body.editing [data-sort] > [hidden] { display: revert !important; opacity: .35; filter: grayscale(1); }
+body.editing .sorting { min-height: 40px; }

@@ -65,8 +65,10 @@ small padlock. That is yours. Press it, put in the password I sent you
 separately, and an editor bar appears along the bottom of the screen.
 
 Flick on **Edit mode** and you can click straight onto the words on the page and
-retype them. Drag a photo from your computer onto any painting and it replaces
-that painting's picture. Press **Paintings** and you get the whole collection in
+retype them. Click any picture and your files open so you can pick a new one, or
+drag one across from a folder if you prefer. Every block on the page also gets a
+small **Move** handle: drag it to put the sections in a different order, or press
+**Hide** to take one off the page for now. Press **Paintings** and you get the whole collection in
 a list: titles, sizes, prices, what is sold, what is hidden. Drag the rows up and
 down to change the order, tick **Hero** for the paintings that cycle at the top of
 the home page, tick **Featured** for the four on the front, and use **Add a
