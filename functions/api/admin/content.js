@@ -35,8 +35,10 @@ export async function onRequestPut({ request, env }) {
   const body = JSON.stringify(clean);
   if (body.length > MAX_BYTES) return json({ error: 'That is too much content to save at once.' }, 413);
 
-  const previous = await env.CONTENT.get(CONTENT_KEY);
-  if (previous) await env.CONTENT.put(BACKUP_KEY, previous);
+  // Always leave a backup, even on the very first publish, so Undo can always
+  // take the site back to how it was.
+  const previous = (await env.CONTENT.get(CONTENT_KEY)) || JSON.stringify({ v: 1, text: {} });
+  await env.CONTENT.put(BACKUP_KEY, previous);
   await env.CONTENT.put(CONTENT_KEY, body);
   return json({ ok: true, updated: clean.updated, hasBackup: Boolean(previous) });
 }

@@ -58,6 +58,27 @@ about. What it was, where you were, what the title means. Your shop has none of
 that, and it is the difference between a catalogue and a portfolio. Send as many
 or as few as you want and they slot straight in.
 
+**You can change the site yourself.**
+
+Look at the far right of the menu bar at the top of any page and you will see a
+small padlock. That is yours. Press it, put in the password I sent you
+separately, and an editor bar appears along the bottom of the screen.
+
+Flick on **Edit mode** and you can click straight onto the words on the page and
+retype them. Drag a photo from your computer onto any painting and it replaces
+that painting's picture. Press **Paintings** and you get the whole collection in
+a list: titles, sizes, prices, what is sold, what is hidden. Drag the rows up and
+down to change the order, tick **Hero** for the paintings that cycle at the top of
+the home page, tick **Featured** for the four on the front, and use **Add a
+painting** whenever you finish a new one.
+
+Nothing you do shows up on the website until you press **Publish changes**, so you
+can have a play without worrying. If you publish something and change your mind,
+**Undo publish** puts it back the way it was.
+
+That means new paintings, new prices and sold marks are all yours to do whenever
+you like, without waiting on me.
+
 Hosting is included at no cost and there are no maintenance fees. Once you are
 happy with it I will point kamduggal.com at the new site. Your prints keep selling
 through Pixels exactly as they do now.
