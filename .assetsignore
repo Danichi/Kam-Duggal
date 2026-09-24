@@ -7,6 +7,7 @@ PROPOSAL.md
 EMAIL-DRAFT.md
 EMAIL-EDITOR.md
 EMAIL-UPDATE.md
+EMAIL-REPLY.md
 wrangler.toml
 .dev.vars*
 node_modules
