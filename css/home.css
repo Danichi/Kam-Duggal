@@ -3,15 +3,15 @@
    About beside Collector Inquiries, and a hairline footer. */
 
 /* ---------- header ---------- */
-:root { --mk-header-h: clamp(74px, 7.4vw, 112px); }
+:root { --mk-header-h: clamp(70px, 6.4vw, 100px); }
 .mk-header {
   height: auto; min-height: var(--mk-header-h); padding-block: 8px;
   background: #0d0b09; border-bottom: 1px solid rgba(201, 164, 92, .18); backdrop-filter: none;
 }
 .mk-header.scrolled { padding-block: 6px; }
 .mk-brand { gap: 18px; align-items: center; }
-.mk-brand .mark { height: clamp(58px, 6vw, 92px); width: auto; }
-.mk-brand .word { height: clamp(34px, 3.4vw, 52px); width: auto; filter: drop-shadow(0 4px 18px rgba(201, 164, 92, .25)); }
+.mk-brand .mark { height: clamp(60px, 6.2vw, 96px); width: auto; filter: drop-shadow(0 2px 12px rgba(201, 164, 92, .28)); }
+.mk-brand .word { height: clamp(44px, 4.9vw, 76px); width: auto; }
 .mk-header .nav a:not(.btn) { font-size: 11.5px; letter-spacing: .2em; opacity: .9; }
 @media (max-width: 1020px) {
   .mk-brand .mark { height: 50px; }
@@ -26,24 +26,28 @@
   padding: calc(var(--mk-header-h) + clamp(22px, 3.5vh, 46px)) 0 clamp(26px, 4vh, 54px);
   background: #0b0908;
 }
-.mk-hero-art { position: absolute; inset: 0 0 0 38%; z-index: -2; }
+.mk-hero-art { position: absolute; inset: 0 0 0 40%; z-index: -2; }
 .mk-hero-art img, .mk-hero-art canvas { width: 100%; height: 100%; object-fit: cover; }
 .mk-hero-art figure { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 1.4s var(--ease); }
 .mk-hero-art figure.on { opacity: 1; }
 .mk-hero-art::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(90deg, #0b0908 0%, rgba(11, 9, 8, .82) 18%, rgba(11, 9, 8, .1) 52%, transparent 100%);
+  background: linear-gradient(90deg, #0b0908 0%, rgba(11, 9, 8, .85) 8%, rgba(11, 9, 8, .2) 26%, transparent 48%);
 }
-.mk-hero-copy { position: relative; z-index: 1; width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.mk-hero-copy {
+  position: relative; z-index: 1; width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter);
+}
+.mk-hero-copy > * { width: min(100%, 620px); margin-left: 0; margin-right: auto; text-align: center; }
+@media (min-width: 861px) { .mk-hero-copy > * { margin-left: 0; } }
 .mk-welcome {
   display: block; font: 500 12px/1 var(--sans); letter-spacing: .42em; text-transform: uppercase; color: var(--bone-2);
 }
-.mk-wordmark { margin: 16px 0 0; max-width: min(420px, 72%); }
-.mk-wordmark img { width: 100%; height: auto; filter: drop-shadow(0 6px 26px rgba(201, 164, 92, .3)); }
-.mk-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 22px 0 0; }
+.mk-wordmark { margin: 14px 0 0; }
+.mk-wordmark img { width: min(460px, 94%); margin-inline: auto; height: auto; filter: drop-shadow(0 6px 26px rgba(201, 164, 92, .22)); }
+.mk-tags { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px; margin: 20px 0 0; }
 .mk-tags span { font: 500 11.5px/1 var(--sans); letter-spacing: .26em; text-transform: uppercase; color: var(--bone); }
-.mk-tags i { width: 1px; height: 14px; background: rgba(233, 222, 200, .45); }
-.mk-tagline { margin: 16px 0 0; font: italic 300 clamp(1.05rem, 1.45vw, 1.35rem)/1.55 var(--serif); color: var(--bone-2); }
+.mk-tags i { width: 1px; height: 15px; background: rgba(201, 164, 92, .75); }
+.mk-tagline { margin: 14px 0 0; font: italic 300 clamp(1.05rem, 1.45vw, 1.35rem)/1.55 var(--serif); color: var(--bone-2); }
 
 @media (max-width: 860px) {
   .mk-hero { min-height: 0; padding: calc(var(--mk-header-h) + 26px) 0 38px; }
