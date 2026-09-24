@@ -36,7 +36,7 @@
   KD.size = p => p.size ? `${fmt(p.size[0])} × ${fmt(p.size[1])} in` : 'Size on request';
   const fmt = n => String(+n.toFixed(1));
   KD.price = p => p.price || 'Price on request';
-  KD.inquire = p => `artist.html?piece=${encodeURIComponent(p.slug)}#contact`;
+  KD.inquire = p => `contact.html?piece=${encodeURIComponent(p.slug)}`;
   KD.sizeClass = p => {
     if (!p.size) return 'unknown';
     const long = Math.max(...p.size);
@@ -103,37 +103,6 @@
     });
   };
   KD.markEditable();
-
-  /* ---------- blocks that can be reordered ---------- */
-  // Containers whose children Kam can drag into a different order (or hide).
-  KD.SORTABLE = ['main', '#steps', '.pillars', '.howto', '#timeline', '.faq-items', '.foot-grid', '.feature-grid'];
-
-  KD.markBlocks = function () {
-    KD.SORTABLE.forEach(sel => {
-      document.querySelectorAll(sel).forEach(c => {
-        c.dataset.sort = PAGE + '|' + sel;
-        [...c.children].forEach((ch, i) => { if (!ch.dataset.block) ch.dataset.block = String(i); });
-      });
-    });
-  };
-  KD.markBlocks();
-
-  KD.applyLayout = function () {
-    const L = C.layout || {};
-    Object.entries(L).forEach(([key, items]) => {
-      const c = document.querySelector('[data-sort="' + (window.CSS && CSS.escape ? CSS.escape(key) : key) + '"]');
-      if (!c || !Array.isArray(items)) return;
-      const byId = {};
-      [...c.children].forEach(ch => { byId[ch.dataset.block] = ch; });
-      items.forEach(it => {
-        const ch = byId[it.b];
-        if (!ch) return;
-        c.appendChild(ch);          // re-appending in saved order is the reorder
-        ch.hidden = Boolean(it.h);
-      });
-    });
-  };
-  KD.applyLayout();
 
   /* ---------- blocks that can be reordered ---------- */
   // Containers whose children Kam can drag into a different order (or hide).

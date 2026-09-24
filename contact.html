@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact | Kam Duggal</title>
+<meta name="description" content="Contact Kam Duggal about an original painting, a commission, or a question about size, framing or availability. Concord, North Carolina.">
+<meta property="og:title" content="Kam Duggal | Original Art">
+<meta property="og:description" content="Colour, movement and emotion, captured in the moment. Original abstract paintings from Concord, North Carolina.">
+<meta property="og:image" content="img/art/new-voyage.webp">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0b0a09">
+<link rel="icon" href="img/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/admin.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header mk-header">
+  <div class="wrap">
+    <a class="brand mk-brand" href="index.html" aria-label="Kam Duggal, home">
+      <img class="mark" src="img/logo-mark.png" alt="" width="480" height="456">
+      <img class="word" src="img/logo-word.png" alt="kamduggal.com Art" width="900" height="191">
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="originals.html">Original Artwork</a>
+      <a href="artist.html">About the Artist</a>
+      <a href="artist.html#collectors">Collectors</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </nav>
+    <button class="menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-head">
+    <span class="ghost-wrap" data-slug="release-p"><img class="ghost" src="img/art/release-p-sm.webp" alt="" aria-hidden="true"></span>
+    <div class="wrap">
+      <span class="eyebrow rv">Contact</span>
+      <h1 class="display rv">Start a <em>conversation.</em></h1>
+      <div class="row" style="margin-top:34px">
+        <p class="lede rv">Interested in a painting, or have a question about availability, size, framing or a commission? Send Kam a note and he will come back to you himself.</p>
+        <p class="muted rv" style="--d:.1s">Prints are handled by his print shop, so for anything about a print order, <a class="link" href="https://kam-duggal.pixels.com/">start there</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section light" id="contact" style="padding-top:clamp(40px,5vw,70px)">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="item rv"><h4>Email</h4><a href="mailto:kamdugal@aol.com">kamdugal@aol.com</a></div>
+          <div class="item rv"><h4>Based in</h4><p>Concord, North Carolina</p></div>
+          <div class="item rv"><h4>Prints</h4><a href="https://kam-duggal.pixels.com/">kam-duggal.pixels.com</a></div>
+          <div class="item rv"><h4>Buying an original</h4><p style="font-size:1.05rem;line-height:1.6">Kam confirms availability, price and delivery himself. <a class="link" href="artist.html#collectors" style="display:inline-flex;margin-top:10px">How it works <i data-icon="right" class="arr right" style="width:14px"></i></a></p></div>
+        </div>
+
+        <form class="form rv" id="inquiry" novalidate>
+          <fieldset class="interest full">
+            <legend>I'm interested in</legend>
+            <label><input type="radio" name="interest" value="Buying an original" checked><span>Buying an original</span></label>
+            <label><input type="radio" name="interest" value="Commission"><span>A commission</span></label>
+            <label><input type="radio" name="interest" value="Prints"><span>Prints</span></label>
+            <label><input type="radio" name="interest" value="Something else"><span>Something else</span></label>
+          </fieldset>
+
+          <div class="field sel full" id="piece-field">
+            <label for="piece">Painting</label>
+            <select id="piece" name="piece"><option value="">Not sure yet</option></select>
+          </div>
+          <div class="piece-pick full" id="piece-pick" hidden>
+            <img alt="">
+            <div><b></b><span></span></div>
+            <button type="button" id="piece-clear">Change</button>
+          </div>
+
+          <div class="field"><label for="name">Name</label><input id="name" name="name" autocomplete="name" required maxlength="120"></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required maxlength="160"></div>
+          <div class="field"><label for="phone">Phone <span style="text-transform:none;letter-spacing:0">(optional)</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40"></div>
+          <div class="field"><label for="city">City / state <span style="text-transform:none;letter-spacing:0">(optional)</span></label><input id="city" name="city" autocomplete="address-level2" maxlength="80"></div>
+          <div class="field full"><label for="message">Message</label><textarea id="message" name="message" required maxlength="5000" placeholder="Tell Kam what caught your eye, where it would hang, or what you have in mind."></textarea></div>
+          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="submit full">
+            <button class="btn gold" type="submit">Send inquiry <i data-icon="right" class="arr right"></i></button>
+            <span class="status" id="status" role="status"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html" aria-label="Kam Duggal, home">
+          <img class="mark" src="img/logo-mark.png" alt="" width="480" height="456">
+          <span class="word"><b>Kam Duggal</b><i>Original Art</i></span>
+        </a>
+        <p>Original abstract paintings by an improvisational artist in Concord, North Carolina.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul><li><a href="originals.html">Original artwork</a></li><li><a href="artist.html">The artist</a></li><li><a href="artist.html#collectors">Collectors</a></li><li><a href="contact.html" aria-current="page">Contact</a></li></ul>
+      </div>
+      <div>
+        <h4>Prints</h4>
+        <ul><li><a href="https://kam-duggal.pixels.com/">Print shop</a></li><li><a href="https://kam-duggal.pixels.com/shop/canvas+prints">Canvas prints</a></li><li><a href="https://kam-duggal.pixels.com/shop/framed+prints">Framed prints</a></li><li><a href="https://kam-duggal.pixels.com/shop/metal+prints">Metal prints</a></li></ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul><li><a href="mailto:kamdugal@aol.com">kamdugal@aol.com</a></li><li><a href="contact.html">Send an inquiry</a></li><li><a href="contact.html">Commissions</a></li></ul>
+      </div>
+    </div>
+    <img class="foot-logo" src="img/logo-full.png" alt="Kam Duggal — kamduggal.com Art" width="900" height="705" loading="lazy">
+    <div class="foot-base"><span>© <span data-year>2026</span> Kam Duggal. All artwork is the property of the artist.</span><span>Concord, North Carolina</span></div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="/api/content.js"></script>
+<script src="js/site.js"></script>
+<script src="js/artist.js"></script>
+<script src="js/admin.js" defer></script>
+</body>
+</html>
