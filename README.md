@@ -1,7 +1,7 @@
 # Kam Duggal — Original Art
 
 Three-page informational site for **Kam Duggal**, an improvisational painter in
-Concord, North Carolina. The site showcases his original paintings; every "buy a
+Amherstburg, Ontario, Canada. The site showcases his original paintings; every "buy a
 print" link goes out to his existing print shop at
 [kam-duggal.pixels.com](https://kam-duggal.pixels.com/). Nothing is sold here.
 
@@ -184,7 +184,7 @@ slug and they appear in the detail view automatically.
    probably why the domain got written down as "camdugal". Confirm before the
    form goes live, and consider a `kam@kamduggal.com` address on the domain.
 4. **Phone.** His Pixels profile lists 519 977-3167, a Canadian (Windsor) area
-   code while he is in Concord NC. Deliberately left off the site. Add if he wants.
+   code while he is in Amherstburg ON. Deliberately left off the site. Add if he wants.
 5. **Sold pieces.** Pixels marks nearly everything "currently for sale". If any
    originals are already sold, they should be marked (or removed) so the site
    doesn't offer them.
