@@ -106,7 +106,18 @@
           <a class="buy" href="${KD.inquire(p)}">Buy Original Now</a>
           <a class="print" href="${p.shop}">Buy a Print</a>
         </div>
+        ${KD.social ? KD.social.strip(p.slug) : ''}
       </li>`).join('');
+
+    if (KD.social) {
+      KD.social.fill(fgrid);
+      fgrid.addEventListener('click', e => {
+        const like = e.target.closest('.tsoc-like');
+        if (like) { e.preventDefault(); KD.social.likeFrom(like); return; }
+        const cm = e.target.closest('.tsoc-cm');
+        if (cm) location.href = 'originals.html?comments=1#' + cm.closest('.tsoc').dataset.piece;
+      });
+    }
   }
 
   /* ---------- spotlight loupe ---------- */

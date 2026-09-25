@@ -301,5 +301,11 @@
 
   render(false);
   const hash = decodeURIComponent(location.hash.slice(1));
-  if (hash && KD.bySlug[hash]) open(hash);
+  if (hash && KD.bySlug[hash]) {
+    open(hash);
+    // followed a Comments button from the home page
+    if (new URLSearchParams(location.search).get('comments') && KD.social) {
+      setTimeout(() => KD.social.expand($('#lb-social')), 500);
+    }
+  }
 })();

@@ -138,3 +138,10 @@
   .mk-head h2 { font-size: 1.05rem; letter-spacing: .18em; }
   .mk-viewall { margin-left: auto; }
 }
+
+/* the likes and comments row, on the cream band */
+.fcard .tsoc { margin-top: 10px; }
+.fcard .tsoc button { border-color: rgba(23, 19, 15, .22); color: #6f6659; }
+.fcard .tsoc button:hover { border-color: #17130f; color: #17130f; }
+.fcard .tsoc-like.on { border-color: #b8872d; color: #b8872d; }
+.fcard .tsoc-like.on svg { fill: #b8872d; stroke: #b8872d; }
