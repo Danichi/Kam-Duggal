@@ -9,6 +9,7 @@ EMAIL-DRAFT.md
 EMAIL-EDITOR.md
 EMAIL-UPDATE.md
 EMAIL-REPLY.md
+EMAIL-SOCIAL.md
 wrangler.toml
 .dev.vars*
 node_modules
