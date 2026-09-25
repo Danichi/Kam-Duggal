@@ -22,9 +22,15 @@ bar to read them and delete anything you would rather was not there. The number
 on that button is what has come in since you last looked. There is no email
 alert yet, so you do have to check. Say the word and I will add one.
 
-**Print links.** Press **Paintings**, open a piece, and paste that painting's
-Pixels address into *Print shop link for this painting*. That is where Buy a
-Print sends people. Press Publish changes when you are done.
+**Print links are mostly done already.** All 48 of the paintings I pulled from
+your shop already point at their own print page, so Buy a Print takes people
+straight to that piece. The only five that do not are the ones you added
+yourself: Chances Are, Crimson Currents, Fire Dance, PLAYFULL 14 X 16 and
+Battle of Evermore. Those currently land on your shop's front page.
+
+To fix one, press **Paintings**, open the piece, and paste that painting's
+Pixels address into *Print shop link for this painting*, then Publish changes.
+Any new painting you add works the same way.
 
 One thing I changed on my own: I saw you had moved to Amherstburg, but the page
 headings, the footers and the description Google shows still said Concord. You
