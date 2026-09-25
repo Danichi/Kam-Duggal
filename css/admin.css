@@ -64,6 +64,9 @@ body.editing .can-drop:hover::after, body.editing .can-drop.drop-over::after { o
 .am-card > p { margin: 0 0 18px; font-size: 13.5px; color: var(--muted); }
 .am-card label { display: block; font: 500 10px/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
 .am-card input[type=password] { width: 100%; padding: 11px 12px; background: #0c0a08; border: 1px solid var(--line-strong); color: var(--text); font-size: 15px; }
+.am-card input[type=password]:focus { outline: none; border-color: var(--gold); }
+/* several fields in a row need breathing space, or a focused box meets the next label */
+.am-card label + input[type=password] + label { margin-top: 16px; }
 .am-row { display: flex; gap: 10px; margin-top: 18px; }
 .am-err { color: #e0785c; font-size: 13px; margin: 10px 0 0; }
 .am-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }

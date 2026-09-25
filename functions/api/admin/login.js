@@ -4,7 +4,7 @@
  *
  * Wrong guesses are counted per IP in KV and locked out for 15 minutes.
  */
-import { sameSecret, makeToken, cookieHeader, session, json, sameOrigin, configured } from '../../_lib/auth.js';
+import { checkPassword, makeToken, cookieHeader, session, json, sameOrigin, configured } from '../../_lib/auth.js';
 
 const MAX_TRIES = 8;
 const WINDOW = 900; // seconds
@@ -26,7 +26,7 @@ export async function onRequestPost({ request, env }) {
   let body = {};
   try { body = await request.json(); } catch { return json({ error: 'Could not read that.' }, 400); }
 
-  if (!sameSecret(body.password, env.ADMIN_PASSWORD)) {
+  if (!(await checkPassword(env, body.password))) {
     await env.CONTENT.put(gateKey, String(tries + 1), { expirationTtl: WINDOW });
     // slow down guessing a little without holding the worker open
     await new Promise(r => setTimeout(r, 600));

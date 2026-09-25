@@ -97,7 +97,19 @@ uploading, so a phone photo arrives as a web-ready file.
 
 ### Changing the password
 
+Kam changes it himself: **Password** in the editor bar, which asks for the
+current one and the new one twice. A Worker cannot rewrite its own secret, so
+the new password is stored in KV under `auth:password` as a salted PBKDF2-SHA256
+hash, and that takes over from `ADMIN_PASSWORD`. Changing it stamps the time and
+any cookie issued before then stops working, so every other device is signed
+out; the browser doing the change gets a fresh cookie and stays in.
+
+`ADMIN_PASSWORD` is the fallback used until that KV record exists, so it is
+still what a brand new deployment signs in with. To force it back to the secret
+— if Kam locks himself out — delete the record and the env password works again:
+
 ```bash
+npx wrangler kv key delete auth:password --namespace-id 843b8b8f0a984b7abfeaccf5bf8204a2 --remote
 printf 'the-new-password' | npx wrangler pages secret put ADMIN_PASSWORD --project-name kam-duggal
 ```
 
@@ -105,7 +117,7 @@ printf 'the-new-password' | npx wrangler pages secret put ADMIN_PASSWORD --proje
 work put both in `.dev.vars` and run:
 
 ```bash
-npx wrangler pages dev . --port 8811 --kv CONTENT
+node tools/stage.js && npx wrangler pages dev .deploy --port 8811 --kv CONTENT
 ```
 
 ### What is still code, not editable

@@ -51,6 +51,7 @@
       <span class="ab-status" id="ab-status"></span>
       <button type="button" class="ab-btn" id="ab-undo" title="Put the last published version back">Undo publish</button>
       <button type="button" class="ab-btn gold" id="ab-save" disabled>Publish changes</button>
+      <button type="button" class="ab-btn" id="ab-pw" title="Change your password">Password</button>
       <button type="button" class="ab-btn" id="ab-out">Sign out</button>
     </div>`;
   document.body.appendChild(bar);
@@ -563,6 +564,59 @@
     } catch (e) { status(e.message, 'warn'); }
   }
 
+  /* ---------------- password ---------------- */
+
+  function openPassword() {
+    dialog.hidden = false;
+    dialog.innerHTML = `
+      <div class="am-card">
+        <div class="am-head"><h2>Change your password</h2></div>
+        <p class="am-hint">Ten characters or more. Changing it signs you out everywhere else, so you will need the new one on your phone too.</p>
+        <form id="pw-form">
+          <label for="pw-now">Your password now</label>
+          <input id="pw-now" type="password" autocomplete="current-password" required>
+          <label for="pw-new">New password</label>
+          <input id="pw-new" type="password" autocomplete="new-password" required>
+          <label for="pw-again">New password again</label>
+          <input id="pw-again" type="password" autocomplete="new-password" required>
+          <p class="am-err" id="pw-err" hidden></p>
+          <div class="am-row">
+            <button type="button" class="ab-btn" id="pw-cancel">Cancel</button>
+            <button type="submit" class="ab-btn gold" id="pw-save">Change it</button>
+          </div>
+        </form>
+      </div>`;
+
+    const err = m => { const el = $('#pw-err'); el.textContent = m; el.hidden = !m; };
+    $('#pw-cancel').onclick = () => { dialog.hidden = true; };
+    setTimeout(() => $('#pw-now') && $('#pw-now').focus(), 40);
+
+    $('#pw-form').onsubmit = async e => {
+      e.preventDefault();
+      err('');
+      const current = $('#pw-now').value;
+      const next = $('#pw-new').value;
+      if (next !== $('#pw-again').value) return err('The two new ones do not match.');
+      if (next.length < 10) return err('Use at least 10 characters.');
+
+      const btn = $('#pw-save');
+      btn.disabled = true;
+      btn.textContent = 'Changing…';
+      try {
+        await api('/api/admin/password', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ current, next })
+        });
+        dialog.hidden = true;
+        status('Password changed. Use the new one from now on.', 'ok');
+      } catch (e2) {
+        btn.disabled = false;
+        btn.textContent = 'Change it';
+        err(e2.message);
+      }
+    };
+  }
+
   /* ---------------- comments ---------------- */
 
   /** The badge counts what has come in since he last opened the panel. */
@@ -676,6 +730,7 @@
     if (e.target.id === 'ab-undo') undo();
     if (e.target.id === 'ab-paintings') openPaintings();
     if (e.target.closest('#ab-comments')) openComments();
+    if (e.target.id === 'ab-pw') openPassword();
     if (e.target.id === 'ab-out') {
       api('/api/admin/logout', { method: 'POST' }).finally(() => location.reload());
     }
