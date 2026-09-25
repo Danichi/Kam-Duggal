@@ -1,5 +1,5 @@
 /**
- * GET /api/social/:slug   -> { likes, comments }  (approved comments only)
+ * GET /api/social/:slug   -> { likes, comments }
  *
  * Public. Called when a visitor opens a painting.
  */

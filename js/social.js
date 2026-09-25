@@ -1,9 +1,8 @@
 /**
  * The like button and comments under a painting.
  *
- * Lives in the detail view on the Originals page. Comments are held until Kam
- * approves them, so a visitor sees their own go to "waiting to be approved"
- * rather than appearing straight away.
+ * Lives in the detail view on the Originals page. A comment appears on the
+ * painting as soon as it is written; Kam can delete one later from the editor.
  */
 (function () {
   const KD = window.KD || {};
@@ -21,6 +20,8 @@
     if (d < 30) return d + ' days ago';
     return new Date(ms).toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
   };
+
+  const li = c => `<li><b>${esc(c.name)}</b><time>${when(c.at)}</time><p>${esc(c.text)}</p></li>`;
 
   KD.social = {
     /** Build the block once; it is refilled each time a painting opens. */
@@ -91,7 +92,14 @@
           const d = await r.json();
           if (!r.ok) throw new Error(d.error || 'That did not send.');
           $('#sc-text', host).value = '';
-          msg.textContent = 'Thank you. Kam reads every comment before it appears.';
+          const list = $('#sc-list', host);
+          const empty = $('.sc-empty', host);
+          if (empty) empty.remove();
+          if (d.comment) list.insertAdjacentHTML('beforeend', li(d.comment));
+          const n = $('#sc-n', host);
+          n.textContent = String(Number(n.textContent || 0) + 1);
+          list.scrollTop = list.scrollHeight;
+          msg.textContent = 'Posted. Thank you.';
           msg.className = 'sc-msg ok';
         } catch (err) {
           msg.textContent = err.message;
@@ -129,7 +137,7 @@
         const list = d.comments || [];
         $('#sc-n', host).textContent = list.length;
         $('#sc-list', host).innerHTML = list.length
-          ? list.map(c => `<li><b>${esc(c.name)}</b><time>${when(c.at)}</time><p>${esc(c.text)}</p></li>`).join('')
+          ? list.map(li).join('')
           : '<li class="sc-empty">No comments yet. Be the first.</li>';
       } catch {}
     }
