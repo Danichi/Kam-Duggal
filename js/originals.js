@@ -130,6 +130,7 @@
     $('#lb-shop').href = p.shop;
     $('#lb-note').textContent = p.wall ? 'This photo shows the painting hanging on a wall.' : '';
     $('#lb-count').textContent = `${String(idx + 1).padStart(2, '0')} / ${String(list.length).padStart(2, '0')}`;
+    if (KD.social) KD.social.load($('#lb-social'), p.slug);
     history.replaceState(null, '', '#' + p.slug);
     placeRoom(p);
   }

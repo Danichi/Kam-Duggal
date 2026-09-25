@@ -899,3 +899,37 @@ body::after {
 @media (hover: none), (pointer: coarse) { .cursor { display: none; } }
 .howto { padding: 0; margin: 0; }
 .timeline .yr em { font-style: italic; }
+
+/* ---------- likes and comments ---------- */
+.social { border-top: 1px solid var(--line); padding-top: 18px; display: grid; gap: 14px; }
+.sc-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.sc-like, .sc-toggle {
+  display: inline-flex; align-items: center; gap: 9px; min-height: 38px; padding: 0 15px;
+  border: 1px solid var(--line-strong); color: var(--text);
+  font: 500 10px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase;
+  transition: border-color .3s, color .3s, background .3s;
+}
+.sc-like svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.4; transition: fill .3s, stroke .3s, transform .3s; }
+.sc-like:hover, .sc-toggle:hover { border-color: var(--gold); color: var(--gold-hi); }
+.sc-like.on { border-color: var(--gold); color: var(--gold-hi); cursor: default; }
+.sc-like.on svg { fill: var(--gold-hi); stroke: var(--gold-hi); transform: scale(1.12); }
+.sc-like em { font-style: normal; opacity: .75; }
+.sc-count { font-variant-numeric: tabular-nums; }
+.sc-panel { display: grid; gap: 16px; }
+.sc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; max-height: 280px; overflow-y: auto; }
+.sc-list li { border-left: 1px solid var(--line-strong); padding-left: 14px; }
+.sc-list b { font: 400 1.05rem/1.2 var(--serif); color: var(--bone); }
+.sc-list time { font-size: 11px; color: var(--muted-dark); margin-left: 10px; }
+.sc-list p { margin: 6px 0 0; font-size: 14px; line-height: 1.6; color: var(--muted); white-space: pre-wrap; }
+.sc-empty { border: 0 !important; padding: 0 !important; font-size: 13.5px; color: var(--muted-dark); }
+.sc-form { display: grid; gap: 10px; }
+.sc-form input, .sc-form textarea {
+  width: 100%; padding: 10px 12px; background: rgba(255, 255, 255, .04);
+  border: 1px solid var(--line); color: var(--text); font: 400 14px/1.5 var(--sans); border-radius: 0;
+}
+.sc-form textarea { min-height: 84px; resize: vertical; }
+.sc-form input:focus, .sc-form textarea:focus { outline: none; border-color: var(--gold); }
+.sc-send { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.sc-msg { font-size: 12.5px; color: var(--muted); }
+.sc-msg.ok { color: #7fb98a; }
+.sc-msg.bad { color: #e0785c; }

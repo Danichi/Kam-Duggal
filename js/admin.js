@@ -45,6 +45,7 @@
       <span class="ab-brand">Editor</span>
       <label class="ab-switch"><input type="checkbox" id="ab-edit"><span></span>Edit mode</label>
       <button type="button" class="ab-btn" id="ab-paintings">Paintings</button>
+      <button type="button" class="ab-btn" id="ab-comments">Comments <span class="ab-badge" id="ab-badge" hidden>0</span></button>
     </div>
     <div class="ab-right">
       <span class="ab-status" id="ab-status"></span>
@@ -149,6 +150,7 @@
       };
     } catch (e) { status(e.message, 'warn'); }
     status('Signed in', 'ok');
+    refreshBadge();
   }
 
   /* ---------------- text editing ---------------- */
@@ -562,6 +564,78 @@
     } catch (e) { status(e.message, 'warn'); }
   }
 
+  /* ---------------- comments ---------------- */
+
+  async function refreshBadge() {
+    try {
+      const { waiting } = await api('/api/admin/comments');
+      const badge = $('#ab-badge');
+      badge.textContent = waiting.length;
+      badge.hidden = !waiting.length;
+      return waiting.length;
+    } catch { return 0; }
+  }
+
+  async function openComments() {
+    dialog.hidden = false;
+    dialog.innerHTML = '<div class="am-card wide"><div class="am-head"><h2>Comments</h2>' +
+      '<div class="am-head-actions"><button type="button" class="ab-btn" id="cm-done">Done</button></div></div>' +
+      '<p class="am-hint">Nothing a visitor writes appears on the site until you approve it here.</p>' +
+      '<div class="am-list" id="cm-list">Loading…</div></div>';
+    $('#cm-done').onclick = () => { dialog.hidden = true; };
+    await drawComments();
+  }
+
+  async function drawComments() {
+    const host = $('#cm-list');
+    if (!host) return;
+    let data;
+    try { data = await api('/api/admin/comments'); }
+    catch (e) { host.innerHTML = '<p class="am-hint">' + esc(e.message) + '</p>'; return; }
+
+    const title = slug => (KD.bySlug[slug] && KD.bySlug[slug].title) || slug;
+    const card = (c, live) => `
+      <div class="cm-row${live ? ' live' : ''}" data-slug="${esc(c.slug)}" data-id="${esc(c.id)}">
+        <div class="cm-body">
+          <b>${esc(c.name)}</b>
+          <span class="cm-on">on ${esc(title(c.slug))}</span>
+          <span class="cm-at">${new Date(c.at).toLocaleDateString()}</span>
+          <p>${esc(c.text)}</p>
+        </div>
+        <div class="cm-acts">
+          ${live ? '' : '<button type="button" class="ab-btn gold" data-act="approve">Approve</button>'}
+          <button type="button" class="ab-btn" data-act="delete">Delete</button>
+        </div>
+      </div>`;
+
+    host.innerHTML =
+      '<h3 class="cm-head">Waiting for you (' + data.waiting.length + ')</h3>' +
+      (data.waiting.length ? data.waiting.map(c => card(c, false)).join('') : '<p class="am-hint">Nothing waiting.</p>') +
+      '<h3 class="cm-head">On the site (' + data.live.length + ')</h3>' +
+      (data.live.length ? data.live.map(c => card(c, true)).join('') : '<p class="am-hint">None yet.</p>');
+
+    host.onclick = async e => {
+      const btn = e.target.closest('[data-act]');
+      if (!btn) return;
+      const row = btn.closest('.cm-row');
+      const action = btn.dataset.act;
+      if (action === 'delete' && !confirm('Delete this comment for good?')) return;
+      btn.disabled = true;
+      try {
+        await api('/api/admin/comments', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slug: row.dataset.slug, id: row.dataset.id, action })
+        });
+        status(action === 'approve' ? 'Comment approved. It is on the site now.' : 'Comment deleted.', 'ok');
+        await drawComments();
+        refreshBadge();
+      } catch (err) {
+        btn.disabled = false;
+        status(err.message, 'warn');
+      }
+    };
+  }
+
   /* ---------------- publish ---------------- */
 
   async function publish() {
@@ -599,6 +673,7 @@
     if (e.target.id === 'ab-save') publish();
     if (e.target.id === 'ab-undo') undo();
     if (e.target.id === 'ab-paintings') openPaintings();
+    if (e.target.closest('#ab-comments')) openComments();
     if (e.target.id === 'ab-out') {
       api('/api/admin/logout', { method: 'POST' }).finally(() => location.reload());
     }
