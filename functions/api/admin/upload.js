@@ -7,7 +7,7 @@
  */
 import { session, json, sameOrigin, configured } from '../../../lib/auth.js';
 
-const MAX_BYTES = 4 * 1024 * 1024;
+const MAX_BYTES = 8 * 1024 * 1024;
 const TYPES = { 'image/webp': 'webp', 'image/jpeg': 'jpg', 'image/png': 'png' };
 
 export async function onRequestPost({ request, env }) {

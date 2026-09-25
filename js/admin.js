@@ -63,7 +63,16 @@
     const el = $('#ab-status');
     el.textContent = msg || '';
     el.className = 'ab-status ' + kind;
-    if (msg && kind === 'ok') setTimeout(() => { if (el.textContent === msg) el.textContent = ''; }, 3000);
+    // the Paintings panel covers the bar, so say it in there too
+    const inPanel = $('#am-status');
+    if (inPanel) {
+      inPanel.textContent = msg || '';
+      inPanel.className = 'am-status ' + kind;
+    }
+    if (msg && kind === 'ok') setTimeout(() => {
+      if (el.textContent === msg) el.textContent = '';
+      if (inPanel && inPanel.textContent === msg) inPanel.textContent = '';
+    }, 4000);
   };
 
   const markDirty = () => {
@@ -208,7 +217,7 @@
 
   const filePick = document.createElement('input');
   filePick.type = 'file';
-  filePick.accept = 'image/*';
+  filePick.accept = 'image/*,.heic,.heif,.jpg,.jpeg,.png,.webp,.gif,.bmp,.tif,.tiff,.avif';
   filePick.hidden = true;
   document.body.appendChild(filePick);
   let pickTarget = null;
@@ -233,34 +242,81 @@
 
   /* ---------------- images ---------------- */
 
-  /** Shrink in the browser, so a phone photo becomes a small WebP before upload. */
-  function resize(file, maxEdge) {
-    return new Promise((resolve, reject) => {
+  const OK_AS_IS = ['image/jpeg', 'image/png', 'image/webp'];
+  const MAX_UPLOAD = 7.5 * 1024 * 1024;
+
+  /** Decode a file, rotating phone photos the right way up. */
+  async function decode(file) {
+    if (window.createImageBitmap) {
+      try { return await createImageBitmap(file, { imageOrientation: 'from-image' }); } catch {}
+      try { return await createImageBitmap(file); } catch {}
+    }
+    return await new Promise((resolve, reject) => {
       const img = new Image();
-      img.onload = () => {
-        const scale = Math.min(1, maxEdge / Math.max(img.naturalWidth, img.naturalHeight));
-        const w = Math.round(img.naturalWidth * scale), h = Math.round(img.naturalHeight * scale);
-        const c = document.createElement('canvas');
-        c.width = w; c.height = h;
-        c.getContext('2d').drawImage(img, 0, 0, w, h);
-        c.toBlob(b => b ? resolve({ blob: b, w, h }) : reject(new Error('Could not read that image.')), 'image/webp', 0.86);
-        URL.revokeObjectURL(img.src);
-      };
-      img.onerror = () => reject(new Error('That file is not an image the browser can open.'));
+      img.onload = () => resolve(img);
+      img.onerror = () => reject(new Error('decode'));
       img.src = URL.createObjectURL(file);
     });
   }
 
+  /** Shrink in the browser, so a phone photo becomes a small file before upload. */
+  async function resize(file, maxEdge) {
+    const src = await decode(file);
+    const iw = src.width || src.naturalWidth, ih = src.height || src.naturalHeight;
+    const scale = Math.min(1, maxEdge / Math.max(iw, ih));
+    const w = Math.round(iw * scale), h = Math.round(ih * scale);
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    c.getContext('2d').drawImage(src, 0, 0, w, h);
+    if (src.close) src.close();
+    // WebP first; Safari and older browsers fall back to JPEG
+    for (const [type, q] of [['image/webp', .86], ['image/jpeg', .88]]) {
+      const blob = await new Promise(res => c.toBlob(res, type, q));
+      if (blob && blob.size) return { blob, w, h, type };
+    }
+    throw new Error('encode');
+  }
+
+  /** Why a file would not go, in words Kam can act on. */
+  function uploadHelp(file) {
+    const name = (file.name || '').toLowerCase();
+    if (/\.(heic|heif)$/.test(name) || /heic|heif/.test(file.type)) {
+      return 'That is an iPhone HEIC photo, which browsers cannot open. Email or AirDrop it to yourself first (that turns it into a JPG), or set Camera > Formats to Most Compatible on the phone.';
+    }
+    if (/\.(tif|tiff)$/.test(name)) return 'TIFF files will not open in a browser. Save it as a JPG or PNG and try again.';
+    if (file.size > 25 * 1024 * 1024) return 'That photo is very large (' + Math.round(file.size / 1048576) + ' MB). Save a smaller copy and try again.';
+    return 'The browser could not read ' + (file.name || 'that file') + '. A JPG or PNG works best.';
+  }
+
   async function uploadBoth(file) {
-    const big = await resize(file, 1400);
-    const small = await resize(file, 560);
-    const send = async ({ blob }, suffix) => {
+    const send = async (blob, suffix, type) => {
+      const ext = type === 'image/png' ? 'png' : type === 'image/jpeg' ? 'jpg' : 'webp';
       const fd = new FormData();
-      fd.append('file', new File([blob], 'art' + suffix + '.webp', { type: 'image/webp' }));
+      fd.append('file', new File([blob], 'art' + suffix + '.' + ext, { type }));
       const { url } = await api('/api/admin/upload', { method: 'POST', body: fd });
       return url;
     };
-    return { img: await send(big, ''), imgSm: await send(small, '-sm'), ratio: +(big.w / big.h).toFixed(4) };
+
+    let big, small;
+    try {
+      status('Preparing the photo…');
+      big = await resize(file, 1400);
+      small = await resize(file, 560);
+    } catch (e) {
+      // the browser could not resize it: send the original if it is already usable
+      if (OK_AS_IS.includes(file.type) && file.size <= MAX_UPLOAD) {
+        status('Uploading the original…');
+        const url = await send(file, '', file.type);
+        return { img: url, imgSm: url, ratio: 1 };
+      }
+      throw new Error(uploadHelp(file));
+    }
+
+    status('Uploading 1 of 2…');
+    const img = await send(big.blob, '', big.type);
+    status('Uploading 2 of 2…');
+    const imgSm = await send(small.blob, '-sm', small.type);
+    return { img, imgSm, ratio: +(big.w / big.h).toFixed(4) };
   }
 
   async function replaceImage(p, file) {
@@ -386,8 +442,9 @@
         <div class="am-head">
           <h2>Paintings</h2>
           <div class="am-head-actions">
+            <span class="am-status" id="am-status"></span>
             <label class="ab-btn gold" for="am-add">Add a painting</label>
-            <input id="am-add" type="file" accept="image/*" multiple hidden>
+            <input id="am-add" type="file" accept="image/*,.heic,.heif,.jpg,.jpeg,.png,.webp,.gif,.bmp,.tif,.tiff,.avif" multiple hidden>
             <button type="button" class="ab-btn" id="am-done">Done</button>
           </div>
         </div>
@@ -416,6 +473,7 @@
           <input value="${p.size ? p.size.join(' x ') : ''}" data-f="size" placeholder="Width x height in inches">
           <input value="${esc(p.price || '')}" data-f="price" placeholder="$1,200 (blank = price on request)">
           <input value="${esc(p.story || '')}" data-f="story" placeholder="A line about this painting (optional)">
+          <input value="${esc(p.shop || '')}" data-f="shop" placeholder="Print shop link for this painting (paste from your Pixels page)">
         </span>
         <span class="am-toggles">
           <label><input type="checkbox" data-f="hero" ${p.hero ? 'checked' : ''}>Hero</label>
@@ -440,6 +498,7 @@
       else if (f === 'sold') p.original = e.target.checked ? 'sold' : 'available';
       else if (f === 'hidden') { p.hidden = e.target.checked; row.classList.toggle('is-hidden', p.hidden); }
       else if (f === 'price') p.price = e.target.value.trim() || null;
+      else if (f === 'shop') p.shop = e.target.value.trim() || KD.SHOP;
       else p[f] = e.target.value;
       saveList();
       markDirty();
