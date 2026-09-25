@@ -42,6 +42,11 @@ reachable, so I have changed the password and the key behind it and made sure
 that file and the others like it can no longer be published at all. Your old
 password no longer works. I am sending you the new one separately.
 
+While I was at it I added a **Password** button to your editor bar, so from now
+on you can change it yourself whenever you like. It asks for your current one
+and the new one twice, and it signs you out on any other device, so you would
+need to sign in again on your phone.
+
 One thing I changed on my own: I saw you had moved to Amherstburg, but the page
 headings, the footers and the description Google shows still said Concord. You
 cannot reach those from the editor, so I have updated them.
