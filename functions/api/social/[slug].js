@@ -3,8 +3,8 @@
  *
  * Public. Called when a visitor opens a painting.
  */
-import { json } from '../../../lib/auth.js';
-import { readSocial, publicView, okSlug } from '../../../lib/social.js';
+import { json } from '../../_lib/auth.js';
+import { readSocial, publicView, okSlug } from '../../_lib/social.js';
 
 export async function onRequestGet({ params, env }) {
   const slug = String(params.slug || '');

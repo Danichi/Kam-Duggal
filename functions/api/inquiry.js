@@ -7,7 +7,7 @@
  * Env: RESEND_API_KEY, EMAIL_FROM, INQUIRY_TO, EMAIL_LOG_ONLY (see lib/email.js)
  */
 
-import { send, configured, inbox, layout, fieldsTable, json, sameOrigin, esc } from '../../lib/email.js';
+import { send, configured, inbox, layout, fieldsTable, json, sameOrigin, esc } from '../_lib/email.js';
 
 const INTERESTS = ['Buying an original', 'Commission', 'Prints', 'Something else'];
 const FIELDS = [

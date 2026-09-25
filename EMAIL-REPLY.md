@@ -27,7 +27,7 @@ correct any that are out of date, which you can now do yourself.
 **Your login.** Look at the top right of the menu bar, past Contact, and there is
 a small padlock. Only you ever see anything there.
 
-Password: KamArt-2026-Studio
+Password: (sent separately — this one was rotated after it was accidentally published)
 
 Press it, put that in, and a black bar appears along the bottom of your screen.
 Flick on **Edit mode** and:

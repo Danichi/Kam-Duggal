@@ -9,7 +9,7 @@ Plain HTML, CSS and JS with no build step. Hosted on **Cloudflare Pages**, which
 also runs one small function for the inquiry form.
 
 **Live demo: https://kam-duggal.pages.dev** (Pages project `kam-duggal`). Deploy
-with `npx wrangler pages deploy . --project-name kam-duggal --branch main`.
+with `node tools/stage.js && npx wrangler pages deploy --project-name kam-duggal`.
 No mail key is set there yet, so the inquiry form falls back to opening the
 visitor's email app; add `RESEND_API_KEY` and `EMAIL_FROM` to switch that on.
 
@@ -36,8 +36,15 @@ load a local image into WebGL) and the form falls back to the visitor's email ap
 ## Deploy (Cloudflare Pages)
 
 1. Push to GitHub and create a Pages project from the repo.
-   - Build command: *(none)* · Output directory: `/`
+   - Build command: `node tools/stage.js` · Output directory: `.deploy`
 2. Add the variables below under **Settings → Variables and Secrets**.
+
+> **Never deploy the project root.** `wrangler pages deploy` uploads every file
+> in its output directory and does **not** honour `.assetsignore`. Deploying `.`
+> published `.dev.vars`, the drafts, `README.md`, `wrangler.toml` and `lib/` on
+> the live site. `tools/stage.js` copies only the public files into `.deploy/`,
+> and `wrangler.toml` points Pages at that. Shared server code lives in
+> `functions/_lib/`, because `functions/` is compiled rather than served.
 3. Point the domain at it (see "The domain" below) and update the URLs in
    `robots.txt` and `sitemap.xml` if it isn't `kamduggal.com`.
 

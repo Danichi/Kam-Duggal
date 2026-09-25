@@ -2,7 +2,7 @@
 # form posts to functions/api/inquiry.js. Set RESEND_API_KEY etc. in the
 # dashboard (or .dev.vars locally), never here.
 name = "kam-duggal"
-pages_build_output_dir = "."
+pages_build_output_dir = ".deploy"
 compatibility_date = "2026-09-01"
 
 # Where the editor keeps the site's content and uploaded images.

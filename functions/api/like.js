@@ -4,8 +4,8 @@
  * One like per person per painting per day, checked by IP. The browser also
  * remembers, so the heart stays filled when they come back.
  */
-import { json, sameOrigin } from '../../lib/auth.js';
-import { readSocial, writeSocial, okSlug, throttled } from '../../lib/social.js';
+import { json, sameOrigin } from '../_lib/auth.js';
+import { readSocial, writeSocial, okSlug, throttled } from '../_lib/social.js';
 
 export async function onRequestPost({ request, env }) {
   if (!sameOrigin(request, env)) return json({ error: 'Request not allowed.' }, 403);

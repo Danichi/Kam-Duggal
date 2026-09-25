@@ -5,8 +5,8 @@
  * does not want from the Comments panel. `website` is a honeypot: real people
  * never fill it in, so a bot that does gets a cheerful 200 and is dropped.
  */
-import { json, sameOrigin } from '../../lib/auth.js';
-import { readSocial, writeSocial, okSlug, clean, throttled, MAX_NAME, MAX_TEXT } from '../../lib/social.js';
+import { json, sameOrigin } from '../_lib/auth.js';
+import { readSocial, writeSocial, okSlug, clean, throttled, MAX_NAME, MAX_TEXT } from '../_lib/social.js';
 
 export async function onRequestPost({ request, env }) {
   if (!sameOrigin(request, env)) return json({ error: 'Request not allowed.' }, 403);

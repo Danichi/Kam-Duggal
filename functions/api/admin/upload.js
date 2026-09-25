@@ -5,7 +5,7 @@
  * The browser does the resizing (js/admin.js), so what arrives here is a small
  * web-ready file, not a 12 megapixel phone photo.
  */
-import { session, json, sameOrigin, configured } from '../../../lib/auth.js';
+import { session, json, sameOrigin, configured } from '../../_lib/auth.js';
 
 const MAX_BYTES = 8 * 1024 * 1024;
 const TYPES = { 'image/webp': 'webp', 'image/jpeg': 'jpg', 'image/png': 'png' };

@@ -5,7 +5,7 @@
  * Served as JS on purpose so every page has it before js/site.js runs, with no
  * loading dance. Empty object when nothing has been edited yet.
  */
-import { loadContent } from '../../lib/auth.js';
+import { loadContent } from '../_lib/auth.js';
 
 export async function onRequestGet({ request, env }) {
   let doc = {};

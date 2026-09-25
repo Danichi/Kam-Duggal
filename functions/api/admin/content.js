@@ -5,7 +5,7 @@
  *
  * Signed-in only. The whole site's editable state is this one JSON document.
  */
-import { session, json, sameOrigin, configured, loadContent, CONTENT_KEY } from '../../../lib/auth.js';
+import { session, json, sameOrigin, configured, loadContent, CONTENT_KEY } from '../../_lib/auth.js';
 
 const BACKUP_KEY = 'content:previous';
 const MAX_BYTES = 900 * 1024; // KV allows 25MB; the doc is text only, so this is plenty

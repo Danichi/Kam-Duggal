@@ -4,7 +4,7 @@
  *
  * Wrong guesses are counted per IP in KV and locked out for 15 minutes.
  */
-import { sameSecret, makeToken, cookieHeader, session, json, sameOrigin, configured } from '../../../lib/auth.js';
+import { sameSecret, makeToken, cookieHeader, session, json, sameOrigin, configured } from '../../_lib/auth.js';
 
 const MAX_TRIES = 8;
 const WINDOW = 900; // seconds

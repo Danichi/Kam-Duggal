@@ -3,6 +3,9 @@
 Short on purpose. The one caveat worth keeping: no email alert when a comment
 lands, he has to look. Offer it rather than pretend it is there.
 
+His password has changed, so this email cannot go out without telling him. Send
+the new one by text rather than in the email itself.
+
 ---
 
 **Subject:** Re: the uploads, and your likes and comments
@@ -31,6 +34,13 @@ Battle of Evermore. Those currently land on your shop's front page.
 To fix one, press **Paintings**, open the piece, and paste that painting's
 Pixels address into *Print shop link for this painting*, then Publish changes.
 Any new painting you add works the same way.
+
+**Your password has changed, and you should know why.** A file I use for
+testing was being published with the rest of the site by mistake, and the site
+password was in it. I have no reason to think anyone found it, but it was
+reachable, so I have changed the password and the key behind it and made sure
+that file and the others like it can no longer be published at all. Your old
+password no longer works. I am sending you the new one separately.
 
 One thing I changed on my own: I saw you had moved to Amherstburg, but the page
 headings, the footers and the description Google shows still said Concord. You

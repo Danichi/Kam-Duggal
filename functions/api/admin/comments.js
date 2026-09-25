@@ -6,8 +6,8 @@
  * Comments are live the moment they are written, so this is where Kam removes
  * the ones he does not want. `seen` is only used to put a count on the button.
  */
-import { session, json, sameOrigin } from '../../../lib/auth.js';
-import { readSocial, writeSocial, okSlug, SEEN } from '../../../lib/social.js';
+import { session, json, sameOrigin } from '../../_lib/auth.js';
+import { readSocial, writeSocial, okSlug, SEEN } from '../../_lib/social.js';
 
 export async function onRequestGet({ request, env }) {
   if (!(await session(request, env))) return json({ error: 'Please sign in.' }, 401);
