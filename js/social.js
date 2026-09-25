@@ -23,7 +23,68 @@
 
   const li = c => `<li><b>${esc(c.name)}</b><time>${when(c.at)}</time><p>${esc(c.text)}</p></li>`;
 
+  /** Post a like for a painting. Returns the new total, or null if already liked. */
+  async function sendLike(slug) {
+    if (!slug || likedSet().has(slug)) return null;
+    remember(slug);
+    try {
+      const r = await fetch('/api/like', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin', body: JSON.stringify({ slug })
+      });
+      const d = await r.json();
+      return typeof d.likes === 'number' ? d.likes : null;
+    } catch { return null; }
+  }
+
   KD.social = {
+    /** Counts for every painting at once, for the gallery tiles. */
+    async counts() {
+      try { return await (await fetch('/api/social', { credentials: 'same-origin' })).json(); }
+      catch { return {}; }
+    },
+
+    /** The little row of likes and comments that sits under a tile. */
+    strip(slug) {
+      const liked = likedSet().has(slug);
+      return `<div class="tsoc" data-piece="${esc(slug)}">
+        <button type="button" class="tsoc-like${liked ? ' on' : ''}" aria-pressed="${liked}" title="${liked ? 'You liked this' : 'Like this painting'}">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-9.4A4.2 4.2 0 0 1 12 8a4.2 4.2 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20Z"/></svg><span class="n">0</span>
+        </button>
+        <button type="button" class="tsoc-cm" title="Read and write comments">Comments <span class="n">0</span></button>
+      </div>`;
+    },
+
+    /** Fill the strips in a container once the counts arrive. */
+    async fill(root) {
+      const data = await KD.social.counts();
+      root.querySelectorAll('.tsoc').forEach(el => {
+        const c = data[el.dataset.piece] || { likes: 0, comments: 0 };
+        el.querySelector('.tsoc-like .n').textContent = c.likes;
+        el.querySelector('.tsoc-cm .n').textContent = c.comments;
+      });
+    },
+
+    /** Like straight from a tile. */
+    async likeFrom(btn) {
+      const el = btn.closest('.tsoc');
+      if (btn.classList.contains('on')) return;
+      btn.classList.add('on');
+      btn.setAttribute('aria-pressed', 'true');
+      const n = await sendLike(el.dataset.piece);
+      if (n !== null) btn.querySelector('.n').textContent = n;
+    },
+
+    /** Open the comment panel in the detail view. */
+    expand(host) {
+      if (!host) return;
+      const panel = $('#sc-panel', host);
+      if (!panel) return;
+      panel.hidden = false;
+      $('#sc-toggle', host).setAttribute('aria-expanded', 'true');
+      panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    },
+
     /** Build the block once; it is refilled each time a painting opens. */
     mount(host) {
       if (!host || host.dataset.built) return;
@@ -64,15 +125,8 @@
         const btn = $('#sc-like', host);
         btn.classList.add('on');
         btn.setAttribute('aria-pressed', 'true');
-        remember(slug);
-        try {
-          const r = await fetch('/api/like', {
-            method: 'POST', headers: { 'Content-Type': 'application/json' },
-            credentials: 'same-origin', body: JSON.stringify({ slug })
-          });
-          const d = await r.json();
-          if (typeof d.likes === 'number') KD.social.setCount(host, d.likes);
-        } catch {}
+        const n = await sendLike(slug);
+        if (n !== null) KD.social.setCount(host, n);
       });
 
       $('#sc-form', host).addEventListener('submit', async e => {

@@ -67,14 +67,18 @@
 
     if (grid) {
       gallery.innerHTML = list.map((p, i) => `
-        <button type="button" class="tile" data-slug="${p.slug}" style="--d:${Math.min(i, 12) * .04}s">
-          <span class="img" style="--r:${p.ratio}">
-            ${p.original === 'inquire' ? '<span class="badge">Ask about availability</span>' : ''}
-            <img src="${KD.img(p, true)}" alt="${KD.esc(p.title)}, ${p.medium.toLowerCase()}" loading="lazy" width="560" height="${Math.round(560 / p.ratio)}">
-          </span>
-          <span class="cap"><span class="t">${KD.esc(p.title)}</span></span>
-          <span class="sub">${p.medium} · ${KD.size(p)}</span>
-        </button>`).join('');
+        <div class="tile-wrap" style="--d:${Math.min(i, 12) * .04}s">
+          <button type="button" class="tile" data-slug="${p.slug}">
+            <span class="img" style="--r:${p.ratio}">
+              ${p.original === 'inquire' ? '<span class="badge">Ask about availability</span>' : ''}
+              <img src="${KD.img(p, true)}" alt="${KD.esc(p.title)}, ${p.medium.toLowerCase()}" loading="lazy" width="560" height="${Math.round(560 / p.ratio)}">
+            </span>
+            <span class="cap"><span class="t">${KD.esc(p.title)}</span></span>
+            <span class="sub">${p.medium} · ${KD.size(p)}</span>
+          </button>
+          ${KD.social ? KD.social.strip(p.slug) : ''}
+        </div>`).join('');
+      if (KD.social) KD.social.fill(gallery);
     } else {
       const sized = list.filter(p => p.size);
       const inner = $('#wall-inner');
@@ -90,6 +94,15 @@
   }
   addEventListener('resize', () => { if (state.layout === 'wall') render(false); });
   [gallery, wall].forEach(el => el.addEventListener('click', e => {
+    const like = e.target.closest('.tsoc-like');
+    if (like) { KD.social.likeFrom(like); return; }
+    const cm = e.target.closest('.tsoc-cm');
+    if (cm) {
+      const slug = cm.closest('.tsoc').dataset.piece;
+      open(slug, el.querySelector(`.tile[data-slug="${slug}"]`));
+      setTimeout(() => KD.social.expand($('#lb-social')), 420);
+      return;
+    }
     const t = e.target.closest('[data-slug]');
     if (t) open(t.dataset.slug, t);
   }));

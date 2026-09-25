@@ -97,7 +97,6 @@
     dialog.innerHTML = `
       <div class="am-card">
         <h2>Sign in to edit</h2>
-        <p>This is only for Kam. Visitors never see it.</p>
         <form id="am-form">
           <label for="am-pw">Password</label>
           <input id="am-pw" type="password" autocomplete="current-password" required>
