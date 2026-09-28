@@ -129,6 +129,53 @@ the fallback.
 
 ---
 
+## The assistant in the corner
+
+`js/chat-kb.js` is the whole brain. There is **no AI** — it scores what the
+visitor typed against the `tags` on each entry and replays the answer written
+there, so it can only ever say things Kam has approved. `js/chat.js` is the
+widget and the matcher; `css/chat.css` is the look.
+
+To add a question, add an entry:
+
+```js
+K('framing-service', ['do you frame', 'framing service'],
+  ['Kam can talk you through framing when you inquire.',
+   'Send him a note on the <a href="contact.html">contact page</a>.'],
+  ['How do I buy an original?'])
+```
+
+`tags` are what it matches on. A tag with a space is a phrase and outranks a
+single word, and the longer the phrase the more specific it is taken to be.
+Words that mean the same thing go in `SYNONYMS` at the top, which collapses
+them to one concept so an entry tagged price/cost/expensive does not score
+three times for one question.
+
+Each entry's answer is an **array**: one bubble per line, sent in turn, because
+three short messages read better than one wall of text. The fourth argument is
+the suggested follow-up buttons. `{EMAIL}`, `{SHOP}`, `{LOCATION}`, `{COUNT}`,
+`{AVAILABLE}`, `{PRICERANGE}` and `{SIZERANGE}` are filled in at runtime, so
+prices and counts follow whatever Kam has published rather than going stale.
+
+Questions about a specific painting, a colour or a size are answered from the
+collection itself rather than from the list, so new paintings are covered the
+moment Kam adds them. Anything it cannot place sends the visitor to Kam instead
+of guessing.
+
+`KD.chat.match('...')` returns the answer without touching the page, and
+`KD.chat.debug('...')` shows the top-scoring entries — both are for tuning in
+the browser console.
+
+### Answers that currently hand over to Kam
+
+These are the ones where the honest answer depends on the buyer or on a policy
+Kam has not set, so the bot says he will confirm rather than inventing one.
+Worth pinning down with him, after which they can be answered outright:
+
+payment methods · deposits and payment plans · returns and refunds · how a
+piece is packaged · certificate of authenticity · whether a piece is varnished
+· whether originals come framed · how long a painting takes · his Instagram
+
 ## Where the content came from
 
 Kam had no informational site: **kamduggal.com currently 301-redirects straight
