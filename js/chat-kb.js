@@ -64,7 +64,7 @@
       ['Enjoy the paintings. If you want one, the <a href="contact.html">contact page</a> reaches Kam directly.']),
 
     /* ---------- Kam ---------- */
-    K('who', ['who is kam', 'about the artist', 'about kam', 'who painted', 'biography', 'bio', 'background'],
+    K('who', ['who is kam', 'about the artist', 'about kam', 'who painted', 'who paints', 'who paints these', 'who made these', 'who made them', 'who is the artist', 'whose work', 'who does these', 'artist', 'biography', 'bio', 'background'],
       ['Kam Duggal is an improvisational painter who has been letting paint find its own way since 2008.',
         'He works in {LOCATION}, on canvas and board, and often without a brush. Every piece comes out of what he is thinking that day rather than a sketch.',
         'There is more on <a href="artist.html">the artist page</a>, in his own words.'],
@@ -128,7 +128,7 @@
         'Prints are different: you choose the framing yourself in <a href="{SHOP}" target="_blank" rel="noopener">the print shop</a>.'],
       ['Talk to Kam', 'Do you sell prints?']),
 
-    K('sizes', ['what sizes', 'how big', 'dimensions', 'largest', 'smallest', 'size range', 'biggest'],
+    K('sizes', ['what sizes', 'how big', 'dimensions', 'largest', 'smallest', 'size range', 'biggest', 'how tall', 'how wide'],
       ['{SIZERANGE}',
         'Every painting lists its size, and on the Originals page the <b>To scale</b> view puts them side by side at their real proportions so you can compare.'],
       ['Show me large pieces', 'Show me small pieces']),
@@ -280,7 +280,7 @@
       ['Two ways. On the <a href="originals.html">Originals page</a>, <b>To scale</b> lays every painting out at its true relative size against the others.',
         'Open a single painting and <b>On a wall</b> hangs it at real size over a room, so you can see what it actually is rather than what a square thumbnail suggests.']),
 
-    K('contact', ['how do i contact', 'contact', 'email', 'phone', 'call', 'get in touch', 'talk to kam', 'speak to someone', 'reach him'],
+    K('contact', ['how do i contact', 'contact', 'email', 'phone', 'number', 'call', 'get in touch', 'talk to kam', 'speak to someone', 'reach him', 'address', 'write to him'],
       ['By email — <a href="mailto:{EMAIL}">{EMAIL}</a> — or through the form on the <a href="contact.html">contact page</a>, which is the easier route because it fills in the painting for you.',
         'Kam answers these himself, so give him a little time.'],
       ['How do I buy an original?', 'Do you take commissions?']),
@@ -291,7 +291,133 @@
 
     K('newsletter', ['newsletter', 'mailing list', 'subscribe', 'updates', 'new work', 'notify me'],
       ['There is no mailing list at the moment.',
-        'If you want to hear when new work goes up, say so in <a href="contact.html">a note to Kam</a> and he will know there is interest.'])
+        'If you want to hear when new work goes up, say so in <a href="contact.html">a note to Kam</a> and he will know there is interest.']),
+
+    /* ---------- the plain questions people actually open with ---------- */
+    K('what-is-this', ['what is this', 'what is this site', 'what do you sell', 'what is this website', 'what is going on here', 'what is this page', 'explain this site'],
+      ["This is Kam Duggal's own website. He is an abstract painter and every picture here is a painting he made himself.",
+        'You can look through the collection, buy an original from him directly, or order a print of any of them.',
+        '<a href="originals.html">See the collection</a>'],
+      ['Who paints these?', 'How do I buy an original?', 'Do you sell prints?']),
+
+    K('for-sale', ['are these for sale', 'can i buy these', 'is it for sale', 'are they for sale', 'do you sell', 'is this a shop'],
+      ['Yes. The originals are sold by Kam directly, and every painting is also available as a print.',
+        'There is no checkout here for originals — you ask about a piece and Kam takes it from there.'],
+      ['How do I buy an original?', 'How much are they?', 'Do you sell prints?']),
+
+    K('how-many', ['how many paintings', 'how many pieces', 'how big is the collection', 'how many are there', 'size of the collection'],
+      ['{COUNT} paintings, with {AVAILABLE} of them marked available at the moment.',
+        '<a href="originals.html">See them all</a>'],
+      ['What is available now?', 'Show me large pieces']),
+
+    K('abstract', ['what is abstract art', 'what am i looking at', 'i do not get it', 'what is it supposed to be', 'what does it represent', 'is it supposed to be something', 'abstract'],
+      ['Nothing in particular, and that is deliberate. There is no picture of a thing hiding in these — the colour and movement are the subject.',
+        'Kam puts it better than I can: “It is not what you are looking at. It is what you see.”',
+        'Two people will tell you they see different things in the same painting, and he counts that as the work doing its job.'],
+      ['How are the paintings made?', 'What would you recommend?']),
+
+    K('hand-painted', ['is it hand painted', 'hand painted', 'is it printed', 'machine', 'is it real paint', 'is it a photo'],
+      ['Hand painted, every one, by Kam. Real acrylic on real canvas or board.',
+        'Prints are the only reproductions, and those are always labelled as prints.']),
+
+    K('ai-art', ['is this ai', 'ai generated', 'ai art', 'made by ai', 'computer generated', 'digital art', 'is it digital'],
+      ['No. These are physical paintings — poured and worked by hand, then photographed for the site.',
+        'You can see the paint itself in the close-up view: the veins and cells are what the paint did on the board.'],
+      ['How are the paintings made?']),
+
+    K('only-abstract', ['do you paint portraits', 'paint landscapes', 'paint portraits', 'landscapes', 'do you only paint abstract', 'realistic', 'pet portrait', 'can he paint my', 'other subjects'],
+      ['Abstract is what Kam does — improvised colour and flow rather than a likeness of something.',
+        'If you have something specific in mind it is worth asking him, but a commission would still be a piece in his own language rather than a picture of a subject.'],
+      ['Do you take commissions?']),
+
+    K('newest', ['what is new', 'latest', 'newest', 'recent work', 'anything new', 'just added'],
+      ['Kam adds new paintings to the site himself as they are finished, so the collection is current.',
+        'The four on the front page are the ones he is putting forward at the moment.',
+        '<a href="originals.html">See everything</a>'],
+      ['What would you recommend?', 'What is available now?']),
+
+    K('colours-available', ['what colours', 'what colors', 'colour range', 'what palettes', 'colour families'],
+      ['Seven colour families: Ember, Crimson, Oceanic, Night Sky, Gold &amp; Earth, Line &amp; Gesture and Spectrum.',
+        'Tell me a colour and I will point you at the right ones — or filter by them on the <a href="originals.html">Originals page</a>.'],
+      ['Show me blue paintings', 'Do you have anything red?', 'I want something dark']),
+
+    K('gift', ['is it a good gift', 'as a present', 'as a gift', 'present', 'gift', 'gift wrap', 'buying for someone', 'anniversary', 'wedding present'],
+      ['People do buy these as gifts. Since every piece is one of a kind, it is about as un-generic as a present gets.',
+        'For wrapping, a gift note or a delivery date, ask Kam when you inquire — he handles each sale himself, so he can work around you.'],
+      ['How do I buy an original?', 'What would you recommend?']),
+
+    K('currency', ['what currency', 'usd or cad', 'canadian dollars', 'us dollars', 'currency', 'in pounds', 'euros'],
+      ['Worth confirming with Kam when he gives you the price, since he is in Canada and sells to people elsewhere.',
+        'Print prices are set in the shop and shown in its own currency at checkout.']),
+
+    K('storefront', ['do you have a shop', 'storefront', 'opening hours', 'when are you open', 'is there a gallery', 'walk in', 'physical store'],
+      ['There is no shop to walk into. Kam works from {LOCATION} and sells directly.',
+        'If you want to see a piece in person, say so in your inquiry and he will tell you what is possible.'],
+      ['Can I see one in person?', 'Talk to Kam']),
+
+    K('more-photos', ['more photos', 'more pictures', 'close up', 'detail shot', 'see it closer', 'video', 'another angle'],
+      ['Open any painting and it fills the screen — there is a close-up view for the surface, and <b>On a wall</b> shows it at real size in a room.',
+        'If you want a particular angle or a photo in daylight before you commit, ask Kam and he will take one for you.'],
+      ['Talk to Kam', 'Show me the collection']),
+
+    K('sold-similar', ['it is sold', 'already sold', 'can i get one like it', 'similar piece', 'something like this', 'missed out'],
+      ['If the one you wanted has gone, tell Kam which it was and what you liked about it.',
+        'He will not copy it — every piece is improvised — but he can point you at the closest thing in the collection, or work from that direction as a commission.'],
+      ['Do you take commissions?', 'What is available now?']),
+
+    K('multiple', ['buy two', 'more than one', 'a pair', 'set of', 'several paintings', 'whole wall', 'bulk'],
+      ['Ask him. Kam handles every sale himself, so buying two or three is a conversation rather than a cart.',
+        'Tell him the wall you are filling and he can suggest pieces that sit well together.'],
+      ['Talk to Kam', 'What would you recommend?']),
+
+    K('hardware', ['hanging wire', 'hardware', 'hooks', 'ready to hang', 'how do i mount', 'does it come with'],
+      ['That depends on the piece, so it is one for Kam when you inquire.',
+        'He goes through framing and how it hangs with you before the sale, so nothing arrives as a surprise.'],
+      ['Talk to Kam', 'How do I hang it?']),
+
+    K('edges', ['are the sides painted', 'edges', 'wrapped canvas', 'sides of the canvas', 'deep edge'],
+      ['Varies from piece to piece. Ask Kam about the one you have your eye on and he will tell you exactly how it is finished.']),
+
+    K('resin', ['resin', 'epoxy', 'is it glossy resin', 'pour medium', 'what brand of paint', 'what supplies'],
+      ['Acrylic, sometimes with oil, poured and guided rather than brushed.',
+        'For anything more specific about how a particular piece was made, Kam is the one to ask — it is his method.'],
+      ['How are the paintings made?']),
+
+    K('lessons', ['do you teach', 'lessons', 'classes', 'workshop', 'tutorial', 'how can i learn', 'can you show me how'],
+      ['Nothing advertised. If you are interested, ask him — it is his time to offer.',
+        ASK]),
+
+    K('collaborate', ['collaborate', 'work together', 'partnership', 'feature your art', 'can we work'],
+      ['Best put to Kam directly, in as much detail as you can manage. ' + ASK]),
+
+    K('privacy', ['privacy', 'what do you do with my details', 'data', 'spam', 'share my email', 'gdpr'],
+      ['Your message goes to Kam and nowhere else. There is no mailing list to be added to and nothing is sold on.',
+        'Comments show the name you type, so use whatever you are happy being public.']),
+
+    K('login', ['how do i log in', 'login', 'sign in', 'account', 'register', 'do i need an account', 'padlock'],
+      ['You do not need an account for anything here — browsing, liking and commenting are all open.',
+        'The padlock at the top is how Kam signs in to update his own site.']),
+
+    K('who-built', ['who made this website', 'who built this site', 'web designer', 'who designed this'],
+      ['The site was built for Kam by his web designer. The paintings, the words and the choices are his.',
+        'If you want to reach him about the art, the <a href="contact.html">contact page</a> goes straight to him.']),
+
+    K('praise', ['i love this', 'beautiful', 'amazing', 'gorgeous', 'stunning', 'these are great', 'wow', 'nice work'],
+      ['Kam will be glad to hear it. If you want to tell him, leave a comment on the painting — he reads them.',
+        'The heart under each one is the quick version.'],
+      ['How do I leave a comment?', 'How do I buy an original?']),
+
+    K('ok', ['ok', 'okay', 'cool', 'right', 'got it', 'i see', 'sure', 'alright'],
+      ['Anything else you want to know?'],
+      ['How do I buy an original?', 'Do you sell prints?', 'What would you recommend?']),
+
+    K('sorry', ['sorry', 'my mistake', 'never mind', 'ignore that'],
+      ['No trouble. Ask away when you are ready.']),
+
+    K('weight', ['how heavy', 'weight', 'how much does it weigh', 'is it heavy'],
+      ['Depends on the piece — a small board is light enough to hang on a picture hook, a large stretched canvas rather less so.',
+        'Ask Kam about the one you are looking at and he will tell you what it weighs and what it needs to hang on.'],
+      ['How do I hang it?', 'Talk to Kam'])
   ];
 
   KD.CHAT_KB = KB;

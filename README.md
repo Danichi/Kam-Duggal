@@ -131,7 +131,7 @@ the fallback.
 
 ## The assistant in the corner
 
-`js/chat-kb.js` is the whole brain. There is **no AI** — it scores what the
+`js/chat-kb.js` is the whole brain (about 80 entries). There is **no AI** — it scores what the
 visitor typed against the `tags` on each entry and replays the answer written
 there, so it can only ever say things Kam has approved. `js/chat.js` is the
 widget and the matcher; `css/chat.css` is the look.

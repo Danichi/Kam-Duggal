@@ -136,7 +136,7 @@
   };
 
   const COLOURS = {
-    ocean: ['blue', 'teal', 'aqua', 'turquoise', 'water', 'sea', 'ocean', 'cool'],
+    ocean: ['blue', 'teal', 'aqua', 'turquoise', 'water', 'sea', 'ocean', 'cool tones'],
     crimson: ['red', 'crimson', 'wine', 'burgundy', 'maroon', 'pink'],
     ember: ['orange', 'fire', 'flame', 'ember', 'warm', 'sunset'],
     night: ['black', 'dark', 'night', 'galaxy', 'space', 'star', 'moon', 'purple'],
@@ -346,7 +346,7 @@
   }
 
   const MISS = [
-    'I do not have an answer written for that one, and I would rather not guess about Kam\'s work.',
+    'I do not have an answer for that one, and I would rather not guess about Kam\'s work.',
     'He answers these himself: <a href="contact.html">send him the question</a> and he will come back to you.'
   ];
 
