@@ -260,7 +260,7 @@
         <div class="kchat-head">
           <div>
             <b>Ask about the paintings</b>
-            <span>Answers written by Kam</span>
+            <span>Kam’s own answers</span>
           </div>
           <button type="button" class="kchat-x" id="kchat-x" aria-label="Close"></button>
         </div>
