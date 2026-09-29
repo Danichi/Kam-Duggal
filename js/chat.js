@@ -255,8 +255,12 @@
       <button type="button" class="kchat-launch" id="kchat-launch" aria-expanded="false" aria-controls="kchat-panel">
         <svg viewBox="0 0 24 24" aria-hidden="true" class="kchat-ico-open"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3v-5.5A8 8 0 1 1 21 12Z"/></svg>
         <svg viewBox="0 0 24 24" aria-hidden="true" class="kchat-ico-close"><path d="M6 6l12 12M18 6L6 18"/></svg>
-        <span class="sr-only">Ask about the paintings</span>
+        <span class="sr-only" id="kchat-label">Have a question? Ask me</span>
       </button>
+      <div class="kchat-nudge" id="kchat-nudge" hidden>
+        <button type="button" class="kchat-nudge-open" id="kchat-nudge-open">Have a question? Ask me</button>
+        <button type="button" class="kchat-nudge-x" id="kchat-nudge-x" aria-label="Not now"></button>
+      </div>
       <div class="kchat-panel" id="kchat-panel" role="dialog" aria-label="Ask about the paintings" hidden>
         <div class="kchat-head">
           <div>
@@ -268,7 +272,7 @@
         <div class="kchat-log" id="kchat-log" role="log" aria-live="polite"></div>
         <form class="kchat-form" id="kchat-form">
           <label class="sr-only" for="kchat-input">Your question</label>
-          <input id="kchat-input" autocomplete="off" placeholder="Ask a question…" maxlength="300">
+          <input id="kchat-input" autocomplete="off" placeholder="Have a question? Ask me" maxlength="300">
           <button type="submit" aria-label="Send">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
           </button>
@@ -280,6 +284,9 @@
     form = root.querySelector('#kchat-form');
     input = root.querySelector('#kchat-input');
 
+    setPrompt(KD.CHAT_PROMPT);
+    root.querySelector('#kchat-nudge-open').addEventListener('click', () => { hideNudge(true); toggle(true); });
+    root.querySelector('#kchat-nudge-x').addEventListener('click', () => hideNudge(true));
     root.querySelector('#kchat-launch').addEventListener('click', toggle);
     root.querySelector('#kchat-x').addEventListener('click', () => toggle(false));
     form.addEventListener('submit', e => { e.preventDefault(); send(input.value); });
@@ -300,6 +307,41 @@
     new MutationObserver(watch).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['hidden'], childList: true });
   }
 
+  /** The invitation: on the bubble, on the button, and in the box you type into. */
+  function setPrompt(text) {
+    const t = String(text || '').trim() || "Have a question? Ask me";
+    const launch = root.querySelector('#kchat-launch');
+    const label = root.querySelector('#kchat-label');
+    const input = root.querySelector('#kchat-input');
+    const open = root.querySelector('#kchat-nudge-open');
+    if (launch) launch.title = t;
+    if (label) label.textContent = t;
+    if (input) input.placeholder = t;
+    if (open) open.textContent = t;
+  }
+
+  const NUDGED = 'kchat-nudged';
+
+  function hideNudge(remember) {
+    const n = root.querySelector('#kchat-nudge');
+    if (n) { n.classList.remove('show'); setTimeout(() => { n.hidden = true; }, 260); }
+    if (remember) { try { sessionStorage.setItem(NUDGED, '1'); } catch {} }
+  }
+
+  /** Offer once per visit, a moment after the page settles. Never twice. */
+  function maybeNudge() {
+    let seen = false;
+    try { seen = Boolean(sessionStorage.getItem(NUDGED)); } catch {}
+    if (seen || open) return;
+    setTimeout(() => {
+      if (open) return;
+      const n = root.querySelector('#kchat-nudge');
+      if (!n) return;
+      n.hidden = false;
+      requestAnimationFrame(() => n.classList.add('show'));
+    }, 2600);
+  }
+
   function toggle(to) {
     open = typeof to === 'boolean' ? to : !open;
     root.classList.toggle('open', open);
@@ -307,6 +349,7 @@
     root.querySelector('#kchat-launch').setAttribute('aria-expanded', String(open));
     try { open ? sessionStorage.setItem('kchat-open', '1') : sessionStorage.removeItem('kchat-open'); } catch {}
     if (open) {
+      hideNudge(true);
       if (!greeted) { greeted = true; greet(); }
       setTimeout(() => input.focus(), 120);
     }
@@ -376,6 +419,7 @@
   if (!document.body) return;
   build();
   try { if (sessionStorage.getItem('kchat-open')) toggle(true); } catch {}
+  maybeNudge();
 
   /** Resolve a question without touching the DOM. Used by the coverage test. */
   function match(q) {
@@ -387,5 +431,5 @@
     return { via: 'miss', id: null, a: MISS.map(fill) };
   }
 
-  KD.chat = { open: () => toggle(true), ask: send, match, debug: q => KB.map(i => [i.id, score(norm(q), i)]).sort((a, b) => b[1] - a[1]).slice(0, 4) };
+  KD.chat = { open: () => toggle(true), ask: send, match, setPrompt, debug: q => KB.map(i => [i.id, score(norm(q), i)]).sort((a, b) => b[1] - a[1]).slice(0, 4) };
 })();

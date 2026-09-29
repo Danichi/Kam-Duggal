@@ -16,6 +16,8 @@ function cleanSettings(v) {
   if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) out.email = email;
   const ig = String(v.instagram ?? '').trim().replace(/^@/, '').slice(0, 40);
   out.instagram = /^[A-Za-z0-9._]*$/.test(ig) ? ig : '';
+  const invite = String(v.chatPrompt ?? '').replace(/[<>]/g, '').trim().slice(0, 60);
+  if (invite) out.chatPrompt = invite;
   return out;
 }
 

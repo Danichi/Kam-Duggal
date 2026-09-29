@@ -572,17 +572,20 @@
     const set = state.doc.settings || {};
     const email = set.email || KD.EMAIL || '';
     const ig = (typeof set.instagram === 'string' ? set.instagram : (KD.INSTAGRAM || '')).replace(/^@/, '');
+    const invite = set.chatPrompt || KD.CHAT_PROMPT || '';
 
     dialog.hidden = false;
     dialog.innerHTML = `
       <div class="am-card">
         <div class="am-head"><h2>Your details</h2></div>
-        <p class="am-hint">These go everywhere at once: the address shown on the site, the link people press to email you, and where the inquiry form delivers.</p>
+        <p class="am-hint">Your email goes everywhere at once: the address shown on the site, the link people press to email you, and where the inquiry form delivers.</p>
         <form id="dt-form" novalidate>
           <label for="dt-email">Email address</label>
           <input id="dt-email" type="email" value="${esc(email)}" placeholder="you@example.com" autocomplete="email">
           <label for="dt-ig">Instagram handle</label>
           <input id="dt-ig" value="${esc(ig)}" placeholder="kamduggal" autocomplete="off">
+          <label for="dt-chat">What the chat bubble says</label>
+          <input id="dt-chat" value="${esc(invite)}" placeholder="Have a question? Ask me" maxlength="60" autocomplete="off">
           <p class="am-err" id="dt-err" hidden></p>
           <div class="am-row">
             <button type="button" class="ab-btn" id="dt-cancel">Cancel</button>
@@ -603,10 +606,13 @@
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(nextEmail)) return err('That does not look like an email address.');
       if (nextIg && !/^[A-Za-z0-9._]+$/.test(nextIg)) return err('An Instagram handle is just letters, numbers, dots and underscores.');
 
-      state.doc.settings = { email: nextEmail, instagram: nextIg };
+      const nextInvite = $('#dt-chat').value.trim().slice(0, 60);
+      state.doc.settings = { email: nextEmail, instagram: nextIg, chatPrompt: nextInvite };
       KD.EMAIL = nextEmail;
       KD.INSTAGRAM = nextIg;
+      KD.CHAT_PROMPT = nextInvite || "Have a question? Ask me";
       if (KD.applyContact) KD.applyContact();
+      if (KD.chat && KD.chat.setPrompt) KD.chat.setPrompt(KD.CHAT_PROMPT);
       markDirty();
       dialog.hidden = true;
       status('Details updated. Press Publish changes to put them live.', 'ok');

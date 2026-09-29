@@ -9,6 +9,7 @@
   KD.SHOP = 'https://kam-duggal.pixels.com/';
   KD.EMAIL = 'kamdugal@aol.com';          // replaced below by anything Kam has saved
   KD.INSTAGRAM = 'kamduggal';
+  KD.CHAT_PROMPT = 'Have a question? Ask me';   // what the chat bubble says
 
   KD.PALETTES = {
     ember: { name: 'Ember', blurb: 'Fire, flame orange and deep night.', sw: ['#e0582a', '#f2b134', '#101216'], cover: 'new-voyage' },
@@ -28,6 +29,7 @@
   KD.SETTINGS = SETTINGS;
   if (SETTINGS.email) KD.EMAIL = SETTINGS.email;
   if (typeof SETTINGS.instagram === 'string') KD.INSTAGRAM = SETTINGS.instagram;
+  if (SETTINGS.chatPrompt) KD.CHAT_PROMPT = SETTINGS.chatPrompt;
 
   /**
    * Put those details into the page: every mailto link, and the Instagram

@@ -107,6 +107,13 @@ it in one place and all three follow.
 Clearing the Instagram handle hides the "Follow on Instagram" line rather
 than linking nowhere. `INQUIRY_TO` is still the fallback if nothing is saved.
 
+The same panel sets **what the chat bubble says** (`settings.chatPrompt`,
+default "Have a question? Ask me"). It is used three times over: the pop-up
+beside the chat button, the button's own tooltip, and the placeholder in the
+box people type into. The pop-up appears once a visit, a couple of seconds
+after the page settles, and stays away for the rest of the visit once it is
+dismissed or the chat is opened.
+
 ### Changing the password
 
 Kam changes it himself: **Password** in the editor bar, which asks for the

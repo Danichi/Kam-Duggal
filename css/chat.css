@@ -94,3 +94,48 @@
 @media (prefers-reduced-motion: reduce) {
   .kchat-panel, .kchat-launch, .kchat-msg { transition: none; animation: none; }
 }
+
+/* ---------- the nudge that pops up beside the button ---------- */
+.kchat-nudge {
+  position: absolute; right: 68px; bottom: 9px;
+  display: flex; align-items: stretch; gap: 0;
+  background: var(--ink-2, #14110e); border: 1px solid var(--gold, #c9a45c);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+  opacity: 0; transform: translateX(8px) scale(.96); transform-origin: right center;
+  transition: opacity .32s var(--ease, ease), transform .32s var(--ease, ease);
+  pointer-events: none;
+}
+.kchat-nudge.show { opacity: 1; transform: none; pointer-events: auto; }
+.kchat-nudge[hidden] { display: none; }
+/* the little tail pointing at the button */
+.kchat-nudge::after {
+  content: ''; position: absolute; right: -6px; top: 50%; width: 9px; height: 9px;
+  transform: translateY(-50%) rotate(45deg);
+  background: var(--ink-2, #14110e);
+  border-right: 1px solid var(--gold, #c9a45c); border-top: 1px solid var(--gold, #c9a45c);
+}
+.kchat-nudge-open {
+  padding: 11px 6px 11px 15px; background: none; border: 0; cursor: pointer;
+  color: var(--bone, #efe9e0); font: 400 13.5px/1.2 var(--sans, system-ui);
+  white-space: nowrap; transition: color .3s;
+}
+.kchat-nudge-open:hover { color: var(--gold-hi, #e0be7e); }
+.kchat-nudge-x {
+  position: relative; width: 28px; background: none; border: 0; cursor: pointer;
+  color: var(--muted-dark, #6c655d); transition: color .3s;
+}
+.kchat-nudge-x:hover { color: var(--bone, #efe9e0); }
+.kchat-nudge-x::before, .kchat-nudge-x::after {
+  content: ''; position: absolute; left: 50%; top: 50%; width: 9px; height: 1px; background: currentColor;
+}
+.kchat-nudge-x::before { transform: translate(-50%, -50%) rotate(45deg); }
+.kchat-nudge-x::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+/* on a phone it sits above the button rather than beside it */
+@media (max-width: 480px) {
+  .kchat-nudge { right: 0; bottom: 68px; transform: translateY(8px) scale(.96); transform-origin: bottom right; }
+  .kchat-nudge.show { transform: none; }
+  .kchat-nudge::after { right: 20px; top: auto; bottom: -6px; transform: rotate(135deg); }
+  .kchat-nudge-open { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) { .kchat-nudge { transition: none; } }
