@@ -12,7 +12,13 @@
 
 export const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-export function inbox(env) {
+/** Where inquiries go: what Kam saved in the editor, else the env, else his old address. */
+export async function inbox(env) {
+  try {
+    const doc = env.CONTENT ? await env.CONTENT.get('content', 'json') : null;
+    const saved = doc && doc.settings && doc.settings.email;
+    if (saved && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(saved)) return saved;
+  } catch { /* fall through to the env */ }
   return env.INQUIRY_TO || 'kamdugal@aol.com';
 }
 

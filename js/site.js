@@ -7,7 +7,8 @@
 
   /* ---------- config ---------- */
   KD.SHOP = 'https://kam-duggal.pixels.com/';
-  KD.EMAIL = 'kamdugal@aol.com';
+  KD.EMAIL = 'kamdugal@aol.com';          // replaced below by anything Kam has saved
+  KD.INSTAGRAM = 'kamduggal';
 
   KD.PALETTES = {
     ember: { name: 'Ember', blurb: 'Fire, flame orange and deep night.', sw: ['#e0582a', '#f2b134', '#101216'], cover: 'new-voyage' },
@@ -21,6 +22,31 @@
 
   /* ---------- content Kam has edited (window.CONTENT, from /api/content.js) ---------- */
   const C = window.CONTENT || {};
+
+  /* Contact details Kam has set in the editor. One source for the whole site. */
+  const SETTINGS = (C.settings && typeof C.settings === 'object') ? C.settings : {};
+  KD.SETTINGS = SETTINGS;
+  if (SETTINGS.email) KD.EMAIL = SETTINGS.email;
+  if (typeof SETTINGS.instagram === 'string') KD.INSTAGRAM = SETTINGS.instagram;
+
+  /**
+   * Put those details into the page: every mailto link, and the Instagram
+   * link, which is hidden outright when there is no handle to point at.
+   */
+  KD.applyContact = function (scope = document) {
+    scope.querySelectorAll('a[href^="mailto:"]').forEach(a => {
+      const shown = a.textContent.trim();
+      a.href = 'mailto:' + KD.EMAIL;
+      // only retype the label when it is the address itself, not "Send an inquiry"
+      if (/^[^\s@]+@[^\s@]+$/.test(shown)) a.textContent = KD.EMAIL;
+    });
+    const handle = String(KD.INSTAGRAM || '').replace(/^@/, '').trim();
+    scope.querySelectorAll('.mk-ig').forEach(a => {
+      const row = a.closest('li') || a;
+      if (handle) { a.href = 'https://instagram.com/' + handle; row.hidden = false; }
+      else row.hidden = true;
+    });
+  };
   if (Array.isArray(C.paintings) && C.paintings.length) window.PAINTINGS = C.paintings;
   // hidden pieces stay out of every list on the site
   window.PAINTINGS = (window.PAINTINGS || []).filter(p => !p.hidden);
@@ -102,6 +128,7 @@
       });
     });
   };
+  KD.applyContact();
   KD.markEditable();
 
   /* ---------- blocks that can be reordered ---------- */

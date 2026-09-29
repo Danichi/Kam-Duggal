@@ -95,6 +95,18 @@ uploading, so a phone photo arrives as a web-ready file.
 - KV namespace `CONTENT` (id in `wrangler.toml`) holds one `content` document, one
   `content:previous` backup and every uploaded image under `img:*`.
 
+### Contact details
+
+**Details** in the editor bar holds the email address and the Instagram
+handle. They are stored in KV under `settings` and drive three things at
+once, which is why they are one setting and not editable text: the address
+printed on the page, the `mailto:` link behind it, and `inbox()` in
+`functions/_lib/email.js`, which is where the inquiry form delivers. Change
+it in one place and all three follow.
+
+Clearing the Instagram handle hides the "Follow on Instagram" line rather
+than linking nowhere. `INQUIRY_TO` is still the fallback if nothing is saved.
+
 ### Changing the password
 
 Kam changes it himself: **Password** in the editor bar, which asks for the

@@ -8,6 +8,17 @@
 import { session, json, sameOrigin, configured, loadContent, CONTENT_KEY } from '../../_lib/auth.js';
 
 const BACKUP_KEY = 'content:previous';
+/** Contact details. Only an address that looks like one, and a bare handle. */
+function cleanSettings(v) {
+  if (!v || typeof v !== 'object' || Array.isArray(v)) return undefined;
+  const out = {};
+  const email = String(v.email ?? '').trim().slice(0, 120);
+  if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) out.email = email;
+  const ig = String(v.instagram ?? '').trim().replace(/^@/, '').slice(0, 40);
+  out.instagram = /^[A-Za-z0-9._]*$/.test(ig) ? ig : '';
+  return out;
+}
+
 const MAX_BYTES = 900 * 1024; // KV allows 25MB; the doc is text only, so this is plenty
 
 export async function onRequestGet({ request, env }) {
@@ -32,7 +43,8 @@ export async function onRequestPut({ request, env }) {
     paintings: Array.isArray(doc.paintings) ? doc.paintings : undefined,
     hero: Array.isArray(doc.hero) ? doc.hero.filter(s => typeof s === 'string').slice(0, 12) : undefined,
     images: doc.images && typeof doc.images === 'object' && !Array.isArray(doc.images) ? doc.images : undefined,
-    layout: doc.layout && typeof doc.layout === 'object' && !Array.isArray(doc.layout) ? doc.layout : undefined
+    layout: doc.layout && typeof doc.layout === 'object' && !Array.isArray(doc.layout) ? doc.layout : undefined,
+    settings: cleanSettings(doc.settings)
   };
   const body = JSON.stringify(clean);
   if (body.length > MAX_BYTES) return json({ error: 'That is too much content to save at once.' }, 413);

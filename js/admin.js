@@ -46,6 +46,7 @@
       <label class="ab-switch"><input type="checkbox" id="ab-edit"><span></span>Edit mode</label>
       <button type="button" class="ab-btn" id="ab-paintings">Paintings</button>
       <button type="button" class="ab-btn" id="ab-comments">Comments <span class="ab-badge" id="ab-badge" hidden>0</span></button>
+      <button type="button" class="ab-btn" id="ab-details">Details</button>
     </div>
     <div class="ab-right">
       <span class="ab-status" id="ab-status"></span>
@@ -146,7 +147,8 @@
         paintings: Array.isArray(content.paintings) ? content.paintings : null,
         hero: Array.isArray(content.hero) ? content.hero : null,
         images: content.images || {},
-        layout: content.layout || {}
+        layout: content.layout || {},
+        settings: content.settings || {}
       };
     } catch (e) { status(e.message, 'warn'); }
     status('Signed in', 'ok');
@@ -564,6 +566,53 @@
     } catch (e) { status(e.message, 'warn'); }
   }
 
+  /* ---------------- contact details ---------------- */
+
+  function openDetails() {
+    const set = state.doc.settings || {};
+    const email = set.email || KD.EMAIL || '';
+    const ig = (typeof set.instagram === 'string' ? set.instagram : (KD.INSTAGRAM || '')).replace(/^@/, '');
+
+    dialog.hidden = false;
+    dialog.innerHTML = `
+      <div class="am-card">
+        <div class="am-head"><h2>Your details</h2></div>
+        <p class="am-hint">These go everywhere at once: the address shown on the site, the link people press to email you, and where the inquiry form delivers.</p>
+        <form id="dt-form" novalidate>
+          <label for="dt-email">Email address</label>
+          <input id="dt-email" type="email" value="${esc(email)}" placeholder="you@example.com" autocomplete="email">
+          <label for="dt-ig">Instagram handle</label>
+          <input id="dt-ig" value="${esc(ig)}" placeholder="kamduggal" autocomplete="off">
+          <p class="am-err" id="dt-err" hidden></p>
+          <div class="am-row">
+            <button type="button" class="ab-btn" id="dt-cancel">Cancel</button>
+            <button type="submit" class="ab-btn gold">Save</button>
+          </div>
+        </form>
+      </div>`;
+
+    const err = m => { const el = $('#dt-err'); el.textContent = m; el.hidden = !m; };
+    $('#dt-cancel').onclick = () => { dialog.hidden = true; };
+    setTimeout(() => $('#dt-email') && $('#dt-email').focus(), 40);
+
+    $('#dt-form').onsubmit = e => {
+      e.preventDefault();
+      err('');
+      const nextEmail = $('#dt-email').value.trim();
+      const nextIg = $('#dt-ig').value.trim().replace(/^@/, '');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(nextEmail)) return err('That does not look like an email address.');
+      if (nextIg && !/^[A-Za-z0-9._]+$/.test(nextIg)) return err('An Instagram handle is just letters, numbers, dots and underscores.');
+
+      state.doc.settings = { email: nextEmail, instagram: nextIg };
+      KD.EMAIL = nextEmail;
+      KD.INSTAGRAM = nextIg;
+      if (KD.applyContact) KD.applyContact();
+      markDirty();
+      dialog.hidden = true;
+      status('Details updated. Press Publish changes to put them live.', 'ok');
+    };
+  }
+
   /* ---------------- password ---------------- */
 
   function openPassword() {
@@ -701,7 +750,7 @@
       await api('/api/admin/content', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: state.doc.text, paintings: state.doc.paintings || undefined, hero: state.doc.hero || undefined, images: state.doc.images || undefined, layout: state.doc.layout || undefined })
+        body: JSON.stringify({ text: state.doc.text, paintings: state.doc.paintings || undefined, hero: state.doc.hero || undefined, images: state.doc.images || undefined, layout: state.doc.layout || undefined, settings: state.doc.settings || undefined })
       });
       state.dirty = false;
       status('Published. The site is live with your changes.', 'ok');
@@ -731,6 +780,7 @@
     if (e.target.id === 'ab-paintings') openPaintings();
     if (e.target.closest('#ab-comments')) openComments();
     if (e.target.id === 'ab-pw') openPassword();
+    if (e.target.id === 'ab-details') openDetails();
     if (e.target.id === 'ab-out') {
       api('/api/admin/logout', { method: 'POST' }).finally(() => location.reload());
     }

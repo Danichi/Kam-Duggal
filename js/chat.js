@@ -51,6 +51,7 @@
   const TOKENS = () => ({
     '{EMAIL}': KD.EMAIL || 'kamdugal@aol.com',
     '{SHOP}': KD.SHOP || 'https://kam-duggal.pixels.com/',
+    '{INSTAGRAM}': String(KD.INSTAGRAM || '').replace(/^@/, ''),
     '{LOCATION}': location(),
     '{COUNT}': String(P().length),
     '{AVAILABLE}': String(P().filter(p => p.original === 'available').length),

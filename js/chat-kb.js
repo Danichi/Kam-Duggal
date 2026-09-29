@@ -91,8 +91,8 @@
       ['Where is Kam based?', 'Talk to Kam']),
 
     K('instagram', ['instagram', 'social media', 'facebook', 'twitter', 'tiktok', 'follow', 'youtube'],
-      ['Nothing I can point you to yet — Kam has not given me a social account to link.',
-        'The site is the full collection, and <a href="contact.html">a note to Kam</a> is the quickest way to reach him.']),
+      ['He is on Instagram as <a href="https://instagram.com/{INSTAGRAM}" target="_blank" rel="noopener">@{INSTAGRAM}</a>.',
+        'The full collection lives here though, and <a href="contact.html">a note to Kam</a> is the quickest way to reach him about a painting.']),
 
     /* ---------- the work ---------- */
     K('technique', ['how are the paintings made', 'how does he paint', 'technique', 'flow', 'pour', 'pouring', 'process', 'how is it made', 'brushless', 'improvisational', 'brush'],
@@ -291,7 +291,8 @@
 
     K('newsletter', ['newsletter', 'mailing list', 'subscribe', 'updates', 'new work', 'notify me'],
       ['There is no mailing list at the moment.',
-        'If you want to hear when new work goes up, say so in <a href="contact.html">a note to Kam</a> and he will know there is interest.']),
+        'If you want to hear when new work goes up, say so in <a href="contact.html">a note to Kam</a> and he will know there is interest.'])
+,
 
     /* ---------- the plain questions people actually open with ---------- */
     K('what-is-this', ['what is this', 'what is this site', 'what do you sell', 'what is this website', 'what is going on here', 'what is this page', 'explain this site'],

@@ -28,7 +28,7 @@ export async function onRequestPost({ request, env }) {
   if (!sameOrigin(request, env)) return json({ error: 'Request not allowed.' }, 403);
   if (!configured(env)) {
     console.error('Email is not configured (RESEND_API_KEY).');
-    return json({ error: `The form is temporarily unavailable. Please email ${inbox(env)}.` }, 503);
+    return json({ error: `The form is temporarily unavailable. Please email ${await inbox(env)}.` }, 503);
   }
 
   let form;
@@ -54,12 +54,12 @@ export async function onRequestPost({ request, env }) {
   const link = values.piece ? `<p style="font-size:14px"><a href="${origin}/originals.html#${encodeURIComponent(values.piece)}">View the painting on the site</a></p>` : '';
 
   const result = await send(env, {
-    to: inbox(env),
+    to: await inbox(env),
     replyTo: values.email,
     subject: `${values.interest}${piece ? `: ${piece}` : ''} (from ${values.name})`.slice(0, 200),
     html: layout('New website inquiry', `<p style="font-size:14px;line-height:1.6">Reply to this email to answer ${esc(values.name)} directly.</p>${fieldsTable(rows)}${link}`)
   });
 
-  if (!result.ok) return json({ error: `We could not send your message. Please email ${inbox(env)}.` }, 502);
+  if (!result.ok) return json({ error: `We could not send your message. Please email ${await inbox(env)}.` }, 502);
   return json({ ok: true });
 }
